@@ -1,4 +1,3 @@
-{CompositeDisposable} = require 'atom'
 fs = require 'fs'
 path = require 'path'
 
