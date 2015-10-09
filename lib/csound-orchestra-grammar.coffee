@@ -1,4 +1,3 @@
-
 {CompositeDisposable} = require 'atom'
 {Grammar} = require 'first-mate'
 # The first-mate module does not export the Pattern class.
