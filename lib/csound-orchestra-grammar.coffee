@@ -6,11 +6,11 @@ Pattern = require path.join atom.config.resourcePath, 'node_modules', 'first-mat
 CSON = require 'season'
 
 class CsoundOrchestraGrammarPattern extends Pattern
-  @opcodes = (completion.opcode for completion in CSON.readFileSync(path.resolve(__dirname, '..', 'resources', 'opcode-completions.json')).completions)
+  @opcodes = (completion.opcode for completion in CSON.readFileSync(path.resolve __dirname, '..', 'resources', 'opcode-completions.json').completions)
 
   setTagAtIndexToScope: (tags, index, scope) ->
-    tags[index] = @registry.startIdForScope(scope)
-    tags[index + 2] = @registry.endIdForScope(scope)
+    tags[index] = @registry.startIdForScope scope
+    tags[index + 2] = @registry.endIdForScope scope
 
   handleMatch: (stack, line, captureIndicesArray, rule, endPatternMatch) ->
     tags = super
@@ -25,7 +25,7 @@ class CsoundOrchestraGrammarPattern extends Pattern
       # Odd negative numbers are begin-scope tags.
       if (tag % 2) is -1
         captureIndicesArrayIndex--
-        switch @registry.scopeForId(tag)
+        switch @registry.scopeForId tag
           when 'entity.name.function.opcode.csound'
             # Add names of user-defined opcodes to the opcode dictionary so they
             # can be scoped as function names.
@@ -34,7 +34,7 @@ class CsoundOrchestraGrammarPattern extends Pattern
           when 'meta.other.csound'
             captureIndices = captureIndicesArray[captureIndicesArrayIndex]
             substring = line.substring captureIndices.start, captureIndices.end
-            if /^p\d+$/.test(substring)
+            if /^p\d+$/.test substring
                # The substring is a parameter field.
               @setTagAtIndexToScope newTags, index, 'support.variable.csound'
             else if substring in CsoundOrchestraGrammarPattern.opcodes
@@ -397,7 +397,7 @@ class CsoundOrchestraGrammar extends Grammar
     @userDefinedOpcodesByTextEditors = {}
 
   createPattern: (options) ->
-    new CsoundOrchestraGrammarPattern(this, @registry, options)
+    new CsoundOrchestraGrammarPattern this, @registry, options
 
   userDefinedOpcodesForTextEditor: (editor) ->
     userDefinedOpcodes = @userDefinedOpcodesByTextEditors[editor]
