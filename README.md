@@ -1,6 +1,6 @@
 # Csound for Atom
 
-This Atom package adds syntax highlighting, snippets, and autocompletion to [Csound](https://en.wikipedia.org/wiki/Csound) files.
+This [Atom](https://atom.io) package adds syntax highlighting, snippets, and autocompletion to [Csound](https://en.wikipedia.org/wiki/Csound) files.
 
 ## Contributing
 
@@ -8,7 +8,7 @@ This Atom package adds syntax highlighting, snippets, and autocompletion to [Cso
 
 ## Making the List of Opcode Completions
 
-This package uses the list of opcodes in [`resources/opcode-completions.json`](https://github.com/nwhetsell/language-csound/tree/master/resources/opcode-completions.json) for autocompletion. Making this list requires the [source files](https://github.com/csound/manual) of _The Canonical Csound Reference Manual_ and a native Node.js Addon for Csound that has only been tested on OS&nbsp;X. But, to make `opcode-completions.json` on OS&nbsp;X:
+This package uses the list of opcodes in [`resources/opcode-completions.json`](https://github.com/nwhetsell/language-csound/tree/master/resources/opcode-completions.json) for autocompletion. Making this list requires the [source files](https://github.com/csound/manual) of _The Canonical Csound Reference Manual_ and a [Node.js Addon for Csound](https://www.npmjs.com/package/csound-api) that has only been tested on OS&nbsp;X. But, to make `opcode-completions.json` on OS&nbsp;X:
 
 1. In a Terminal, `cd` to this package’s `resources` folder using, for example,
 
@@ -32,7 +32,7 @@ This package uses the list of opcodes in [`resources/opcode-completions.json`](h
     npm install strip-bom
     ```
 
-6. Run the script `make-opcode-completions-json.js` using
+6. Run the script [`make-opcode-completions-json.js`](https://github.com/nwhetsell/language-csound/blob/master/resources/make-opcode-completions-json.js) using
 
     ```sh
     node make-opcode-completions-json.js
