@@ -1,0 +1,129 @@
+'scopeName': 'source.csound-score'
+'fileTypes': ['sco']
+'name': 'Csound Score'
+'patterns': [
+  {
+    'include': '#commentsAndMacroCalls'
+  }
+  {
+    'name': 'meta.statement.csound-score'
+    'begin': '([abefimq-tv-z]|[nN][pP]?)|([{}])'
+    'beginCaptures':
+      '1':
+        'name': 'keyword.control.csound-score'
+      '2':
+        'name': 'punctuation.csound-score'
+    'end': '\\n'
+    'patterns': [
+      {
+        'include': '#commentsAndMacroCalls'
+      }
+      {
+        'include': '#partialExpressions'
+      }
+    ]
+  }
+]
+'repository':
+  'comments':
+    'patterns': [
+      {
+        'name': 'comment.block.csound-score'
+        'begin': '/\\*'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.comment.begin.csound-score'
+        'end': '\\*/'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.comment.end.csound-score'
+      }
+      {
+        'name': 'comment.line.csound'
+        'begin': '//|;'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.comment.line.csound-score'
+        'end': '(?=\\n)'
+      }
+    ]
+  'commentsAndMacroCalls':
+    'patterns': [
+      {
+        'include': '#comments'
+      }
+      {
+        'include': '#macroCalls'
+      }
+    ]
+  'macroCalls':
+    'patterns': [
+      {
+        'name': 'entity.name.function.preprocessor.csound-score'
+        'match': '\\$\\w+(?:\\.|\\b)'
+      }
+    ]
+  'partialExpressions':
+    'patterns': [
+      {
+        'name': 'keyword.preprocessor.csound-score'
+        'match': '\\#(?:(?:e(?:nd(?:if)?|lse)|i(?:fn?def|nclude)|undef)\\b|\\#\\#)|@+[ \\t]*\\d*'
+      }
+      {
+        'begin': '\\#[ \\t]*define\\b'
+        'beginCaptures':
+          '0':
+            'name': 'keyword.define.preprocessor.csound-score'
+        'end': '\\#'
+        'endCaptures':
+          '0':
+            'name': 'meta.macro-definition.begin.csound-score'
+        'patterns': [
+          {
+            'begin': '\\w+'
+            'beginCaptures':
+              '0':
+                'name': 'entity.name.function.preprocessor.csound-score'
+            'end': '(?=\\#)'
+            'patterns': [
+              {
+                'begin': '\\('
+                'end': '\\)'
+                'patterns': [
+                  'name': 'entity.name.function.preprocessor.csound-score'
+                  'match': '\\w+(?:\\.|\\b)'
+                ]
+              }
+            ]
+          }
+        ]
+      }
+      {
+        'name': 'constant.numeric.float.csound-score'
+        'match': '(?:\\d+e[+-]?\\d+)|(?:\\d+\\.\\d*|\\d*\\.\\d+)(?:e[+-]?\\d+)?'
+      }
+      {
+        'name': 'constant.numeric.integer.hexadecimal.csound-score'
+        'match': '0[Xx][a-fA-F0-9]+'
+      }
+      {
+        'name': 'constant.numeric.integer.decimal.csound-score'
+        'match': '\\d+'
+      }
+      {
+        'name': 'string.quoted.csound-score'
+        'begin': '"'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.csound-score'
+        'end': '"'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.csound-score'
+        'patterns': [
+          {
+            'include': '#macroCalls'
+          }
+        ]
+      }
+    ]

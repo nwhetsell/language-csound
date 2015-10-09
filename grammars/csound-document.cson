@@ -1,0 +1,63 @@
+'scopeName': 'source.csound-document'
+'fileTypes': ['csd']
+'firstLineMatch': '<CsoundSynthesi[sz]er>'
+'name': 'Csound Document'
+'patterns': [
+  {
+    'include': 'comment.block.csound-document'
+    'begin': '/\\*'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.begin.csound-document'
+    'end': '\\*/'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.end.csound-document'
+  }
+  {
+    'name': 'comment.line.csound-document'
+    'begin': '//|;'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.line.csound-document'
+    'end': '(?=\\n)'
+  }
+  {
+    'name': 'meta.orchestra.csound-document'
+    'begin': '<(CsInstruments)>'
+    'beginCaptures':
+      '1':
+        'name': 'entity.name.tag.csound-document'
+    'end': '</(CsInstruments)>'
+    'endCaptures':
+      '1':
+        'name': 'entity.name.tag.csound-document'
+    'patterns': [
+      {
+        'include': 'source.csound'
+      }
+    ]
+  }
+  {
+    'name': 'meta.score.csound-document'
+    'begin': '<(CsScore)>'
+    'beginCaptures':
+      '1':
+        'name': 'entity.name.tag.csound-document'
+    'end': '</(CsScore)>'
+    'endCaptures':
+      '1':
+        'name': 'entity.name.tag.csound-document'
+    'patterns': [
+      {
+        'include': 'source.csound-score'
+      }
+    ]
+  }
+  {
+    'match': '</?([a-zA-Z0-9:-]+)>'
+    'captures':
+      '1':
+        'name': 'entity.name.tag.csound-document'
+  }
+]
