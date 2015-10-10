@@ -34,13 +34,13 @@ class CsoundOrchestraGrammarPattern extends Pattern
             captureIndices = captureIndicesArray[captureIndicesArrayIndex]
             substring = line.substring captureIndices.start, captureIndices.end
             if /^p\d+$/.test substring
-               # The substring is a parameter field.
+              # The substring is a parameter field.
               @setTagAtIndexToScope tags, index, 'support.variable.csound'
             else if substring in CsoundOrchestraGrammarPattern.opcodes
-               # The substring is a built-in opcode.
+              # The substring is a built-in opcode.
               @setTagAtIndexToScope tags, index, 'support.function.csound'
             else if substring in userDefinedOpcodes
-               # The substring is a user-defined opcode.
+              # The substring is a user-defined opcode.
               @setTagAtIndexToScope tags, index, 'entity.name.function.opcode.csound'
             else
               result = /^g?[aikpSw]/.exec substring
