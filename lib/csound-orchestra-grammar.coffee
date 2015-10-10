@@ -393,6 +393,7 @@ class CsoundOrchestraGrammar extends Grammar
 
     super registry, options
 
+    @subscriptions = new CompositeDisposable
     @userDefinedOpcodesByTextEditors = {}
 
   createPattern: (options) ->
@@ -405,7 +406,6 @@ class CsoundOrchestraGrammar extends Grammar
       userDefinedOpcodes = []
       @userDefinedOpcodesByTextEditors[editor] = userDefinedOpcodes
 
-      @subscriptions = new CompositeDisposable
       @subscriptions.add editor.buffer.onWillChange (event) ->
         # This is calling a private method (bufferRangeForScopeAtPosition) of a
         # private property (displayBuffer) of a TextEditor.
