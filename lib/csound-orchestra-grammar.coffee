@@ -19,7 +19,6 @@ class CsoundOrchestraGrammarPattern extends Pattern
 
     # Handle a Csound name as a parameter field, built-in opcode, user-defined
     # opcode, or variable with a storage-type prefix.
-    newTags = tags.slice 0
     captureIndicesArrayIndex = captureIndicesArray.length
     for tag, index in tags by -1
       # Odd negative numbers are begin-scope tags.
@@ -36,23 +35,23 @@ class CsoundOrchestraGrammarPattern extends Pattern
             substring = line.substring captureIndices.start, captureIndices.end
             if /^p\d+$/.test substring
                # The substring is a parameter field.
-              @setTagAtIndexToScope newTags, index, 'support.variable.csound'
+              @setTagAtIndexToScope tags, index, 'support.variable.csound'
             else if substring in CsoundOrchestraGrammarPattern.opcodes
                # The substring is a built-in opcode.
-              @setTagAtIndexToScope newTags, index, 'support.function.csound'
+              @setTagAtIndexToScope tags, index, 'support.function.csound'
             else if substring in userDefinedOpcodes
                # The substring is a user-defined opcode.
-              @setTagAtIndexToScope newTags, index, 'entity.name.function.opcode.csound'
+              @setTagAtIndexToScope tags, index, 'entity.name.function.opcode.csound'
             else
               result = /^g?[aikpSw]/.exec substring
               if result
                 # The substring begins with a type identifier.
                 length = result[0].length
-                newTags[index + 1] -= length
+                tags[index + 1] -= length
                 scope = 'storage.type.csound'
-                newTags.splice index, 0, @registry.startIdForScope(scope), length, @registry.endIdForScope(scope)
+                tags.splice index, 0, @registry.startIdForScope(scope), length, @registry.endIdForScope(scope)
 
-    newTags
+    tags
 
 module.exports =
 class CsoundOrchestraGrammar extends Grammar
