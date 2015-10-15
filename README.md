@@ -6,9 +6,9 @@ This [Atom](https://atom.io) package adds syntax highlighting, snippets, and aut
 
 [Open an issue](https://github.com/nwhetsell/language-csound/issues), or [fork this project and submit a pull request](https://guides.github.com/activities/forking/).
 
-## Making the List of Opcode Completions
+## Re-Making the List of Opcode Completions
 
-This package uses the list of opcodes in [`resources/opcode-completions.json`](https://github.com/nwhetsell/language-csound/tree/master/resources/opcode-completions.json) for autocompletion. Making this list requires the [source files](https://github.com/csound/manual) of _The Canonical Csound Reference Manual_ and a [Node.js Addon for Csound](https://www.npmjs.com/package/csound-api) that has only been tested on OS&nbsp;X. But, to make `opcode-completions.json` on OS&nbsp;X:
+This package uses the pre-made list of opcodes in [`resources/opcode-completions.json`](https://github.com/nwhetsell/language-csound/tree/master/resources/opcode-completions.json) for autocompletion. Re-making this list requires the [source files](https://github.com/csound/manual) of _The Canonical Csound Reference Manual_ and a [Node.js Addon for Csound](https://www.npmjs.com/package/csound-api) that has only been tested on OS&nbsp;X. But, if you want to re-make `opcode-completions.json` on OS&nbsp;X, follow the steps below. (You only need to follow these steps if you want to re-make `opcode-completions.json` after installing `language-csound`.)
 
 1. In a Terminal, `cd` to this package’s `resources` folder using, for example,
 
