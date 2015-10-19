@@ -409,15 +409,13 @@ class CsoundOrchestraGrammar extends Grammar
       @subscriptions.add editor.buffer.onWillChange (event) ->
         # This is calling a private method (bufferRangeForScopeAtPosition) of a
         # private property (displayBuffer) of a TextEditor.
-        range = editor.displayBuffer.bufferRangeForScopeAtPosition 'entity.name.function.opcode.csound', event.oldRange.start
+        displayBuffer = editor.displayBuffer
+        range = displayBuffer.bufferRangeForScopeAtPosition 'entity.name.function.opcode.csound', event.oldRange.start
 
         if range
           index = userDefinedOpcodes.indexOf(editor.getTextInBufferRange range)
           if index > -1
             userDefinedOpcodes.splice index, 1
-            # This re-tokenizes an entire orchestra when a user-defined opcode
-            # is edited. This is jarring, but there does not appear to be a more
-            # elegant alternative.
-            editor.displayBuffer.tokenizedBuffer.retokenizeLines()
+            displayBuffer.tokenizedBuffer.invalidateRow row for row in [0...editor.getLineCount()] when !editor.isBufferRowCommented row
 
     userDefinedOpcodes
