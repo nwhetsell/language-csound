@@ -26,8 +26,8 @@ class CsoundOrchestraGrammarPattern extends Pattern
         captureIndicesArrayIndex--
         switch @registry.scopeForId tag
           when 'entity.name.function.opcode.csound'
-            # Add names of user-defined opcodes to the opcode dictionary so they
-            # can be scoped as function names.
+            # Note names of user-defined opcodes so they can be scoped as
+            # function names.
             captureIndices = captureIndicesArray[captureIndicesArrayIndex]
             userDefinedOpcodes.push line.substring captureIndices.start, captureIndices.end
           when 'meta.other.csound'
