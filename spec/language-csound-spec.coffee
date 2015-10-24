@@ -1,5 +1,3 @@
-LanguageCsound = require '../lib/language-csound'
-
 describe 'language-csound', ->
   beforeEach ->
     waitsForPromise ->
@@ -45,6 +43,40 @@ describe 'language-csound', ->
       tokens = lines[2]
       expect(tokens[0]).toEqual value: 'endin', scopes: ['source.csound', 'meta.instrument-block.csound', 'keyword.other.csound']
 
+    it 'tokenizes user-defined opcodes', ->
+      # The Csound Orchestra grammar relies on the existence of an active text
+      # editor to tokenize user-defined opcodes.
+      waitsForPromise ->
+        atom.workspace.open().then (editor) ->
+          lines = grammar.tokenizeLines '''
+            opcode/**/aUDO,/**/0,/**/0//
+            aUDO
+            endop
+          '''
+
+          tokens = lines[0]
+          expect(tokens.length).toBe 14
+          expect(tokens[0]).toEqual value: 'opcode', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'keyword.function.csound']
+          expect(tokens[1]).toEqual value: '/*', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+          expect(tokens[2]).toEqual value: '*/', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+          expect(tokens[3]).toEqual value: 'aUDO', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'entity.name.function.opcode.csound']
+          expect(tokens[4]).toEqual value: ',', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound']
+          expect(tokens[5]).toEqual value: '/*', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+          expect(tokens[6]).toEqual value: '*/', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+          expect(tokens[7]).toEqual value: '0', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'meta.opcode-argument-types.csound', 'storage.type.csound']
+          expect(tokens[8]).toEqual value: ',', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'meta.opcode-argument-types.csound']
+          expect(tokens[9]).toEqual value: '/*', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+          expect(tokens[10]).toEqual value: '*/', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+          expect(tokens[11]).toEqual value: '0', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'meta.opcode-argument-types.csound', 'storage.type.csound']
+          expect(tokens[12]).toEqual value: '//', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'meta.opcode-argument-types.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
+          expect(tokens[13]).toEqual value: '', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound']
+
+          tokens = lines[1]
+          expect(tokens[0]).toEqual value: 'aUDO', scopes: ['source.csound', 'meta.opcode-definition.csound', 'entity.name.function.opcode.csound']
+
+          tokens = lines[2]
+          expect(tokens[0]).toEqual value: 'endop', scopes: ['source.csound', 'meta.opcode-definition.csound', 'keyword.other.csound']
+
     it 'tokenizes preprocessor directives', ->
       preprocessorDirectives = [
         '#else',
@@ -58,10 +90,9 @@ describe 'language-csound', ->
         '@ \t0'
         '@@ \t0'
       ]
-      lines = grammar.tokenizeLines preprocessorDirectives.join('\n')
+      lines = grammar.tokenizeLines preprocessorDirectives.join '\n'
       for i in [0...lines.length]
-        tokens = lines[i]
-        expect(tokens[0]).toEqual value: preprocessorDirectives[i], scopes: ['source.csound', 'keyword.preprocessor.csound']
+        expect(lines[i][0]).toEqual value: preprocessorDirectives[i], scopes: ['source.csound', 'keyword.preprocessor.csound']
 
     it 'tokenizes macro definitions', ->
       lines = grammar.tokenizeLines '# \tdefine/**/MACRO(ARGUMENT)/**/#$ARGUMENT#'
@@ -86,10 +117,9 @@ describe 'language-csound', ->
         'nchnls_i',
         'sr'
       ]
-      lines = grammar.tokenizeLines headerGlobalVariables.join('\n')
+      lines = grammar.tokenizeLines headerGlobalVariables.join '\n'
       for i in [0...lines.length]
-        tokens = lines[i]
-        expect(tokens[0]).toEqual value: headerGlobalVariables[i], scopes: ['source.csound', 'variable.other.readwrite.global.csound']
+        expect(lines[i][0]).toEqual value: headerGlobalVariables[i], scopes: ['source.csound', 'variable.other.readwrite.global.csound']
 
     it 'tokenizes quoted strings', ->
       lines = grammar.tokenizeLines '"characters$MACRO."'
@@ -157,7 +187,6 @@ describe 'language-csound', ->
         'until',
         'while'
       ]
-      lines = grammar.tokenizeLines keywords.join('\n')
+      lines = grammar.tokenizeLines keywords.join '\n'
       for i in [0...lines.length]
-        tokens = lines[i]
-        expect(tokens[0]).toEqual value: keywords[i], scopes: ['source.csound', 'keyword.control.csound']
+        expect(lines[i][0]).toEqual value: keywords[i], scopes: ['source.csound', 'keyword.control.csound']
