@@ -4,7 +4,7 @@ path = require 'path'
 CsoundOrchestraGrammar = require './csound-orchestra-grammar'
 
 module.exports =
-Csound =
+LanguageCsound =
   activate: (state) ->
     atom.grammars.addGrammar(new CsoundOrchestraGrammar(atom.grammars))
 

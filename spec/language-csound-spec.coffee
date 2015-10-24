@@ -5,7 +5,7 @@ describe 'language-csound', ->
     waitsForPromise ->
       atom.packages.activatePackage('language-csound')
 
-  describe 'Csound orchestra grammar', ->
+  describe 'Csound Orchestra grammar', ->
     grammar = undefined
 
     beforeEach ->
@@ -14,34 +14,150 @@ describe 'language-csound', ->
     it 'is defined', ->
       expect(grammar.scopeName).toBe 'source.csound'
 
-    it 'tokenizes lines', ->
+    it 'tokenizes instrument blocks', ->
       lines = grammar.tokenizeLines '''
-        nchnls = 1
-        sr = 44100
+        instr/**/1,/**/N_a_M_e_,/**/+Name//
+        aLabel:
+        endin
       '''
-      expect(lines[0][0]).toEqual value: 'nchnls', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
-      expect(lines[0][2]).toEqual value: '1', scopes: ['source.csound', 'constant.numeric.integer.decimal.csound']
-      expect(lines[1][0]).toEqual value: 'sr', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
-      expect(lines[1][2]).toEqual value: '44100', scopes: ['source.csound', 'constant.numeric.integer.decimal.csound']
+
+      tokens = lines[0]
+      expect(tokens.length).toBe(14)
+      expect(tokens[0]).toEqual value: 'instr', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'keyword.function.csound']
+      expect(tokens[1]).toEqual value: '/*', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+      expect(tokens[2]).toEqual value: '*/', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+      expect(tokens[3]).toEqual value: '1', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'entity.name.function.csound']
+      expect(tokens[4]).toEqual value: ',', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
+      expect(tokens[5]).toEqual value: '/*', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+      expect(tokens[6]).toEqual value: '*/', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+      expect(tokens[7]).toEqual value: 'N_a_M_e_', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'entity.name.function.csound']
+      expect(tokens[8]).toEqual value: ',', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
+      expect(tokens[9]).toEqual value: '/*', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+      expect(tokens[10]).toEqual value: '*/', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+      expect(tokens[11]).toEqual value: '+Name', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'entity.name.function.csound']
+      expect(tokens[12]).toEqual value: '//', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
+      expect(tokens[13]).toEqual value: '', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
+
+      tokens = lines[1]
+      expect(tokens[0]).toEqual value: 'aLabel', scopes: ['source.csound', 'meta.instrument-block.csound', 'entity.name.label.csound']
+      expect(tokens[1]).toEqual value: ':', scopes: ['source.csound', 'meta.instrument-block.csound', 'entity.punctuation.label.csound']
+
+      tokens = lines[2]
+      expect(tokens[0]).toEqual value: 'endin', scopes: ['source.csound', 'meta.instrument-block.csound', 'keyword.other.csound']
+
+    it 'tokenizes preprocessor directives', ->
+      preprocessorDirectives = [
+        '#else',
+        '#end',
+        '#endif',
+        '#ifdef',
+        '#ifndef',
+        '#include',
+        '#undef',
+        '###',
+        '@ \t0'
+        '@@ \t0'
+      ]
+      lines = grammar.tokenizeLines preprocessorDirectives.join('\n')
+      for i in [0...lines.length]
+        tokens = lines[i]
+        expect(tokens[0]).toEqual value: preprocessorDirectives[i], scopes: ['source.csound', 'keyword.preprocessor.csound']
+
+    it 'tokenizes macro definitions', ->
+      lines = grammar.tokenizeLines '# \tdefine/**/MACRO(ARGUMENT)/**/#$ARGUMENT#'
+      tokens = lines[0]
+      expect(tokens[0]).toEqual value: '# \tdefine', scopes: ['source.csound', 'keyword.define.preprocessor.csound']
+      expect(tokens[1]).toEqual value: '/*', scopes: ['source.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+      expect(tokens[2]).toEqual value: '*/', scopes: ['source.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+      expect(tokens[3]).toEqual value: 'MACRO', scopes: ['source.csound', 'entity.name.function.preprocessor.csound']
+      expect(tokens[4]).toEqual value: '(', scopes: ['source.csound']
+      expect(tokens[5]).toEqual value: 'ARGUMENT', scopes: ['source.csound', 'entity.name.function.preprocessor.csound']
+      expect(tokens[6]).toEqual value: ')', scopes: ['source.csound']
+      expect(tokens[7]).toEqual value: '/*', scopes: ['source.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+      expect(tokens[8]).toEqual value: '*/', scopes: ['source.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+      expect(tokens[9]).toEqual value: '#', scopes: ['source.csound', 'meta.macro-definition.begin.csound']
 
     it 'tokenizes header global variables', ->
-      lines = grammar.tokenizeLines '''
-        nchnls
-        nchnls_i
-        sr
-        0dbfs
-        kr
-        ksmps
-      '''
-      expect(lines[0][0]).toEqual value: 'nchnls', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
-      expect(lines[1][0]).toEqual value: 'nchnls_i', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
-      expect(lines[2][0]).toEqual value: 'sr', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
-      expect(lines[3][0]).toEqual value: '0dbfs', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
-      expect(lines[4][0]).toEqual value: 'kr', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
-      expect(lines[5][0]).toEqual value: 'ksmps', scopes: ['source.csound', 'variable.other.readwrite.global.csound']
+      headerGlobalVariables = [
+        '0dbfs',
+        'kr',
+        'ksmps',
+        'nchnls',
+        'nchnls_i',
+        'sr'
+      ]
+      lines = grammar.tokenizeLines headerGlobalVariables.join('\n')
+      for i in [0...lines.length]
+        tokens = lines[i]
+        expect(tokens[0]).toEqual value: headerGlobalVariables[i], scopes: ['source.csound', 'variable.other.readwrite.global.csound']
 
-    it 'tokenizes user-defined opcodes', ->
-      # The Csound orchestra grammar relies on the existence of an active text
-      # editor to map user-defined opcodes to text buffers.
-      waitsForPromise ->
-        atom.workspace.open()
+    it 'tokenizes quoted strings', ->
+      lines = grammar.tokenizeLines '"characters$MACRO."'
+      tokens = lines[0]
+      expect(tokens[0]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.begin.csound']
+      expect(tokens[1]).toEqual value: 'characters', scopes: ['source.csound', 'string.quoted.csound']
+      expect(tokens[2]).toEqual value: '$MACRO.', scopes: ['source.csound', 'string.quoted.csound', 'entity.name.function.preprocessor.csound']
+      expect(tokens[3]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.end.csound']
+
+    it 'tokenizes escaped characters', ->
+      escapedCharacters = [
+        '%!',
+        '%%',
+        '%n',
+        '%N',
+        '%r',
+        '%R',
+        '%t',
+        '%T',
+        '\\\\',
+        '\\a',
+        '\\A',
+        '\\b',
+        '\\B',
+        '\\n',
+        '\\N',
+        '\\r',
+        '\\R',
+        '\\t',
+        '\\T',
+        '\\"',
+        '\\012',
+        '\\345',
+        '\\67',
+      ]
+      lines = grammar.tokenizeLines '"' + escapedCharacters.join('') + '"'
+      tokens = lines[0]
+      expect(tokens[0]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.begin.csound']
+      for i in [1...tokens.length - 1]
+        expect(tokens[i]).toEqual value: escapedCharacters[i - 1], scopes: ['source.csound', 'string.quoted.csound', 'constant.character.escape.csound']
+      expect(tokens[tokens.length - 1]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.end.csound']
+
+    it 'tokenizes braced strings', ->
+      lines = grammar.tokenizeLines '{{characters}}'
+      tokens = lines[0]
+      expect(tokens[0]).toEqual value: '{{', scopes: ['source.csound', 'string.braced.csound']
+      expect(tokens[1]).toEqual value: 'characters', scopes: ['source.csound', 'string.braced.csound']
+      expect(tokens[2]).toEqual value: '}}', scopes: ['source.csound', 'string.braced.csound']
+
+    it 'tokenizes keywords', ->
+      keywords = [
+        'do',
+        'else',
+        'elseif',
+        'endif',
+        'enduntil',
+        'fi',
+        'if',
+        'ithen',
+        'kthen',
+        'od',
+        'return',
+        'then',
+        'timout',
+        'until',
+        'while'
+      ]
+      lines = grammar.tokenizeLines keywords.join('\n')
+      for i in [0...lines.length]
+        tokens = lines[i]
+        expect(tokens[0]).toEqual value: keywords[i], scopes: ['source.csound', 'keyword.control.csound']

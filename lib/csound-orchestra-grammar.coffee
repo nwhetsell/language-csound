@@ -221,7 +221,7 @@ class CsoundOrchestraGrammar extends Grammar
           patterns: [
             { # These must be kept synchronized with the Csound Score grammar.
               name: 'keyword.preprocessor.csound'
-              match: '\\#(?:(?:e(?:nd(?:if)?|lse)|i(?:fn?def|nclude)|undef)\\b|\\#\\#)|@+[ \\t]*\\d*'
+              match: '\\#(?:(?:e(?:lse|nd(?:if)?)|i(?:fn?def|nclude)|undef)\\b|\\#\\#)|@+[ \\t]*\\d*'
             }
             { # These must be kept synchronized with the Csound Score grammar.
               begin: '\\#[ \\t]*define\\b'
@@ -234,6 +234,9 @@ class CsoundOrchestraGrammar extends Grammar
                   name: 'meta.macro-definition.begin.csound'
               patterns: [
                 {
+                  include: '#commentsAndMacroCalls'
+                }
+                {
                   begin: '\\w+'
                   beginCaptures:
                     0:
@@ -241,11 +244,14 @@ class CsoundOrchestraGrammar extends Grammar
                   end: '(?=\\#)'
                   patterns: [
                     {
+                      include: '#commentsAndMacroCalls'
+                    }
+                    {
                       begin: '\\('
                       end: '\\)'
                       patterns: [
                         name: 'entity.name.function.preprocessor.csound'
-                        match: '\\w+(?:\\.|\\b)'
+                        match: '\\w+\\b'
                       ]
                     }
                   ]
@@ -400,6 +406,8 @@ class CsoundOrchestraGrammar extends Grammar
     new CsoundOrchestraGrammarPattern this, @registry, options
 
   userDefinedOpcodesForTextEditor: (editor) ->
+    return unless editor
+
     userDefinedOpcodes = @userDefinedOpcodesByTextEditors[editor]
 
     unless userDefinedOpcodes?
@@ -414,7 +422,7 @@ class CsoundOrchestraGrammar extends Grammar
 
         if range
           index = userDefinedOpcodes.indexOf(editor.getTextInBufferRange range)
-          if index > -1
+          if index >= 0
             userDefinedOpcodes.splice index, 1
             displayBuffer.tokenizedBuffer.invalidateRow row for row in [0...editor.getLineCount()] when !editor.isBufferRowCommented row
 
