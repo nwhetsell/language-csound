@@ -1,28 +1,28 @@
 '.source.csound':
-  'instrument block':
-    'prefix': 'instr'
-    'body': 'instr ${1:name}\n\t${2:/* statements */}\nendin'
-  'opcode':
-    'prefix': 'opcode'
-    'body': 'opcode ${1:name}, ${2:/* output types */ 0}, ${3:/* input types */ 0}\n\t${4:/* statements */}\nendop'
-  'if':
-    'prefix': 'if '
-    'body': 'if ${1:/* condition */} then\n\t${2:/* statements */}\nendif'
-  'elseif':
-    'prefix': 'elseif'
-    'body': 'elseif ${1:/* condition */} then\n\t${2:/* statements */}'
   'else':
     'prefix': 'else'
     'body': 'else\n\t${1:/* statements */}'
+  'elseif':
+    'prefix': 'elseif'
+    'body': 'elseif ${1:/* condition */} then\n\t${2:/* statements */}'
+  'if':
+    'prefix': 'if '
+    'body': 'if ${1:/* condition */} then\n\t${2:/* statements */}\nendif'
+  'instrument block':
+    'prefix': 'instr'
+    'body': 'instr ${1:name}\n\t${2:/* statements */}\nendin'
+  'i-time while loop':
+    'prefix': 'iwhile'
+    'body': 'i${1:Index} = ${2:0}\nwhile i${1:Index} < ${3:/* count */} do\n\t${4:/* statements */}\n\ti${1:Index} += 1\nod'
   'k-rate while loop':
     'prefix': 'kwhile'
     'body': 'k${1:Index} = ${2:0}\nwhile k${1:Index} < ${3:/* count */} do\n\t${4:/* statements */}\n\tk${1:Index} += 1\nod'
-  'i-rate while loop':
-    'prefix': 'iwhile'
-    'body': 'i${1:Index} = ${2:0}\nwhile i${1:Index} < ${3:/* count */} do\n\t${4:/* statements */}\n\ti${1:Index} += 1\nod'
-  'while loop':
-    'prefix': 'while'
-    'body': 'while ${1:/* condition */} do\n\t${2:/* statements */}\nod'
+  'opcode':
+    'prefix': 'opcode'
+    'body': 'opcode ${1:name}, ${2:/* output types */ 0}, ${3:/* input types */ 0}\n\t${4:/* statements */}\nendop'
   'until loop':
     'prefix': 'until'
     'body': 'until ${1:/* condition */} do\n\t${2:/* statements */}\nod'
+  'while loop':
+    'prefix': 'while'
+    'body': 'while ${1:/* condition */} do\n\t${2:/* statements */}\nod'
