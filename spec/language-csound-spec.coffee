@@ -16,6 +16,7 @@ describe 'language-csound', ->
       lines = grammar.tokenizeLines '''
         instr/**/1,/**/N_a_M_e_,/**/+Name//
         aLabel:
+          iDuration = p3
         endin
       '''
 
@@ -41,6 +42,12 @@ describe 'language-csound', ->
       expect(tokens[1]).toEqual value: ':', scopes: ['source.csound', 'meta.instrument-block.csound', 'entity.punctuation.label.csound']
 
       tokens = lines[2]
+      expect(tokens[1]).toEqual value: 'i', scopes: ['source.csound', 'meta.instrument-block.csound', 'storage.type.csound']
+      expect(tokens[2]).toEqual value: 'Duration', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.other.csound']
+      expect(tokens[3]).toEqual value: ' = ', scopes: ['source.csound', 'meta.instrument-block.csound']
+      expect(tokens[4]).toEqual value: 'p3', scopes: ['source.csound', 'meta.instrument-block.csound', 'support.variable.csound']
+
+      tokens = lines[3]
       expect(tokens[0]).toEqual value: 'endin', scopes: ['source.csound', 'meta.instrument-block.csound', 'keyword.other.csound']
 
     it 'tokenizes user-defined opcodes', ->
@@ -190,3 +197,33 @@ describe 'language-csound', ->
       lines = grammar.tokenizeLines keywords.join '\n'
       for i in [0...lines.length]
         expect(lines[i][0]).toEqual value: keywords[i], scopes: ['source.csound', 'keyword.control.csound']
+
+    it 'tokenizes goto statements', ->
+      keywordsAndOpcodes = [
+        'cggoto',
+        'cigoto',
+        'cingoto',
+        'ckgoto',
+        'cngoto',
+        'goto',
+        'igoto',
+        'kgoto',
+        'loop_ge',
+        'loop_gt',
+        'loop_le',
+        'loop_lt',
+        'rigoto',
+        'tigoto',
+        ''
+      ]
+      # Putting a label after each string is enough to test the grammar, but
+      # it is not always valid Csound syntax. In particular, loop_ge, loop_gt,
+      # loop_le, and loop_lt all take four arguments, the last of which is a
+      # label.
+      lines = grammar.tokenizeLines keywordsAndOpcodes.join ' aLabel//\n'
+      for i in [0...lines.length - 1]
+        tokens = lines[i]
+        expect(tokens[0]).toEqual value: keywordsAndOpcodes[i], scopes: ['source.csound', 'keyword.control.csound']
+        expect(tokens[1]).toEqual value: ' ', scopes: ['source.csound']
+        expect(tokens[2]).toEqual value: 'aLabel', scopes: ['source.csound', 'entity.name.label.csound']
+        expect(tokens[3]).toEqual value: '//', scopes: ['source.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']

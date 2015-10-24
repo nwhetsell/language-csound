@@ -39,7 +39,7 @@ class CsoundOrchestraGrammarPattern extends Pattern
             else if substring in CsoundOrchestraGrammarPattern.opcodes
               # The substring is a built-in opcode.
               @setTagAtIndexToScope tags, index, 'support.function.csound'
-            else if substring in userDefinedOpcodes
+            else if userDefinedOpcodes and substring in userDefinedOpcodes
               # The substring is a user-defined opcode.
               @setTagAtIndexToScope tags, index, 'entity.name.function.opcode.csound'
             else
@@ -314,16 +314,18 @@ class CsoundOrchestraGrammar extends Grammar
               match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|return|then|timout|until|while)\\b'
             }
             {
-              begin: '\\b((?:c(?:g|in?|k|n)goto)|goto|igoto|kgoto|loop_(?:g[et]|l[et])|rigoto|tigoto)\\b'
+              begin: '\\b((?:c(?:g|in?|k|n)goto)|goto|igoto|kgoto|loop_[gl][et]|rigoto|tigoto)\\b'
               beginCaptures:
                 1:
                   name: 'keyword.control.csound'
-              end: '(\\w+)((?://|;).*)?\\n'
+              end: '(\\w+)((//|;).*)?\\n'
               endCaptures:
                 1:
                   name: 'entity.name.label.csound'
                 2:
                   name: 'comment.line.csound'
+                3:
+                  name: 'punctuation.definition.comment.line.csound'
               patterns: [
                 {
                   include: '#commentsAndMacroCalls'
