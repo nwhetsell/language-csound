@@ -86,14 +86,14 @@ describe 'language-csound', ->
 
     it 'tokenizes preprocessor directives', ->
       preprocessorDirectives = [
-        '#else',
-        '#end',
-        '#endif',
-        '#ifdef',
-        '#ifndef',
-        '#include',
-        '#undef',
-        '###',
+        '#else'
+        '#end'
+        '#endif'
+        '#ifdef'
+        '#ifndef'
+        '#include'
+        '#undef'
+        '###'
         '@ \t0'
         '@@ \t0'
       ]
@@ -117,11 +117,11 @@ describe 'language-csound', ->
 
     it 'tokenizes header global variables', ->
       headerGlobalVariables = [
-        '0dbfs',
-        'kr',
-        'ksmps',
-        'nchnls',
-        'nchnls_i',
+        '0dbfs'
+        'kr'
+        'ksmps'
+        'nchnls'
+        'nchnls_i'
         'sr'
       ]
       lines = grammar.tokenizeLines headerGlobalVariables.join '\n'
@@ -138,29 +138,29 @@ describe 'language-csound', ->
 
     it 'tokenizes escaped characters', ->
       escapedCharacters = [
-        '%!',
-        '%%',
-        '%n',
-        '%N',
-        '%r',
-        '%R',
-        '%t',
-        '%T',
-        '\\\\',
-        '\\a',
-        '\\A',
-        '\\b',
-        '\\B',
-        '\\n',
-        '\\N',
-        '\\r',
-        '\\R',
-        '\\t',
-        '\\T',
-        '\\"',
-        '\\012',
-        '\\345',
-        '\\67',
+        '%!'
+        '%%'
+        '%n'
+        '%N'
+        '%r'
+        '%R'
+        '%t'
+        '%T'
+        '\\\\'
+        '\\a'
+        '\\A'
+        '\\b'
+        '\\B'
+        '\\n'
+        '\\N'
+        '\\r'
+        '\\R'
+        '\\t'
+        '\\T'
+        '\\"'
+        '\\012'
+        '\\345'
+        '\\67'
       ]
       lines = grammar.tokenizeLines '"' + escapedCharacters.join('') + '"'
       tokens = lines[0]
@@ -178,20 +178,20 @@ describe 'language-csound', ->
 
     it 'tokenizes keywords', ->
       keywords = [
-        'do',
-        'else',
-        'elseif',
-        'endif',
-        'enduntil',
-        'fi',
-        'if',
-        'ithen',
-        'kthen',
-        'od',
-        'return',
-        'then',
-        'timout',
-        'until',
+        'do'
+        'else'
+        'elseif'
+        'endif'
+        'enduntil'
+        'fi'
+        'if'
+        'ithen'
+        'kthen'
+        'od'
+        'return'
+        'then'
+        'timout'
+        'until'
         'while'
       ]
       lines = grammar.tokenizeLines keywords.join '\n'
@@ -200,20 +200,20 @@ describe 'language-csound', ->
 
     it 'tokenizes goto statements', ->
       keywordsAndOpcodes = [
-        'cggoto',
-        'cigoto',
-        'cingoto',
-        'ckgoto',
-        'cngoto',
-        'goto',
-        'igoto',
-        'kgoto',
-        'loop_ge',
-        'loop_gt',
-        'loop_le',
-        'loop_lt',
-        'rigoto',
-        'tigoto',
+        'cggoto'
+        'cigoto'
+        'cingoto'
+        'ckgoto'
+        'cngoto'
+        'goto'
+        'igoto'
+        'kgoto'
+        'loop_ge'
+        'loop_gt'
+        'loop_le'
+        'loop_lt'
+        'rigoto'
+        'tigoto'
         ''
       ]
       # Putting a label after each string is enough to test the grammar, but
