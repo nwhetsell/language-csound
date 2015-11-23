@@ -21,7 +21,7 @@ describe 'language-csound', ->
       '''
 
       tokens = lines[0]
-      expect(tokens.length).toBe(14)
+      expect(tokens.length).toBe(15)
       expect(tokens[0]).toEqual value: 'instr', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'keyword.function.csound']
       expect(tokens[1]).toEqual value: '/*', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
       expect(tokens[2]).toEqual value: '*/', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
@@ -33,9 +33,10 @@ describe 'language-csound', ->
       expect(tokens[8]).toEqual value: ',', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
       expect(tokens[9]).toEqual value: '/*', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
       expect(tokens[10]).toEqual value: '*/', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
-      expect(tokens[11]).toEqual value: '+Name', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'entity.name.function.csound']
-      expect(tokens[12]).toEqual value: '//', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
-      expect(tokens[13]).toEqual value: '', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
+      expect(tokens[11]).toEqual value: '+', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
+      expect(tokens[12]).toEqual value: 'Name', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'entity.name.function.csound']
+      expect(tokens[13]).toEqual value: '//', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
+      expect(tokens[14]).toEqual value: '', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
 
       tokens = lines[1]
       expect(tokens[0]).toEqual value: 'aLabel', scopes: ['source.csound', 'meta.instrument-block.csound', 'entity.name.label.csound']

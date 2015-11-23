@@ -82,7 +82,7 @@ class CsoundOrchestraGrammar extends Grammar
               patterns: [
                 {
                   name: 'entity.name.function.csound'
-                  match: '\\d+|\\+?[A-Z_a-z]\\w*'
+                  match: '\\d+|[A-Z_a-z]\\w*'
                 }
                 {
                   include: '#commentsAndMacroCalls'
