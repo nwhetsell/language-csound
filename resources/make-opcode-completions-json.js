@@ -9,6 +9,7 @@ function OpcodeInfo(opcodeEntry) {
 Object.defineProperties(OpcodeInfo.prototype, {
   addInfoForOpcodeEntry: {
     value: function(opcodeEntry) {
+      // Ignore array inputs.
       var inputTypeString = opcodeEntry.intypes.replace(/\[\]/g, '');
       if (this.inputTypeStrings.indexOf(inputTypeString) < 0) {
         this.inputTypeStrings.push(inputTypeString);
@@ -113,6 +114,7 @@ var ignoredOpcodes = [
   'rigoto',
   'tigoto',
   // Opcodes that use comma-separated lists of arguments of any type
+  'framebuffer',
   'hdf5read',
   'hdf5write',
   'xin',
@@ -144,19 +146,19 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
   this.optionalArray = [];
   // Resolve input type characters based on
   // <https://github.com/csound/csound/blob/develop/Engine/entry1.c>. The
-  // opcodes hdf5read, hdf5write, xin, and xout use the * type character, which
-  // is documented in the release notes of Csound 6
+  // opcodes framebuffer, hdf5read, hdf5write, xin, and xout use the * type
+  // character, which is documented in the release notes of Csound 6
   // <http://www.csounds.com/manual/html/PrefaceWhatsNew.html> as indicating “a
   // var-arg list of any-type”.
 
-  // i  i-rate scalar
-  // o  optional i-rate scalar defaulting to 0
-  // j  optional i-rate scalar defaulting to -1
-  // v  optional i-rate scalar defaulting to 0.5
-  // p  optional i-rate scalar defaulting to 1
-  // q  optional i-rate scalar defaulting to 10
-  // h  optional i-rate scalar defaulting to 127
-  // m  comma-separated list of any number of i-rate scalars
+  // i  i-time scalar
+  // o  optional i-time scalar defaulting to 0
+  // j  optional i-time scalar defaulting to -1
+  // v  optional i-time scalar defaulting to 0.5
+  // p  optional i-time scalar defaulting to 1
+  // q  optional i-time scalar defaulting to 10
+  // h  optional i-time scalar defaulting to 127
+  // m  comma-separated list of any number of i-time scalars
 
   // k  k-rate scalar
   // O  optional k-rate scalar defaulting to 0
@@ -171,14 +173,15 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
   // S  string
   // W  comma-separated list of any number of strings
 
-  // T  i-rate scalar or string
-  // U  i-rate scalar, k-rate scalar, or string
+  // T  i-time scalar or string
+  // U  i-time scalar, k-rate scalar, or string
   // x  k-rate scalar or a-rate vector
 
-  // M  comma-separated list of i-rate scalars, k-rate scalars, or a-rate
+  // M  comma-separated list of i-time scalars, k-rate scalars, or a-rate
   //    vectors
-  // N  comma-separated list of i- or k-rate scalars, a-rate vectors, or strings
-  // n  comma-separated list of an odd number of i-rate scalars
+  // N  comma-separated list of i-time scalars, k-rate scalars, a-rate vectors,
+  //    or strings
+  // n  comma-separated list of an odd number of i-time scalars
   // Z  comma-separated list of alternating k-rate scalars and a-rate vectors,
   //    used by mac and outch
 
@@ -192,8 +195,8 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
   // .  required argument of any type, used by init (for arrays), lenarray,
   //    print_type, and slicearray
   // ?  optional argument of any type, possibly unused
-  // *  comma-separated list of arguments of any type, used with hdf5read,
-  //    hdf5write, xin, and xout
+  // *  comma-separated list of arguments of any type, used with framebuffer,
+  //    hdf5read, hdf5write, xin, and xout
 
   var typeInfoByType = {
     'a': {strings: ['a'], optional: false, list: false},
@@ -250,6 +253,10 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
     }
   }
 }
+
+var openingBracket = '(';
+var separator = '|';
+var closingBracket = ')';
 Object.defineProperties(InputArgumentInfo.prototype, {
   displayText: {
     get: function() {
@@ -260,9 +267,9 @@ Object.defineProperties(InputArgumentInfo.prototype, {
 
       var components = [];
       for (var i = 0; i < length; i++) {
-        var string = this.typeStringsArray[i].join('');
+        var string = this.typeStringsArray[i].join(separator);
         if (string.length > 1) {
-          string = '[' + string + ']';
+          string = openingBracket + string + closingBracket;
         }
         if (this.nameArray[i]) {
           string += this.nameArray[i];
@@ -283,10 +290,10 @@ Object.defineProperties(InputArgumentInfo.prototype, {
       var snippet = '';
       var optionalIndex = null;
       for (var i = 0; i < length; i++) {
-        var types = this.typeStringsArray[i].join('');
+        var types = this.typeStringsArray[i].join(separator);
         var string = types;
         if (string.length > 1) {
-          string = '[' + string + ']';
+          string = openingBracket + string + closingBracket;
         }
         if (this.nameArray[i]) {
           string += this.nameArray[i];
@@ -314,6 +321,16 @@ Object.defineProperties(InputArgumentInfo.prototype, {
     }
   }
 });
+
+function formatOutputTypeString(string) {
+  string = string.replace(/m+/g, 'a…');
+  string = string.replace(/z+/g, 'k…');
+  string = string.replace(/I+/g, 'i…');
+  string = string.replace(/X+/g, openingBracket + ['a', 'k', 'i'].join(separator) + closingBracket + '…');
+  string = string.replace(/N+/g, openingBracket + ['a', 'k', 'i', 'S'].join(separator) + closingBracket + '…');
+  string = string.replace(/F+/g, 'f…');
+  return string;
+}
 
 // Create a list of Csound Manual XML file names.
 var fs = require('fs');
@@ -380,11 +397,12 @@ var descriptiveNamesByName = {
   'del': 'DelayTime',
   'dur': 'Duration',
   'filname': 'Filename',
-  'fn': 'FunctionTableID',
+  'fn': 'FunctionTable',
   'freq': 'Frequency',
   'frq': 'Frequency',
   'ndex': 'Index',
   'phs': 'InitialPhase',
+  'pitch': 'Pitch',
   'rise': 'RiseTime',
   'sig': 'Signal'
 };
@@ -409,13 +427,13 @@ for (var opcodeName in opcodeInfoByName) {
       // describing input arguments.
       var node = commandElement.nextSibling();
       if (node && node.type() === 'text') {
-        var names = node.toString().replace(/[\\\[\]]/g, '').replace(/\s+/g, ' ').split(',');
-        for (var i = 0, length = names.length; i < length; i++) {
-          var name = names[i].trim();
+        var inputArgumentNames = node.toString().replace(/[\\\[\]]/g, '').replace(/\s+/g, ' ').split(',');
+        for (var i = 0, length = inputArgumentNames.length; i < length; i++) {
+          var name = inputArgumentNames[i].trim();
           if (name.charAt(0) === '"' && name.charAt(name.length - 1) === '"') {
             // If the name is enclosed in double quotes, remove the quotes and
             // create a camel-case name.
-            names[i] = name.replace(/"/g, '').split(' ').map(function(string) {
+            inputArgumentNames[i] = name.replace(/"/g, '').split(' ').map(function(string) {
               return string.charAt(0).toUpperCase() + string.slice(1);
             }).join('');
           } else {
@@ -424,7 +442,7 @@ for (var opcodeName in opcodeInfoByName) {
             // character otherwise.
             name = name.slice((name.charAt(0) === 'g') ? 2 : 1);
             var descriptiveName = descriptiveNamesByName[name];
-            names[i] = descriptiveName ? descriptiveName : name;
+            inputArgumentNames[i] = descriptiveName ? descriptiveName : name;
           }
         }
       }
@@ -433,9 +451,6 @@ for (var opcodeName in opcodeInfoByName) {
     var completions = [];
     var opcodeInfo = opcodeInfoByName[opcodeName];
     var inputTypeStringsByLengthByOutputTypeString = opcodeInfo.inputTypeStringsByLengthByOutputTypeString;
-    var formatOutputTypeString = function(string) {
-      return string.replace(/m+/g, 'a…').replace(/z+/g, 'k…').replace(/I+/g, 'i…').replace(/X+/g, '[aki]…').replace(/N+/g, '[akiS]…').replace(/F+/g, 'f…');
-    };
 
     // If all input type strings are equal, then the inputTypeStrings property
     // of opcodeInfo will be a length-1 array.
@@ -446,7 +461,7 @@ for (var opcodeName in opcodeInfoByName) {
       if (leftLabel.length > 0) {
         completion.leftLabel = leftLabel;
       }
-      var inputArgumentInfo = new InputArgumentInfo(opcodeInfo.inputTypeStrings, names);
+      var inputArgumentInfo = new InputArgumentInfo(opcodeInfo.inputTypeStrings, inputArgumentNames);
       completion.snippet = opcodeName + inputArgumentInfo.snippet;
       completion.displayText = opcodeName + inputArgumentInfo.displayText;
       completions.push(completion);
@@ -459,7 +474,7 @@ for (var opcodeName in opcodeInfoByName) {
           for (var length in inputTypeStringsByLength) {
             var completion = {leftLabel: formatOutputTypeString(outputTypeString)};
             if (inputTypeStringsByLength.hasOwnProperty(length)) {
-              var inputArgumentInfo = new InputArgumentInfo(inputTypeStringsByLength[length], names);
+              var inputArgumentInfo = new InputArgumentInfo(inputTypeStringsByLength[length], inputArgumentNames);
               completion.snippet = opcodeName + inputArgumentInfo.snippet;
               completion.displayText = opcodeName + inputArgumentInfo.displayText;
               completions.push(completion);
@@ -473,7 +488,7 @@ for (var opcodeName in opcodeInfoByName) {
     for (var completion of completions) {
       completion.opcode = opcodeName;
       completion.description = description;
-      completion.descriptionMoreURL = 'http://www.csounds.com/manual/html/' + opcodeName + '.html';
+      completion.descriptionMoreURL = 'http://csound.github.io/docs/manual/' + opcodeName + '.html';
       completion.type = 'function';
     }
 
@@ -482,6 +497,69 @@ for (var opcodeName in opcodeInfoByName) {
     console.log('Skipping opcode "' + opcodeName + '" returned by csoundNewOpcodeList() because "' + opcodeName + '.xml" is not in the Csound manual repository.');
   }
 }
+
+// Add completions of opcodes that use comma-separated lists of arguments of any
+// type, or whose entries are difficult to parse.
+allCompletions = allCompletions.concat([
+  {
+    snippet: 'alwayson ${1:(i|S)Instrument/*, p4, p5, …*/}',
+    displayText: 'alwayson (i|S)Instrument, p4, p5, …',
+    opcode: 'alwayson',
+    description: 'Activates the indicated instrument in the orchestra header.',
+    descriptionMoreURL: 'http://csound.github.io/docs/manual/alwayson.html',
+    type: 'function'
+  },
+  {
+    leftLabel: 'k[]',
+    snippet: 'framebuffer ${1:aInput}, ${2:iSize}',
+    displayText: 'framebuffer aInput, iSize',
+    opcode: 'framebuffer',
+    description: 'Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.',
+    type: 'function'
+  },
+  {
+    leftLabel: 'a',
+    snippet: 'framebuffer ${1:kInput}, ${2:iSize}',
+    displayText: 'framebuffer kInput, iSize',
+    opcode: 'framebuffer',
+    description: 'Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.',
+    type: 'function'
+  },
+  {
+    leftLabel: formatOutputTypeString('N'),
+    snippet: 'hdf5read ${1:Sfilename}, ${2:SVariableName1/*, SVariableName2, …*/}',
+    displayText: 'hdf5read Sfilename, SVariableName1, SVariableName2, …',
+    opcode: 'hdf5read',
+    description: 'Read signals and arrays from an hdf5 file.',
+    descriptionMoreURL: 'http://csound.github.io/docs/manual/hdf5read.html',
+    type: 'function'
+  },
+  {
+    snippet: 'hdf5write ${1:Sfilename}, ${2:(a|i|k|S)Output1/*, (a|i|k|S)Output2, …*/}',
+    displayText: 'hdf5write Sfilename, (a|i|k|S)Output1, (a|i|k|S)Output2, …',
+    opcode: 'hdf5write',
+    description: 'Write signals and arrays to an hdf5 file.',
+    descriptionMoreURL: 'http://csound.github.io/docs/manual/hdf5write.html',
+    type: 'function'
+  },
+  {
+    leftLabel: formatOutputTypeString('N'),
+    snippet: 'xin',
+    displayText: 'xin',
+    opcode: 'xin',
+    description: 'Passes variables to a user-defined opcode block.',
+    descriptionMoreURL: 'http://csound.github.io/docs/manual/xin.html',
+    type: 'function'
+  },
+  {
+    snippet: 'xout ${1:(a|i|k|S)Output1/*, (a|i|k|S)Output2, …*/}',
+    displayText: 'xout (a|i|k|S)Output1, (a|i|k|S)Output2, …',
+    opcode: 'xout',
+    description: 'Retrieves variables from a user-defined opcode block.',
+    descriptionMoreURL: 'http://csound.github.io/docs/manual/xout.html',
+    type: 'function'
+  }
+]);
 
 // Write the completions dictionary to a JSON file.
 var fileDescriptor = fs.openSync('opcode-completions.json', 'w');

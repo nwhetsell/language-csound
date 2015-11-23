@@ -420,7 +420,7 @@ class CsoundOrchestraGrammar extends Grammar
             }
             {
               name: 'meta.autocompletion.csound'
-              match: '(\\[[aikpSw]+\\])\\w*\\b'
+              match: '(\\([aikpSw|]+\\))\\w*\\b'
               captures:
                 1:
                   name: 'storage.type.csound'
