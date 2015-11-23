@@ -50,7 +50,6 @@ class CsoundOrchestraGrammarPattern extends Pattern
                 tags[index + 1] -= length
                 scope = 'storage.type.csound'
                 tags.splice index, 0, @registry.startIdForScope(scope), length, @registry.endIdForScope(scope)
-
     tags
 
 module.exports =
@@ -217,6 +216,39 @@ class CsoundOrchestraGrammar extends Grammar
               match: '\\$\\w+(?:\\.|\\b)'
             }
           ]
+        quotedStrings:
+          patterns: [
+            {
+              name: 'string.quoted.csound'
+              begin: '"'
+              beginCaptures:
+                0:
+                  name: 'punctuation.definition.string.begin.csound'
+              end: '"'
+              endCaptures:
+                0:
+                  name: 'punctuation.definition.string.end.csound'
+              patterns: [
+                {
+                  include: '#macroCalls'
+                }
+                {
+                  name: 'constant.character.escape.csound'
+                  # From
+                  # https://github.com/csound/csound/blob/develop/Opcodes/fout.c#L1405
+                  match: '%\\d*(\\.\\d+)?[cdhilouxX]'
+                }
+                {
+                  name: 'constant.character.escape.csound'
+                  match: '%[!%nNrRtT]|[~^]|\\\\(?:\\\\|[aAbBnNrRtT"]|[0-7]{1,3})'
+                }
+                {
+                  name: 'invalid.illegal.unknown-escape.csound'
+                  match: '\\\\.'
+                }
+              ]
+            }
+          ]
         partialExpressions:
           patterns: [
             { # These must be kept synchronized with the Csound Score grammar.
@@ -275,34 +307,7 @@ class CsoundOrchestraGrammar extends Grammar
               match: '\\d+'
             }
             {
-              name: 'string.quoted.csound'
-              begin: '"'
-              beginCaptures:
-                0:
-                  name: 'punctuation.definition.string.begin.csound'
-              end: '"'
-              endCaptures:
-                0:
-                  name: 'punctuation.definition.string.end.csound'
-              patterns: [
-                {
-                  include: '#macroCalls'
-                }
-                {
-                  name: 'constant.character.escape.csound'
-                  # From
-                  # https://github.com/csound/csound/blob/develop/Opcodes/fout.c#L1405
-                  match: '%\\d*(\\.\\d+)?[cdhilouxX]'
-                }
-                {
-                  name: 'constant.character.escape.csound'
-                  match: '%[!%nNrRtT]|[~^]|\\\\(?:\\\\|[aAbBnNrRtT"]|[0-7]{1,3})'
-                }
-                {
-                  name: 'invalid.illegal.unknown-escape.csound'
-                  match: '\\\\.'
-                }
-              ]
+              include: '#quotedStrings'
             }
             {
               name: 'string.braced.csound'
@@ -370,7 +375,7 @@ class CsoundOrchestraGrammar extends Grammar
               ]
             }
             {
-              begin: '\\b(lua_(?:exec|opdef))[ \\t]*(\\{\\{)'
+              begin: '\\b(lua_exec)[ \\t]*(\\{\\{)'
               beginCaptures:
                 1:
                   name: 'support.function.csound'
@@ -383,6 +388,33 @@ class CsoundOrchestraGrammar extends Grammar
               patterns: [
                 {
                   include: 'source.lua'
+                }
+              ]
+            }
+            {
+              begin: '\\blua_opdef'
+              beginCaptures:
+                0:
+                  name: 'support.function.csound'
+              end: '\\}\\}'
+              endCaptures:
+                0:
+                  name: 'string.braced.csound'
+              patterns: [
+                {
+                  include: '#quotedStrings'
+                }
+                {
+                  begin: '\\{\\{'
+                  beginCaptures:
+                    0:
+                      name: 'string.braced.csound'
+                  end: '(?=\\}\\})'
+                  patterns: [
+                    {
+                      include: 'source.lua'
+                    }
+                  ]
                 }
               ]
             }
@@ -423,7 +455,7 @@ class CsoundOrchestraGrammar extends Grammar
         range = displayBuffer.bufferRangeForScopeAtPosition 'entity.name.function.opcode.csound', event.oldRange.start
 
         if range
-          index = userDefinedOpcodes.indexOf(editor.getTextInBufferRange range)
+          index = userDefinedOpcodes.indexOf editor.getTextInBufferRange range
           if index >= 0
             userDefinedOpcodes.splice index, 1
             displayBuffer.tokenizedBuffer.invalidateRow row for row in [0...editor.getLineCount()] when !editor.isBufferRowCommented row
