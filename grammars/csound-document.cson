@@ -55,6 +55,16 @@
     ]
   }
   {
+    'name': 'meta.html.csound-document'
+    'begin': '(?=<[hH][tT][mM][lL])'
+    'end': '(?<=</[hH][tT][mM][lL]>)'
+    'patterns': [
+      {
+        'include': 'text.html.basic'
+      }
+    ]
+  }
+  {
     'match': '</?([a-zA-Z0-9:-]+)>'
     'captures':
       '1':
