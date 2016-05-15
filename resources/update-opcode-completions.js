@@ -165,37 +165,37 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
   // J  optional k-rate scalar defaulting to -1
   // V  optional k-rate scalar defaulting to 0.5
   // P  optional k-rate scalar defaulting to 1
-  // z  comma-separated list of any number of k-rate scalars
+  // z  comma-separated list of k-rate scalars
 
   // a  a-rate vector
-  // y  comma-separated list of any number of a-rate vectors
+  // y  comma-separated list of a-rate vectors
 
   // S  string
-  // W  comma-separated list of any number of strings
+  // W  comma-separated list of strings
 
   // T  i-time scalar or string
   // U  i-time scalar, k-rate scalar, or string
   // x  k-rate scalar or a-rate vector
 
-  // M  comma-separated list of i-time scalars, k-rate scalars, or a-rate
+  // M  comma-separated list of i-time scalars, k-rate scalars, and a-rate
   //    vectors
   // N  comma-separated list of i-time scalars, k-rate scalars, a-rate vectors,
-  //    or strings
+  //    and strings
   // n  comma-separated list of an odd number of i-time scalars
   // Z  comma-separated list of alternating k-rate scalars and a-rate vectors,
   //    used by mac and outch
 
-  // f  frequency-domain variable, used with phase vocoder opcodes
-  // w  frequency-domain variable, used with specaddm, specdiff, specdisp,
+  // f  frequency-domain variable, used by phase vocoder opcodes
+  // w  frequency-domain variable, used by specaddm, specdiff, specdisp,
   //    specfilt, spechist, specptrk, specscal, specsum, and spectrum
-  // B  Boolean, used with cggoto, cigoto, cingoto, and ckgoto
-  // l  label, used with goto, igoto, kgoto, loop_ge, loop_gt, loop_le, loop_lt,
+  // B  Boolean, used by cggoto, cigoto, cingoto, and ckgoto
+  // l  label, used by goto, igoto, kgoto, loop_ge, loop_gt, loop_le, loop_lt,
   //    rigoto, and tigoto
 
   // .  required argument of any type, used by init (for arrays), lenarray,
   //    print_type, and slicearray
   // ?  optional argument of any type, possibly unused
-  // *  comma-separated list of arguments of any type, used with framebuffer,
+  // *  comma-separated list of arguments of any type, used by framebuffer,
   //    hdf5read, hdf5write, xin, and xout
 
   var typeInfoByType = {
@@ -346,7 +346,7 @@ var XMLHeader = [
   '<?xml version="1.0" encoding="utf-8"?>',
   '<!DOCTYPE refentry [',
 
-  // From <http://dev.w3.org/html5/html-author/charref>
+  // From http://dev.w3.org/html5/html-author/charref
   '<!ENTITY auml "ä">',
   '<!ENTITY beta "β">',
   '<!ENTITY circ "ˆ">',
@@ -360,7 +360,7 @@ var XMLHeader = [
   '<!ENTITY shy "&#xAD;">',
   '<!ENTITY tilde "˜">',
 
-  // From <https://github.com/csound/manual/blob/master/manual.xml>
+  // From https://github.com/csound/manual/blob/master/manual.xml
   '<!ENTITY nameandres "Andrés Cabrera">',
   '<!ENTITY nameanthony "Anthony Kozar">',
   '<!ENTITY namebarry "Barry L. Vercoe">',
@@ -488,7 +488,7 @@ for (var opcodeName in opcodeInfoByName) {
     for (var completion of completions) {
       completion.opcode = opcodeName;
       completion.description = description;
-      completion.descriptionMoreURL = 'http://csound.github.io/docs/manual/' + opcodeName + '.html';
+      completion.descriptionMoreURL = 'https://csound.github.io/docs/manual/' + opcodeName + '.html';
       completion.type = 'function';
     }
 
@@ -531,7 +531,7 @@ allCompletions = allCompletions.concat([
     displayText: 'hdf5read Sfilename, SVariableName1, SVariableName2, …',
     opcode: 'hdf5read',
     description: 'Read signals and arrays from an hdf5 file.',
-    descriptionMoreURL: 'http://csound.github.io/docs/manual/hdf5read.html',
+    descriptionMoreURL: 'https://csound.github.io/docs/manual/hdf5read.html',
     type: 'function'
   },
   {
@@ -539,7 +539,7 @@ allCompletions = allCompletions.concat([
     displayText: 'hdf5write Sfilename, (a|i|k|S)Output1, (a|i|k|S)Output2, …',
     opcode: 'hdf5write',
     description: 'Write signals and arrays to an hdf5 file.',
-    descriptionMoreURL: 'http://csound.github.io/docs/manual/hdf5write.html',
+    descriptionMoreURL: 'https://csound.github.io/docs/manual/hdf5write.html',
     type: 'function'
   },
   {
@@ -548,7 +548,7 @@ allCompletions = allCompletions.concat([
     displayText: 'xin',
     opcode: 'xin',
     description: 'Passes variables to a user-defined opcode block.',
-    descriptionMoreURL: 'http://csound.github.io/docs/manual/xin.html',
+    descriptionMoreURL: 'https://csound.github.io/docs/manual/xin.html',
     type: 'function'
   },
   {
@@ -556,7 +556,7 @@ allCompletions = allCompletions.concat([
     displayText: 'xout (a|i|k|S)Output1, (a|i|k|S)Output2, …',
     opcode: 'xout',
     description: 'Retrieves variables from a user-defined opcode block.',
-    descriptionMoreURL: 'http://csound.github.io/docs/manual/xout.html',
+    descriptionMoreURL: 'https://csound.github.io/docs/manual/xout.html',
     type: 'function'
   }
 ]);

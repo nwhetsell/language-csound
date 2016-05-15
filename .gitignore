@@ -1,4 +1,7 @@
 .DS_Store
+grammars/*.pyc
+grammars/_csound_builtins.py
+grammars/regexopt.py
 node_modules
 npm-debug.log
 resources/csound

@@ -1,12 +1,33 @@
+{CompositeDisposable} = require 'atom'
 fs = require 'fs'
 path = require 'path'
 
-CsoundOrchestraGrammar = require './csound-orchestra-grammar'
+CsoundOrchestraGrammarPattern = require './csound-orchestra-grammar-pattern'
 
 module.exports =
 LanguageCsound =
   activate: (state) ->
-    atom.grammars.addGrammar(new CsoundOrchestraGrammar(atom.grammars))
+    @subscriptions = new CompositeDisposable
+
+    grammar = atom.grammars.grammarForScopeName 'source.csound'
+    callback = (grammar) ->
+      return unless grammar.scopeName is 'source.csound'
+      grammar.createPattern = (options) ->
+        new CsoundOrchestraGrammarPattern(this, @registry, options)
+      grammar.rawRepository.partialExpressions.patterns.splice -1, 0, {
+        name: 'meta.autocompletion.csound'
+        match: '(\\([aikpSw|]+\\))\\w*\\b'
+        captures:
+          1:
+            name: 'storage.type.csound'
+      }
+    if grammar
+      callback grammar
+    else
+      atom.grammars.onDidAddGrammar callback
+
+  deactivate: ->
+    @subscriptions.dispose()
 
   providers: -> {
     selector: '.source.csound'
