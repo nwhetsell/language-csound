@@ -4,15 +4,15 @@ import re
 from _csound_builtins import OPCODES
 from regexopt import regex_opt
 
-pattern = r'''
+pattern = r"""
       {
-        name: 'support.function.csound'
-        match: [^\n]+
-      }'''
+        'name': 'support\.function\.csound'
+        'match': [^\n]+
+      }"""
 replacement = """
       {
-        name: 'support.function.csound'
-        match: '""" + regex_opt(OPCODES, r'\\\\b', r'\\\\b').replace('\\_', '_') + """'
+        'name': 'support.function.csound'
+        'match': '""" + regex_opt(OPCODES, r'\\\\b', r'\\\\b').replace('\\_', '_') + """'
       }"""
 with open('csound-orchestra.cson', 'r') as file:
     grammar = file.read()
