@@ -1,6 +1,6 @@
 'scopeName': 'source.csound'
-'fileTypes': ['orc']
-'name': 'Csound Orchestra'
+'fileTypes': ['orc', 'udo']
+'name': 'Csound'
 'patterns': [
   {
     'include': '#commentsAndMacroCalls'
