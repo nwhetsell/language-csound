@@ -77,31 +77,37 @@
         'beginCaptures':
           '0':
             'name': 'keyword.define.preprocessor.csound-score'
-        'end': '\\#'
-        'endCaptures':
-          '0':
-            'name': 'meta.macro-definition.begin.csound-score'
+        'end': '(?<=\\#)'
         'patterns': [
           {
             'include': '#commentsAndMacroCalls'
           }
           {
-            'begin': '\\w+'
-            'beginCaptures':
-              '0':
-                'name': 'entity.name.function.preprocessor.csound-score'
-            'end': '(?=\\#)'
+            'name': 'entity.name.function.preprocessor.csound-score'
+            'match': '\\w+'
+          }
+          {
+            'begin': '\\('
+            'end': '\\)'
             'patterns': [
               {
-                'include': '#commentsAndMacroCalls'
+                'name': 'variable.parameter.preprocessor.csound-score'
+                'match': '\\w+\\b'
               }
+            ]
+          }
+          {
+            'begin': '\\#'
+            'beginCaptures':
+              '0':
+                'name': 'punctuation.definition.macro.begin.csound-score'
+            'end': '\\#'
+            'endCaptures':
+              '0':
+                'name': 'punctuation.definition.macro.end.csound-score'
+            'patterns': [
               {
-                'begin': '\\('
-                'end': '\\)'
-                'patterns': [
-                  'name': 'entity.name.function.preprocessor.csound-score'
-                  'match': '\\w+\\b'
-                ]
+                'include': '$self'
               }
             ]
           }
