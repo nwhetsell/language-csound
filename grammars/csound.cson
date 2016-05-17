@@ -142,12 +142,14 @@ repository:
     ]
   labels:
     patterns: [
-      match: '\\b(\\w+)(:)'
-      captures:
-        1:
-          name: 'entity.name.label.csound'
-        2:
-          name: 'entity.punctuation.label.csound'
+      {
+        match: '\\b(\\w+)(:)'
+        captures:
+          1:
+            name: 'entity.name.label.csound'
+          2:
+            name: 'entity.punctuation.label.csound'
+      }
     ]
   macroCalls:
     # This must be kept synchronized with the Csound Score grammar.
