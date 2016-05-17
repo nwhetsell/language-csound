@@ -8,13 +8,13 @@ This [Atom](https://atom.io) package adds syntax highlighting, snippets, and aut
 
 ## Updating the Opcode Regex Pattern
 
-The [Csound Orchestra grammar](https://github.com/nwhetsell/language-csound/blob/master/grammars/csound-orchestra.cson) contains a long regex pattern that matches Csound’s built-in opcodes. This regex pattern is generated using tools from [Pygments](http://pygments.org). To update the regex pattern on OS&nbsp;X, run in a Terminal
+The [Csound grammar](https://github.com/nwhetsell/language-csound/blob/master/grammars/csound.cson) contains a long regex pattern that matches Csound’s built-in opcodes. This regex pattern is generated using tools from [Pygments](http://pygments.org). To update the regex pattern on OS&nbsp;X, run in a Terminal
 
 ```sh
 cd ~/.atom/packages/language-csound/grammars
 curl https://bitbucket.org/birkenfeld/pygments-main/raw/tip/pygments/regexopt.py > regexopt.py
 curl https://bitbucket.org/birkenfeld/pygments-main/raw/tip/pygments/lexers/_csound_builtins.py > _csound_builtins.py
-python update_csound_orchestra.py
+python update_csound_grammar.py
 ```
 
 ## Updating the List of Opcode Completions
