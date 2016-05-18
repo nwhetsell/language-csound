@@ -70,7 +70,30 @@ repository:
     patterns: [
       { # These must be kept synchronized with the Csound Orchestra grammar.
         name: 'keyword.preprocessor.csound-score'
-        match: '\\#(?:(?:e(?:lse|nd(?:if)?)|i(?:fn?def|nclude)|undef)\\b|\\#\\#)|@+[ \\t]*\\d*'
+        match: '\\#(?:(?:e(?:lse|nd(?:if)?)|i(?:fn?def)|undef)\\b|\\#\\#)|@+[ \\t]*\\d*'
+      }
+      { # These must be kept synchronized with the Csound Orchestra grammar.
+        begin: '\\#include\\b'
+        beginCaptures:
+          0:
+            name: 'keyword.include.preprocessor.csound-score'
+        end: '\\n'
+        patterns: [
+          {
+            include: '#commentsAndMacroCalls'
+          }
+          {
+            name: 'string.quoted.include.csound-score'
+            begin: '"'
+            beginCaptures:
+              0:
+                name: 'punctuation.definition.string.begin.csound-score'
+            end: '"'
+            endCaptures:
+              0:
+                name: 'punctuation.definition.string.end.csound-score'
+          }
+        ]
       }
       { # These must be kept synchronized with the Csound Orchestra grammar.
         begin: '\\#[ \\t]*define\\b'

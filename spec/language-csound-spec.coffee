@@ -94,7 +94,6 @@ describe 'language-csound', ->
         '#endif'
         '#ifdef'
         '#ifndef'
-        '#include'
         '#undef'
         '###'
         '@ \t0'
@@ -103,6 +102,16 @@ describe 'language-csound', ->
       lines = grammar.tokenizeLines preprocessorDirectives.join('\n')
       for i in [0...lines.length]
         expect(lines[i][0]).toEqual value: preprocessorDirectives[i], scopes: ['source.csound', 'keyword.preprocessor.csound']
+
+    it 'tokenizes includes', ->
+      lines = grammar.tokenizeLines '#include/**/"file.udo"'
+      tokens = lines[0]
+      expect(tokens[0]).toEqual value: '#include', scopes: ['source.csound', 'keyword.include.preprocessor.csound']
+      expect(tokens[1]).toEqual value: '/*', scopes: ['source.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
+      expect(tokens[2]).toEqual value: '*/', scopes: ['source.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
+      expect(tokens[3]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.include.csound', 'punctuation.definition.string.begin.csound']
+      expect(tokens[4]).toEqual value: 'file.udo', scopes: ['source.csound', 'string.quoted.include.csound']
+      expect(tokens[5]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.include.csound', 'punctuation.definition.string.end.csound']
 
     it 'tokenizes macro definitions', ->
       lines = grammar.tokenizeLines '# \tdefine/**/MACRO(ARGUMENT)/**/#$ARGUMENT#'
