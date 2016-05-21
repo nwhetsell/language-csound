@@ -102,16 +102,16 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "OSClisten ${1:ihandle}, ${2:Sdest}, ${3:Stype}, ${4:(a|i|k|S)data1…}",
-      "displayText": "OSClisten ihandle, Sdest, Stype, (a|i|k|S)data1",
+      "snippet": "OSClisten ${1:ihandle}, ${2:Sdest}, ${3:Stype}",
+      "displayText": "OSClisten ihandle, Sdest, Stype",
       "opcode": "OSClisten",
       "description": "Listen for OSC messages to a particular path.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/OSClisten.html",
       "type": "function"
     },
     {
-      "snippet": "OSCsend ${1:kwhen}, ${2:Shost}, ${3:kport}, ${4:Sdestination}, ${5:Stype}, ${6:(a|i|k|S)data1…}",
-      "displayText": "OSCsend kwhen, Shost, kport, Sdestination, Stype, (a|i|k|S)data1",
+      "snippet": "OSCsend ${1:kwhen}, ${2:Shost}, ${3:kport}, ${4:Sdestination}, ${5:Stype}",
+      "displayText": "OSCsend kwhen, Shost, kport, Sdestination, Stype",
       "opcode": "OSCsend",
       "description": "Sends data to other processes using the OSC protocol",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/OSCsend.html",
@@ -585,6 +585,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "k[]",
+      "snippet": "cepsinv ${1:keps}",
+      "displayText": "cepsinv keps",
+      "opcode": "cepsinv",
+      "description": "Calculate the inverse cepstrum of an array.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/cepsinv.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "ik",
       "snippet": "chanctrl ${1:ichnl}, ${2:ictlno/*, ilow, ihigh*/}",
       "displayText": "chanctrl ichnl, ictlno, ilow, ihigh",
@@ -701,8 +710,8 @@
     },
     {
       "leftLabel": "iiiiii",
-      "snippet": "chnparams ${1:Sval}",
-      "displayText": "chnparams Sval",
+      "snippet": "chnparams ${1:S}",
+      "displayText": "chnparams S",
       "opcode": "chnparams",
       "description": "Query parameters of a channel.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/chnparams.html",
@@ -832,6 +841,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "compress2 ${1:aasig}, ${2:acsig}, ${3:kthresh}, ${4:kloknee}, ${5:khiknee}, ${6:kratio}, ${7:katt}, ${8:krel}, ${9:ilook}",
+      "displayText": "compress2 aasig, acsig, kthresh, kloknee, khiknee, kratio, katt, krel, ilook",
+      "opcode": "compress2",
+      "description": "Compress, limit, expand, duck or gate an audio signal.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/compress2.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "",
       "snippet": "connect ${1:(S|i)source1}, ${2:Soutlet1}, ${3:(S|i)sink1}, ${4:Sinlet1/*, i*/}",
       "displayText": "connect (S|i)source1, Soutlet1, (S|i)sink1, Sinlet1, i",
@@ -851,8 +869,8 @@
     },
     {
       "leftLabel": "a…",
-      "snippet": "convle ${1:anum}, ${2:(S|i)/*, i*/}",
-      "displayText": "convle anum, (S|i), i",
+      "snippet": "convle ${1:a}, ${2:(S|i)/*, i*/}",
+      "displayText": "convle a, (S|i), i",
       "opcode": "convle",
       "description": "Same as the convolve opcode.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/convle.html",
@@ -1119,7 +1137,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "i",
+      "leftLabel": "ii…kk…",
       "snippet": "date",
       "displayText": "date",
       "opcode": "date",
@@ -1275,6 +1293,15 @@
       "opcode": "diff",
       "description": "Modify a signal by differentiation.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/diff.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S[]",
+      "snippet": "directory ${1:SDirectory}, ${2:(a|i|k|S)Extention…}",
+      "displayText": "directory SDirectory, (a|i|k|S)Extention",
+      "opcode": "directory",
+      "description": "Reads a directory and outputs to a string array a list of file names.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/directory.html",
       "type": "function"
     },
     {
@@ -1796,6 +1823,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "a…",
+      "snippet": "filescal ${1:ktimescal}, ${2:kAmplitude}, ${3:kPitch}, ${4:Sfile}, ${5:klock/*, ifftsize, idecim, kthresh, k, k*/}",
+      "displayText": "filescal ktimescal, kAmplitude, kPitch, Sfile, klock, ifftsize, idecim, kthresh, k, k",
+      "opcode": "filescal",
+      "description": "Phase-locked vocoder processing with onset detection/processing, 'tempo-scaling'.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/filescal.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "i",
       "snippet": "filesr ${1:(S|i)filcod/*, iallowraw*/}",
       "displayText": "filesr (S|i)filcod, iallowraw",
@@ -2299,6 +2335,24 @@
       "type": "function"
     },
     {
+      "leftLabel": "i",
+      "snippet": "ftsamplebank ${1:SDirectory}, ${2:iFirstTableNumber}, ${3:iTrigger}, ${4:iSkipTime}, ${5:iFormat}, ${6:iChannel}",
+      "displayText": "ftsamplebank SDirectory, iFirstTableNumber, iTrigger, iSkipTime, iFormat, iChannel",
+      "opcode": "ftsamplebank",
+      "description": "Reads a directory for sound files.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/ftsamplebank.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "ftsamplebank ${1:SDirectory}, ${2:kFirstTableNumber}, ${3:kTrigger}, ${4:kSkipTime}, ${5:kFormat}, ${6:kChannel}",
+      "displayText": "ftsamplebank SDirectory, kFirstTableNumber, kTrigger, kSkipTime, kFormat, kChannel",
+      "opcode": "ftsamplebank",
+      "description": "Reads a directory for sound files.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/ftsamplebank.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "",
       "snippet": "ftsave ${1:(S|i)Filename}, ${2:iflag}, ${3:ifn1…}",
       "displayText": "ftsave (S|i)Filename, iflag, ifn1",
@@ -2688,7 +2742,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "aa[]",
+      "leftLabel": "aa[]aa",
       "snippet": "in",
       "displayText": "in",
       "opcode": "in",
@@ -2917,8 +2971,8 @@
     },
     {
       "leftLabel": "a",
-      "snippet": "interp ${1:kSignal/*, iskip, imode*/}",
-      "displayText": "interp kSignal, iskip, imode",
+      "snippet": "interp ${1:kSignal/*, iskip, imode, ivalue*/}",
+      "displayText": "interp kSignal, iskip, imode, ivalue",
       "opcode": "interp",
       "description": "Converts a control signal to an audio signal using linear interpolation.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/interp.html",
@@ -3023,8 +3077,8 @@
     },
     {
       "leftLabel": "a",
-      "snippet": "limit ${1:(a|k)Signal}, ${2:klow}, ${3:khigh}",
-      "displayText": "limit (a|k)Signal, klow, khigh",
+      "snippet": "limit ${1:aSignal}, ${2:klow}, ${3:khigh}",
+      "displayText": "limit aSignal, klow, khigh",
       "opcode": "limit",
       "description": "Sets the lower and upper limits of the value it processes.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/limit.html",
@@ -3041,8 +3095,8 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "limit ${1:(a|k)Signal}, ${2:klow}, ${3:khigh}",
-      "displayText": "limit (a|k)Signal, klow, khigh",
+      "snippet": "limit ${1:kSignal}, ${2:klow}, ${3:khigh}",
+      "displayText": "limit kSignal, klow, khigh",
       "opcode": "limit",
       "description": "Sets the lower and upper limits of the value it processes.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/limit.html",
@@ -4051,6 +4105,15 @@
     },
     {
       "leftLabel": "a",
+      "snippet": "moogladder2 ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)res/*, istor*/}",
+      "displayText": "moogladder2 ain, (a|k)cf, (a|k)res, istor",
+      "opcode": "moogladder2",
+      "description": "Moog ladder lowpass filter.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/moogladder2.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
       "snippet": "moogvcf ${1:aSignal}, ${2:(a|k)fco}, ${3:(a|k)res/*, iscale, iskip*/}",
       "displayText": "moogvcf aSignal, (a|k)fco, (a|k)res, iscale, iskip",
       "opcode": "moogvcf",
@@ -4094,6 +4157,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "aak",
+      "snippet": "mp3scal ${1:Sfile}, ${2:ktimescal}, ${3:kPitch}, ${4:kAmplitude/*, iskip, ifftsize, idecim, klock, k*/}",
+      "displayText": "mp3scal Sfile, ktimescal, kPitch, kAmplitude, iskip, ifftsize, idecim, klock, k",
+      "opcode": "mp3scal",
+      "description": "Phase-locked vocoder processing with onset detection/processing, 'tempo-scaling'.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mp3scal.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "a",
       "snippet": "mpulse ${1:kAmplitude}, ${2:kintvl/*, ioffset*/}",
       "displayText": "mpulse kAmplitude, kintvl, ioffset",
@@ -4129,12 +4201,66 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "mvchpf ${1:ain}, ${2:(a|k)cf/*, istor*/}",
+      "displayText": "mvchpf ain, (a|k)cf, istor",
+      "opcode": "mvchpf",
+      "description": "Moog voltage-controlled highpass filter emulation.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mvchpf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "mvclpf1 ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)res/*, istor*/}",
+      "displayText": "mvclpf1 ain, (a|k)cf, (a|k)res, istor",
+      "opcode": "mvclpf1",
+      "description": "Moog voltage-controlled lowpass filter emulation.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mvclpf1.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "mvclpf2 ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)res/*, istor*/}",
+      "displayText": "mvclpf2 ain, (a|k)cf, (a|k)res, istor",
+      "opcode": "mvclpf2",
+      "description": "Moog voltage-controlled lowpass filter emulation.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mvclpf2.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "mvclpf3 ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)res/*, istor*/}",
+      "displayText": "mvclpf3 ain, (a|k)cf, (a|k)res, istor",
+      "opcode": "mvclpf3",
+      "description": "Moog voltage-controlled lowpass filter emulation.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mvclpf3.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "aaaa",
+      "snippet": "mvclpf4 ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)res/*, istor*/}",
+      "displayText": "mvclpf4 ain, (a|k)cf, (a|k)res, istor",
+      "opcode": "mvclpf4",
+      "description": "Moog voltage-controlled lowpass filter emulation.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mvclpf4.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "ak",
       "snippet": "mxadsr ${1:iatt}, ${2:iDecayTime}, ${3:islev}, ${4:irel/*, iDelayTime, ireltim*/}",
       "displayText": "mxadsr iatt, iDecayTime, islev, irel, iDelayTime, ireltim",
       "opcode": "mxadsr",
       "description": "Calculates the classical ADSR envelope using the expsegr mechanism.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/mxadsr.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "ii",
+      "snippet": "nchnls_hw",
+      "displayText": "nchnls_hw",
+      "opcode": "nchnls_hw",
+      "description": "Returns the number of audio channels in the underlying hardware.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/nchnls_hw.html",
       "type": "function"
     },
     {
@@ -4449,8 +4575,8 @@
     },
     {
       "leftLabel": "a",
-      "snippet": "oscilx ${1:kAmplitude}, ${2:iFrequency}, ${3:iInitialPhase}, ${4:iflg}",
-      "displayText": "oscilx kAmplitude, iFrequency, iInitialPhase, iflg",
+      "snippet": "oscilx ${1:k}, ${2:i}, ${3:i}, ${4:i}",
+      "displayText": "oscilx k, i, i, i",
       "opcode": "oscilx",
       "description": "Same as the osciln opcode.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/oscilx.html",
@@ -4799,6 +4925,15 @@
       "opcode": "passign",
       "description": "Assigns a range of p-fields to ivariables.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/passign.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "paulstretch ${1:istretch}, ${2:iwindowsize}, ${3:ift}",
+      "displayText": "paulstretch istretch, iwindowsize, ift",
+      "opcode": "paulstretch",
+      "description": "Extreme time-stretching algorithm by Nasca Octavian Paul.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/paulstretch.html",
       "type": "function"
     },
     {
@@ -6670,8 +6805,8 @@
       "type": "function"
     },
     {
-      "snippet": "setscorepos ${1:iin}",
-      "displayText": "setscorepos iin",
+      "snippet": "setscorepos ${1:i}",
+      "displayText": "setscorepos i",
       "opcode": "setscorepos",
       "description": "Sets the playback position of the current score performance to a given position.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/setscorepos.html",
@@ -7080,7 +7215,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "a",
+      "leftLabel": "ak",
       "snippet": "sockrecv ${1:iport}, ${2:ilength}",
       "displayText": "sockrecv iport, ilength",
       "opcode": "sockrecv",
@@ -7904,8 +8039,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "tablew ${1:(a|k)Signal}, ${2:(a|k)ndx}, ${3:iFunctionTable/*, ixmode, ixoff, iwgmode*/}",
-      "displayText": "tablew (a|k)Signal, (a|k)ndx, iFunctionTable, ixmode, ixoff, iwgmode",
+      "snippet": "tablew ${1:(a|i|k)Signal}, ${2:(a|i|k)ndx}, ${3:iFunctionTable/*, ixmode, ixoff, iwgmode*/}",
+      "displayText": "tablew (a|i|k)Signal, (a|i|k)ndx, iFunctionTable, ixmode, ixoff, iwgmode",
       "opcode": "tablew",
       "description": "Change the contents of existing function tables.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/tablew.html",
@@ -7913,8 +8048,8 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "tablewa ${1:kFunctionTable}, ${2:aSignal}, ${3:koff}",
-      "displayText": "tablewa kFunctionTable, aSignal, koff",
+      "snippet": "tablewa ${1:kFunctionTable}, ${2:aSignal}, ${3:koff/*, i*/}",
+      "displayText": "tablewa kFunctionTable, aSignal, koff, i",
       "opcode": "tablewa",
       "description": "Writes tables in sequential locations.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/tablewa.html",
@@ -8339,8 +8474,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "turnoff ${1:(i|k)in}",
-      "displayText": "turnoff (i|k)in",
+      "snippet": "turnoff ${1:(i|k)}",
+      "displayText": "turnoff (i|k)",
       "opcode": "turnoff",
       "description": "Enables an instrument to turn itself off or to turn an instance of another instrument off.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/turnoff.html",
@@ -9518,7 +9653,16 @@
       "displayText": "alwayson (i|S)Instrument, p4, p5, …",
       "opcode": "alwayson",
       "description": "Activates the indicated instrument in the orchestra header.",
-      "descriptionMoreURL": "http://csound.github.io/docs/manual/alwayson.html",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/alwayson.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "changed2 ${1:kVariableName1/*, kVariableName2, …*/}",
+      "displayText": "changed2 kVariableName1, kVariableName2, …",
+      "opcode": "changed2",
+      "description": "k-rate signal change detector.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/changed2.html",
       "type": "function"
     },
     {
@@ -9527,6 +9671,7 @@
       "displayText": "framebuffer aInput, iSize",
       "opcode": "framebuffer",
       "description": "Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/framebuffer.html",
       "type": "function"
     },
     {
@@ -9535,6 +9680,7 @@
       "displayText": "framebuffer kInput, iSize",
       "opcode": "framebuffer",
       "description": "Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/framebuffer.html",
       "type": "function"
     },
     {
