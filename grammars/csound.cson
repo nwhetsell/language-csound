@@ -108,8 +108,6 @@ patterns: [
 ]
 repository:
   comments:
-    # This must be kept synchronized with both the Csound Document and Csound
-    # Score grammars.
     patterns: [
       {
         name: 'comment.block.csound'
@@ -152,98 +150,38 @@ repository:
       }
     ]
   macroCalls:
-    # This must be kept synchronized with the Csound Score grammar.
     patterns: [
       {
         name: 'entity.name.function.preprocessor.csound'
         match: '\\$\\w+(?:\\.|\\b)'
       }
     ]
+  numbers:
+    patterns: [
+      {
+        name: 'constant.numeric.float.csound'
+        match: '(?:\\d+e[+-]?\\d+)|(?:\\d+\\.\\d*|\\d*\\.\\d+)(?:e[+-]?\\d+)?'
+      }
+      {
+        name: 'constant.numeric.integer.hexadecimal.csound'
+        match: '0[Xx][a-fA-F0-9]+'
+      }
+      {
+        name: 'constant.numeric.integer.decimal.csound'
+        match: '\\d+'
+      }
+    ]
   partialExpressions:
     patterns: [
-      { # These must be kept synchronized with the Csound Score grammar.
-        name: 'keyword.preprocessor.csound'
-        match: '\\#(?:(?:e(?:lse|nd(?:if)?)|i(?:fn?def)|undef)\\b|\\#\\#)|@+[ \\t]*\\d*'
-      }
-      { # These must be kept synchronized with the Csound Score grammar.
-        begin: '\\#include\\b'
-        beginCaptures:
-          0:
-            name: 'keyword.include.preprocessor.csound'
-        end: '\\n'
-        patterns: [
-          {
-            include: '#commentsAndMacroCalls'
-          }
-          {
-            name: 'string.quoted.include.csound'
-            begin: '"'
-            beginCaptures:
-              0:
-                name: 'punctuation.definition.string.begin.csound'
-            end: '"'
-            endCaptures:
-              0:
-                name: 'punctuation.definition.string.end.csound'
-          }
-        ]
-      }
-      { # These must be kept synchronized with the Csound Score grammar.
-        begin: '\\#[ \\t]*define\\b'
-        beginCaptures:
-          0:
-            name: 'keyword.define.preprocessor.csound'
-        end: '(?<=\\#)'
-        patterns: [
-          {
-            include: '#commentsAndMacroCalls'
-          }
-          {
-            name: 'entity.name.function.preprocessor.csound'
-            match: '\\w+'
-          }
-          {
-            begin: '\\('
-            end: '\\)'
-            patterns: [
-              {
-                name: 'variable.parameter.preprocessor.csound'
-                match: '\\w+\\b'
-              }
-            ]
-          }
-          {
-            begin: '\\#'
-            beginCaptures:
-              0:
-                name: 'punctuation.definition.macro.begin.csound'
-            end: '\\#'
-            endCaptures:
-              0:
-                name: 'punctuation.definition.macro.end.csound'
-            patterns: [
-              {
-                include: '$self'
-              }
-            ]
-          }
-        ]
+      {
+        include: '#preprocessorDirectives'
       }
       {
         name: 'variable.other.readwrite.global.csound'
         match: '\\b(?:0dbfs|k(?:r|smps)|nchnls(?:_i)?|sr)\\b'
       }
-      { # These must be kept synchronized with the Csound Score grammar.
-        name: 'constant.numeric.float.csound'
-        match: '(?:\\d+e[+-]?\\d+)|(?:\\d+\\.\\d*|\\d*\\.\\d+)(?:e[+-]?\\d+)?'
-      }
-      { # These must be kept synchronized with the Csound Score grammar.
-        name: 'constant.numeric.integer.hexadecimal.csound'
-        match: '0[Xx][a-fA-F0-9]+'
-      }
-      { # These must be kept synchronized with the Csound Score grammar.
-        name: 'constant.numeric.integer.decimal.csound'
-        match: '\\d+'
+      {
+        include: '#numbers'
       }
       {
         name: 'keyword.operator.csound'
@@ -259,7 +197,7 @@ repository:
       }
       {
         name: 'keyword.control.csound'
-        match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|return|then|timout|until|while)\\b'
+        match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|return|t(?:hen|imout)|until|while)\\b'
       }
       {
         begin: '\\b((?:c(?:g|in?|k|n)goto)|goto|igoto|kgoto|loop_[gl][et]|rigoto|tigoto)\\b'
@@ -374,6 +312,77 @@ repository:
         match: '\\b[a-zA-Z_]\\w*\\b'
       }
     ]
+  preprocessorDirectives:
+    patterns: [
+      {
+        name: 'keyword.preprocessor.csound'
+        match: '\\#(?:(?:e(?:lse|nd(?:if)?)|i(?:fn?def)|undef)\\b|\\#\\#)|@+[ \\t]*\\d*'
+      }
+      {
+        begin: '\\#include\\b'
+        beginCaptures:
+          0:
+            name: 'keyword.include.preprocessor.csound'
+        end: '\\n'
+        patterns: [
+          {
+            include: '#commentsAndMacroCalls'
+          }
+          {
+            name: 'string.quoted.include.csound'
+            begin: '"'
+            beginCaptures:
+              0:
+                name: 'punctuation.definition.string.begin.csound'
+            end: '"'
+            endCaptures:
+              0:
+                name: 'punctuation.definition.string.end.csound'
+          }
+        ]
+      }
+      {
+        begin: '\\#[ \\t]*define\\b'
+        beginCaptures:
+          0:
+            name: 'keyword.define.preprocessor.csound'
+        end: '(?<=\\#)'
+        patterns: [
+          {
+            include: '#commentsAndMacroCalls'
+          }
+          {
+            name: 'entity.name.function.preprocessor.csound'
+            match: '\\w+'
+          }
+          {
+            begin: '\\('
+            end: '\\)'
+            patterns: [
+              {
+                name: 'variable.parameter.preprocessor.csound'
+                match: '\\w+\\b'
+              }
+            ]
+          }
+          {
+            begin: '\\#'
+            beginCaptures:
+              0:
+                name: 'punctuation.definition.macro.begin.csound'
+            end: '\\#'
+            endCaptures:
+              0:
+                name: 'punctuation.definition.macro.end.csound'
+            patterns: [
+              {
+                include: '$self'
+              }
+            ]
+          }
+        ]
+      }
+    ]
   quotedStrings:
     patterns: [
       {
@@ -393,7 +402,7 @@ repository:
           {
             name: 'constant.character.escape.csound'
             # From
-            # https://github.com/csound/csound/blob/develop/Opcodes/fout.c#L1407
+            # https://github.com/csound/csound/blob/master/Opcodes/fout.c#L1407
             match: '%\\d*(\\.\\d+)?[cdhilouxX]'
           }
           {

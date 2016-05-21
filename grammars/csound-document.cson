@@ -4,7 +4,7 @@ firstLineMatch: '<CsoundSynthesi[sz]er>'
 name: 'Csound Document'
 patterns: [
   {
-    include: '#comments'
+    include: 'source.csound#comments'
   }
   {
     name: 'meta.orchestra.csound-document'
@@ -55,28 +55,3 @@ patterns: [
         name: 'entity.name.tag.csound-document'
   }
 ]
-repository:
-  comments:
-    # This must be kept synchronized with both the Csound Orchestra and Csound
-    # Score grammars.
-    patterns: [
-      {
-        name: 'comment.block.csound-document'
-        begin: '/\\*'
-        beginCaptures:
-          0:
-            name: 'punctuation.definition.comment.begin.csound-document'
-        end: '\\*/'
-        endCaptures:
-          0:
-            name: 'punctuation.definition.comment.end.csound-document'
-      }
-      {
-        name: 'comment.line.csound-document'
-        begin: '//|;'
-        beginCaptures:
-          0:
-            name: 'punctuation.definition.comment.line.csound-document'
-        end: '(?=\\n)'
-      }
-    ]
