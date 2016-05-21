@@ -2,7 +2,7 @@
 fs = require 'fs'
 path = require 'path'
 
-CsoundOrchestraGrammarPattern = require './csound-orchestra-grammar-pattern'
+CsoundPattern = require './csound-pattern'
 
 module.exports =
 LanguageCsound =
@@ -13,7 +13,7 @@ LanguageCsound =
     callback = (grammar) ->
       return unless grammar.scopeName is 'source.csound'
       grammar.createPattern = (options) ->
-        new CsoundOrchestraGrammarPattern(this, @registry, options)
+        new CsoundPattern(this, @registry, options)
       grammar.rawRepository.partialExpressions.patterns.splice -1, 0, {
         name: 'meta.autocompletion.csound'
         match: '(\\([aikpSw|]+\\))\\w*\\b'

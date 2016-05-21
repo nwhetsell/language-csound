@@ -4,7 +4,7 @@ path = require 'path'
 Pattern = require path.join(atom.config.resourcePath, 'node_modules', 'first-mate', 'lib', 'pattern.js')
 
 module.exports =
-class CsoundOrchestraGrammarPattern extends Pattern
+class CsoundPattern extends Pattern
   @subscriptions = new CompositeDisposable
   @userDefinedOpcodesByTextEditorIDs = {}
 
@@ -35,7 +35,7 @@ class CsoundOrchestraGrammarPattern extends Pattern
   handleMatch: (stack, line, captureIndicesArray, rule, endPatternMatch) ->
     tags = super
 
-    userDefinedOpcodes = CsoundOrchestraGrammarPattern.userDefinedOpcodesForTextEditor atom.workspace.getActiveTextEditor()
+    userDefinedOpcodes = CsoundPattern.userDefinedOpcodesForTextEditor atom.workspace.getActiveTextEditor()
 
     # Handle a Csound name as a user-defined opcode, or variable with a
     # storage-type prefix.
