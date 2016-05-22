@@ -203,8 +203,8 @@ describe 'language-csound', ->
         'kthen'
         'od'
         'return'
+        'rireturn'
         'then'
-        'timout'
         'until'
         'while'
       ]
@@ -226,8 +226,10 @@ describe 'language-csound', ->
         'loop_gt'
         'loop_le'
         'loop_lt'
+        'reinit'
         'rigoto'
         'tigoto'
+        'timout'
         ''
       ]
       # Putting a label after each string is enough to test the grammar, but

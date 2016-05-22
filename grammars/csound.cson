@@ -197,10 +197,10 @@ repository:
       }
       {
         name: 'keyword.control.csound'
-        match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|return|t(?:hen|imout)|until|while)\\b'
+        match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|r(?:ir)?eturn|then|until|while)\\b'
       }
       {
-        begin: '\\b((?:c(?:g|in?|k|n)goto)|goto|igoto|kgoto|loop_[gl][et]|rigoto|tigoto)\\b'
+        begin: '\\b((?:c(?:g|in?|k|n)goto)|goto|igoto|kgoto|loop_[gl][et]|r(?:einit|igoto)|ti(?:goto|mout))\\b'
         beginCaptures:
           1:
             name: 'keyword.control.csound'
