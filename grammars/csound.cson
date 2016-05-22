@@ -185,7 +185,7 @@ repository:
       }
       {
         name: 'keyword.operator.csound'
-        match: '[+\\-*/%^!=&|<>#~¬]'
+        match: '[+\\-*/%^!=&|<>#~¬?:]'
       }
       {
         include: '#quotedStrings'
