@@ -1,6 +1,6 @@
 # Csound for Atom
 
-This [Atom](https://atom.io) package adds syntax highlighting, snippets, and autocompletion to [Csound](https://en.wikipedia.org/wiki/Csound) files.
+This [Atom](https://atom.io) package adds syntax highlighting, snippets, and autocompletion to [Csound](https://csound.github.io) files.
 
 ## Contributing
 
