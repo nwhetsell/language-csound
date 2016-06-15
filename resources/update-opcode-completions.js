@@ -14,12 +14,11 @@ function OpcodeInfo(opcodeEntry) {
 }
 Object.defineProperties(OpcodeInfo.prototype, {
   addInfoForOpcodeEntry: {
-    value: function(opcodeEntry) {
+    value: opcodeEntry => {
       // Ignore array inputs.
       const inputTypeString = opcodeEntry.intypes.replace(/\[\]/g, '');
-      if (this.inputTypeStrings.indexOf(inputTypeString) < 0) {
+      if (this.inputTypeStrings.indexOf(inputTypeString) < 0)
         this.inputTypeStrings.push(inputTypeString);
-      }
       // According to
       // https://github.com/csound/csound/blob/develop/Engine/entry1.c, the
       // output type 's' is deprecated but means either an a- or k-rate output.
@@ -29,9 +28,8 @@ Object.defineProperties(OpcodeInfo.prototype, {
         if (inputTypeStringsByLength) {
           const inputTypeStrings = inputTypeStringsByLength[inputTypeString.length];
           if (inputTypeStrings) {
-            if (inputTypeStrings.indexOf(inputTypeString) < 0) {
+            if (inputTypeStrings.indexOf(inputTypeString) < 0)
               inputTypeStrings.push(inputTypeString);
-            }
           } else {
             inputTypeStringsByLength[inputTypeString.length] = [inputTypeString];
           }
@@ -135,11 +133,10 @@ csound.NewOpcodeList(csound.Create(), opcodeList);
 for (const opcodeEntry of opcodeList) {
   if (ignoredOpcodes.indexOf(opcodeEntry.opname) < 0) {
     const opcodeInfo = opcodeInfoByName[opcodeEntry.opname];
-    if (opcodeInfo) {
+    if (opcodeInfo)
       opcodeInfo.addInfoForOpcodeEntry(opcodeEntry);
-    } else {
+    else
       opcodeInfoByName[opcodeEntry.opname] = new OpcodeInfo(opcodeEntry);
-    }
   }
 }
 
@@ -245,9 +242,8 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
         const typeStrings = this.typeStringsArray[i];
         if (typeStrings) {
           for (const string of typeInfo.strings) {
-            if (typeStrings.indexOf(string) < 0) {
+            if (typeStrings.indexOf(string) < 0)
               typeStrings.push(string);
-            }
           }
         } else {
           this.typeStringsArray[i] = typeInfo.strings.slice();
@@ -265,21 +261,18 @@ const separator = '|';
 const closingBracket = ')';
 Object.defineProperties(InputArgumentInfo.prototype, {
   displayText: {
-    get: function() {
+    get: () => {
       const length = this.typeStringsArray.length;
-      if (length === 0) {
+      if (length === 0)
         return '';
-      }
 
       const components = [];
       for (let i = 0; i < length; i++) {
         let string = this.typeStringsArray[i].join(separator);
-        if (string.length > 1) {
+        if (string.length > 1)
           string = openingBracket + string + closingBracket;
-        }
-        if (this.nameArray[i]) {
+        if (this.nameArray[i])
           string += this.nameArray[i];
-        }
         components.push(string);
       }
       return ' ' + components.join(', ');
@@ -287,25 +280,21 @@ Object.defineProperties(InputArgumentInfo.prototype, {
   },
 
   snippet: {
-    get: function() {
+    get: () => {
       const length = this.typeStringsArray.length;
-      if (length === 0) {
+      if (length === 0)
         return '';
-      }
 
       let snippet = '';
       let optionalIndex = null;
       for (let i = 0; i < length; i++) {
         let string = this.typeStringsArray[i].join(separator);
-        if (string.length > 1) {
+        if (string.length > 1)
           string = openingBracket + string + closingBracket;
-        }
-        if (this.nameArray[i]) {
+        if (this.nameArray[i])
           string += this.nameArray[i];
-        }
-        if (this.listArray[i]) {
+        if (this.listArray[i])
           string += '…';
-        }
         if (i === 0) {
           snippet +=  '${1:' + string;
         } else if (optionalIndex === null) {
@@ -319,9 +308,8 @@ Object.defineProperties(InputArgumentInfo.prototype, {
           snippet += ', ' + string;
         }
       }
-      if (optionalIndex !== null) {
+      if (optionalIndex !== null)
         snippet += '*/';
-      }
       return ' ' + snippet + '}';
     }
   }
@@ -457,9 +445,8 @@ for (const opcodeName in opcodeInfoByName) {
       // Create a single completion for all output type strings.
       const completion = {};
       const leftLabel = formatOutputTypeString(Object.getOwnPropertyNames(inputTypeStringsByLengthByOutputTypeString).join(''));
-      if (leftLabel.length > 0) {
+      if (leftLabel.length > 0)
         completion.leftLabel = leftLabel;
-      }
       const inputArgumentInfo = new InputArgumentInfo(opcodeInfo.inputTypeStrings, inputArgumentNames);
       completion.snippet = opcodeName + inputArgumentInfo.snippet;
       completion.displayText = opcodeName + inputArgumentInfo.displayText;
