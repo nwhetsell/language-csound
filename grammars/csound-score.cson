@@ -3,6 +3,9 @@ fileTypes: ['sco']
 name: 'Csound Score'
 patterns: [
   {
+    include: 'source.csound#preprocessorDirectives'
+  }
+  {
     include: 'source.csound#commentsAndMacroCalls'
   }
   {
@@ -27,9 +30,6 @@ patterns: [
 repository:
   partialExpressions:
     patterns: [
-      {
-        include: 'source.csound#preprocessorDirectives'
-      }
       {
         include: 'source.csound#numbers'
       }

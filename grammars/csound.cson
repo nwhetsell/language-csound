@@ -150,7 +150,7 @@ repository:
   labels:
     patterns: [
       {
-        match: '^[ \\t]*(\\w+)(:)'
+        match: '^[ \\t]*(\\w+)(:)[ \\t]*'
         captures:
           1:
             name: 'entity.name.label.csound'
@@ -161,8 +161,20 @@ repository:
   macroCalls:
     patterns: [
       {
+        begin: '(\\$[A-Z_a-z]\\w*\\.?)(\\()'
+        beginCaptures:
+          1:
+            name: 'entity.name.function.preprocessor.csound'
+          2:
+            name: 'punctuation.preprocessor.csound'
+        end: '\\)'
+        endCaptures:
+          0:
+            name: 'punctuation.preprocessor.csound'
+      }
+      {
         name: 'entity.name.function.preprocessor.csound'
-        match: '\\$\\w+(?:\\.|\\b)'
+        match: '\\$[A-Z_a-z]\\w*(?:\\.|\\b)'
       }
     ]
   numbers:
@@ -173,7 +185,7 @@ repository:
       }
       {
         name: 'constant.numeric.integer.hexadecimal.csound'
-        match: '0[Xx][a-fA-F0-9]+'
+        match: '0[Xx][0-9A-Fa-f]+'
       }
       {
         name: 'constant.numeric.integer.decimal.csound'
@@ -236,6 +248,33 @@ repository:
         ]
       }
       {
+        name: 'string.quoted.csound'
+        begin: '\\b(printk?s)[ \\t]*(")'
+        beginCaptures:
+          1:
+            name: 'support.function.csound'
+          2:
+            name: 'punctuation.definition.string.begin.csound'
+        end: '"'
+        endCaptures:
+          0:
+            name: 'punctuation.definition.string.end.csound'
+        patterns: [
+          {
+            include: '#macroCalls'
+          }
+          {
+            name: 'constant.character.escape.csound'
+            # From
+            # https://github.com/csound/csound/blob/master/Opcodes/fout.c#L1407
+            match: '%(?:\\d*(?:\\.\\d+)?[cdhilouxX]|[!%nNrRtT])|[~^]'
+          }
+          {
+            include: '#escapeSequences'
+          }
+        ]
+      }
+      {
         begin: '\\b(scoreline(?:_i)?)[ \\t]*(\\{\\{)'
         beginCaptures:
           1:
@@ -287,7 +326,7 @@ repository:
         ]
       }
       {
-        begin: '\\blua_opdef'
+        begin: '\\blua_opdef\\b'
         beginCaptures:
           0:
             name: 'support.function.csound'
@@ -323,7 +362,7 @@ repository:
       }
       {
         name: 'meta.other.csound'
-        match: '\\b[a-zA-Z_]\\w*\\b'
+        match: '\\b[A-Z_a-z]\\w*\\b'
       }
     ]
   preprocessorDirectives:
@@ -370,7 +409,7 @@ repository:
           }
           {
             name: 'entity.name.function.preprocessor.csound'
-            match: '[a-zA-Z_]\\w*'
+            match: '[A-Z_a-z]\\w*'
           }
           {
             begin: '\\('
@@ -378,7 +417,7 @@ repository:
             patterns: [
               {
                 name: 'variable.parameter.preprocessor.csound'
-                match: '\\w+\\b'
+                match: '[A-Z_a-z]\\w*\\b'
               }
             ]
           }
@@ -419,12 +458,6 @@ repository:
         patterns: [
           {
             include: '#macroCalls'
-          }
-          {
-            name: 'constant.character.escape.csound'
-            # From
-            # https://github.com/csound/csound/blob/master/Opcodes/fout.c#L1407
-            match: '%\\d*(\\.\\d+)?[cdhilouxX]'
           }
           {
             include: '#escapeSequences'
