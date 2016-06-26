@@ -374,11 +374,11 @@ repository:
           }
           {
             name: 'string.quoted.include.csound'
-            begin: '"'
+            begin: '([^ \\t])'
             beginCaptures:
               0:
                 name: 'punctuation.definition.string.begin.csound'
-            end: '"'
+            end: '\\1'
             endCaptures:
               0:
                 name: 'punctuation.definition.string.end.csound'
