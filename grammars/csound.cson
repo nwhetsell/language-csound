@@ -161,18 +161,6 @@ repository:
   macroCalls:
     patterns: [
       {
-        begin: '(\\$[A-Z_a-z]\\w*\\.?)(\\()'
-        beginCaptures:
-          1:
-            name: 'entity.name.function.preprocessor.csound'
-          2:
-            name: 'punctuation.preprocessor.csound'
-        end: '\\)'
-        endCaptures:
-          0:
-            name: 'punctuation.preprocessor.csound'
-      }
-      {
         name: 'entity.name.function.preprocessor.csound'
         match: '\\$[A-Z_a-z]\\w*(?:\\.|\\b)'
       }
