@@ -36,12 +36,10 @@ This package uses the list of opcodes in [resources/opcode-completions.json](htt
 
 3. Follow the instructions at https://github.com/nwhetsell/csound-api#installing to install the csound-api [Node.js Addon](https://nodejs.org/api/addons.html).
 
-4. Install the [bindings](https://www.npmjs.com/package/bindings), [libxmljs](https://www.npmjs.com/package/libxmljs), and [strip-bom](https://www.npmjs.com/package/strip-bom) packages using
+4. Install the [libxmljs](https://www.npmjs.com/package/libxmljs) and [strip-bom](https://www.npmjs.com/package/strip-bom) packages using
 
     ```sh
-    npm install bindings
-    npm install libxmljs
-    npm install strip-bom
+    npm install libxmljs strip-bom
     ```
 
 5. Run the script [update-opcode-completions.js](https://github.com/nwhetsell/language-csound/blob/master/resources/update-opcode-completions.js) using
