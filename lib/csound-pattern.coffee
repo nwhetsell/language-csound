@@ -1,7 +1,6 @@
 {CompositeDisposable} = require 'atom'
 # The first-mate module does not export the Pattern class.
-path = require 'path'
-Pattern = require path.join(atom.config.resourcePath, 'node_modules', 'first-mate', 'lib', 'pattern.js')
+Pattern = require (require 'path').join(atom.config.resourcePath, 'node_modules', 'first-mate', 'lib', 'pattern.js')
 
 module.exports =
 class CsoundPattern extends Pattern
