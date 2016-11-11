@@ -15,8 +15,7 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "first-mate": "latest",
-    "season": "latest"
+    "first-mate": "latest"
   },
   "providedServices": {
     "autocomplete.provider": {
