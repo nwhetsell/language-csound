@@ -8,37 +8,37 @@ const stripBom = require('strip-bom');
 // completions.
 class OpcodeInfo {
   constructor(opcodeEntry) {
-  this.name = opcodeEntry.opname;
-  this.inputTypeStrings = [];
-  this.inputTypeStringsByLengthByOutputTypeString = {};
-  this.addInfoForOpcodeEntry(opcodeEntry);
+    this.name = opcodeEntry.opname;
+    this.inputTypeStrings = [];
+    this.inputTypeStringsByLengthByOutputTypeString = {};
+    this.addInfoForOpcodeEntry(opcodeEntry);
   }
 
   addInfoForOpcodeEntry(opcodeEntry) {
-      // Ignore array inputs.
-      const inputTypeString = opcodeEntry.intypes.replace(/\[\]/g, '');
-      if (this.inputTypeStrings.indexOf(inputTypeString) < 0)
-        this.inputTypeStrings.push(inputTypeString);
-      // According to
-      // https://github.com/csound/csound/blob/develop/Engine/entry1.c, the
-      // output type 's' is deprecated but means either an a- or k-rate output.
-      const outputTypes = (opcodeEntry.outypes === 's') ? ['a', 'k'] : [opcodeEntry.outypes];
-      for (const outputType of outputTypes) {
-        let inputTypeStringsByLength = this.inputTypeStringsByLengthByOutputTypeString[outputType];
-        if (inputTypeStringsByLength) {
-          const inputTypeStrings = inputTypeStringsByLength[inputTypeString.length];
-          if (inputTypeStrings) {
-            if (inputTypeStrings.indexOf(inputTypeString) < 0)
-              inputTypeStrings.push(inputTypeString);
-          } else {
-            inputTypeStringsByLength[inputTypeString.length] = [inputTypeString];
-          }
+    // Ignore array inputs.
+    const inputTypeString = opcodeEntry.intypes.replace(/\[\]/g, '');
+    if (this.inputTypeStrings.indexOf(inputTypeString) < 0)
+      this.inputTypeStrings.push(inputTypeString);
+    // According to
+    // https://github.com/csound/csound/blob/develop/Engine/entry1.c, the output
+    // type 's' is deprecated but means either an a- or k-rate output.
+    const outputTypes = (opcodeEntry.outypes === 's') ? ['a', 'k'] : [opcodeEntry.outypes];
+    for (const outputType of outputTypes) {
+      let inputTypeStringsByLength = this.inputTypeStringsByLengthByOutputTypeString[outputType];
+      if (inputTypeStringsByLength) {
+        const inputTypeStrings = inputTypeStringsByLength[inputTypeString.length];
+        if (inputTypeStrings) {
+          if (inputTypeStrings.indexOf(inputTypeString) < 0)
+            inputTypeStrings.push(inputTypeString);
         } else {
-          inputTypeStringsByLength = {};
           inputTypeStringsByLength[inputTypeString.length] = [inputTypeString];
-          this.inputTypeStringsByLengthByOutputTypeString[outputType] = inputTypeStringsByLength;
         }
+      } else {
+        inputTypeStringsByLength = {};
+        inputTypeStringsByLength[inputTypeString.length] = [inputTypeString];
+        this.inputTypeStringsByLengthByOutputTypeString[outputType] = inputTypeStringsByLength;
       }
+    }
   }
 }
 
@@ -146,166 +146,167 @@ const separator = '|';
 const closingBracket = ')';
 class InputArgumentInfo {
   constructor(inputTypeStrings, nameArray) {
-  this.nameArray = nameArray;
-  this.typeStringsArray = [];
-  this.listArray = [];
-  this.optionalArray = [];
-  // Resolve input type characters based on
-  // <https://github.com/csound/csound/blob/develop/Engine/entry1.c>. The
-  // opcodes framebuffer, hdf5read, hdf5write, xin, and xout use the * type
-  // character, which is documented in the release notes of Csound 6
-  // <https://csound.github.io/docs/manual/PrefaceWhatsNew.html> as indicating
-  // “a var-arg list of any-type”.
+    this.nameArray = nameArray;
+    this.typeStringsArray = [];
+    this.listArray = [];
+    this.optionalArray = [];
+    // Resolve input type characters based on
+    // <https://github.com/csound/csound/blob/develop/Engine/entry1.c>. The
+    // opcodes framebuffer, hdf5read, hdf5write, xin, and xout use the * type
+    // character, which is documented in the release notes of Csound 6
+    // <https://csound.github.io/docs/manual/PrefaceWhatsNew.html> as indicating
+    // “a var-arg list of any-type”.
 
-  // i  i-time scalar
-  // o  optional i-time scalar defaulting to 0
-  // j  optional i-time scalar defaulting to -1
-  // v  optional i-time scalar defaulting to 0.5
-  // p  optional i-time scalar defaulting to 1
-  // q  optional i-time scalar defaulting to 10
-  // h  optional i-time scalar defaulting to 127
-  // m  comma-separated list of any number of i-time scalars
+    // i  i-time scalar
+    // o  optional i-time scalar defaulting to 0
+    // j  optional i-time scalar defaulting to -1
+    // v  optional i-time scalar defaulting to 0.5
+    // p  optional i-time scalar defaulting to 1
+    // q  optional i-time scalar defaulting to 10
+    // h  optional i-time scalar defaulting to 127
+    // m  comma-separated list of any number of i-time scalars
 
-  // k  k-rate scalar
-  // O  optional k-rate scalar defaulting to 0
-  // J  optional k-rate scalar defaulting to -1
-  // V  optional k-rate scalar defaulting to 0.5
-  // P  optional k-rate scalar defaulting to 1
-  // z  comma-separated list of k-rate scalars
+    // k  k-rate scalar
+    // O  optional k-rate scalar defaulting to 0
+    // J  optional k-rate scalar defaulting to -1
+    // V  optional k-rate scalar defaulting to 0.5
+    // P  optional k-rate scalar defaulting to 1
+    // z  comma-separated list of k-rate scalars
 
-  // a  a-rate vector
-  // y  comma-separated list of a-rate vectors
+    // a  a-rate vector
+    // y  comma-separated list of a-rate vectors
 
-  // S  string
-  // W  comma-separated list of strings
+    // S  string
+    // W  comma-separated list of strings
 
-  // T  i-time scalar or string
-  // U  i-time scalar, k-rate scalar, or string
-  // x  k-rate scalar or a-rate vector
+    // T  i-time scalar or string
+    // U  i-time scalar, k-rate scalar, or string
+    // x  k-rate scalar or a-rate vector
 
-  // M  comma-separated list of i-time scalars, k-rate scalars, and a-rate
-  //    vectors
-  // N  comma-separated list of i-time scalars, k-rate scalars, a-rate vectors,
-  //    and strings
-  // n  comma-separated list of an odd number of i-time scalars
-  // Z  comma-separated list of alternating k-rate scalars and a-rate vectors,
-  //    used by mac and outch
+    // M  comma-separated list of i-time scalars, k-rate scalars, and a-rate
+    //    vectors
+    // N  comma-separated list of i-time scalars, k-rate scalars, a-rate vectors,
+    //    and strings
+    // n  comma-separated list of an odd number of i-time scalars
+    // Z  comma-separated list of alternating k-rate scalars and a-rate vectors,
+    //    used by mac and outch
 
-  // f  frequency-domain variable, used by phase vocoder opcodes
-  // w  frequency-domain variable, used by specaddm, specdiff, specdisp,
-  //    specfilt, spechist, specptrk, specscal, specsum, and spectrum
-  // B  Boolean, used by cggoto, cigoto, cingoto, and ckgoto
-  // l  label, used by goto, igoto, kgoto, loop_ge, loop_gt, loop_le, loop_lt,
-  //    rigoto, and tigoto
+    // f  frequency-domain variable, used by phase vocoder opcodes
+    // w  frequency-domain variable, used by specaddm, specdiff, specdisp,
+    //    specfilt, spechist, specptrk, specscal, specsum, and spectrum
+    // B  Boolean, used by cggoto, cigoto, cingoto, and ckgoto
+    // l  label, used by goto, igoto, kgoto, loop_ge, loop_gt, loop_le, loop_lt,
+    //    rigoto, and tigoto
 
-  // .  required argument of any type, used by init (for arrays), lenarray,
-  //    print_type, and slicearray
-  // ?  optional argument of any type, possibly unused
-  // *  comma-separated list of arguments of any type, used by changed2,
-  //    framebuffer, hdf5read, hdf5write, xin, and xout
+    // .  required argument of any type, used by init (for arrays), lenarray,
+    //    print_type, and slicearray
+    // ?  optional argument of any type, possibly unused
+    // *  comma-separated list of arguments of any type, used by changed2,
+    //    framebuffer, hdf5read, hdf5write, xin, and xout
 
-  const typeInfoByType = {
-    'a': {strings: ['a'], optional: false, list: false},
-    'B': {strings: ['B'], optional: false, list: false},
-    'f': {strings: ['f'], optional: false, list: false},
-    'h': {strings: ['i'], optional: true, list: false},
-    'i': {strings: ['i'], optional: false, list: false},
-    'J': {strings: ['k'], optional: false, list: false},
-    'j': {strings: ['i'], optional: true, list: false},
-    'k': {strings: ['k'], optional: false, list: false},
-    'l': {strings: ['l'], optional: false, list: false},
-    'M': {strings: ['a', 'i', 'k'], optional: false, list: true},
-    'm': {strings: ['i'], optional: false, list: true},
-    'N': {strings: ['a', 'i', 'k', 'S'], optional: false, list: true},
-    'n': {strings: ['i'], optional: false, list: true},
-    'O': {strings: ['k'], optional: true, list: false},
-    'o': {strings: ['i'], optional: true, list: false},
-    'P': {strings: ['k'], optional: true, list: false},
-    'p': {strings: ['i'], optional: true, list: false},
-    'q': {strings: ['i'], optional: true, list: false},
-    'S': {strings: ['S'], optional: false, list: false},
-    'T': {strings: ['i', 'S'], optional: false, list: false},
-    'U': {strings: ['i', 'k', 'S'], optional: false, list: false},
-    'V': {strings: ['k'], optional: true, list: false},
-    'v': {strings: ['i'], optional: true, list: false},
-    'W': {strings: ['S'], optional: false, list: true},
-    'w': {strings: ['w'], optional: false, list: false},
-    'x': {strings: ['a', 'k'], optional: false, list: false},
-    'y': {strings: ['a'], optional: false, list: true},
-    'Z': {strings: ['a', 'k'], optional: false, list: true},
-    'z': {strings: ['k'], optional: false, list: true},
-    '.': {strings: ['a', 'i', 'k', 'S'], optional: false, list: false}
-  };
-  for (const inputTypeString of inputTypeStrings) {
-    if (inputTypeString.length > 0) {
-      const inputTypes = inputTypeString.match(/(?:[aBfhijklOoPpqSTUVvwx\.]|[MmNnWyZz]+)/g);
-      for (let i = 0, length = inputTypes.length; i < length; i++) {
-        const typeInfo = typeInfoByType[inputTypes[i]];
+    const typeInfoByType = {
+      'a': {strings: ['a'], optional: false, list: false},
+      'B': {strings: ['B'], optional: false, list: false},
+      'f': {strings: ['f'], optional: false, list: false},
+      'h': {strings: ['i'], optional: true, list: false},
+      'i': {strings: ['i'], optional: false, list: false},
+      'J': {strings: ['k'], optional: false, list: false},
+      'j': {strings: ['i'], optional: true, list: false},
+      'k': {strings: ['k'], optional: false, list: false},
+      'l': {strings: ['l'], optional: false, list: false},
+      'M': {strings: ['a', 'i', 'k'], optional: false, list: true},
+      'm': {strings: ['i'], optional: false, list: true},
+      'N': {strings: ['a', 'i', 'k', 'S'], optional: false, list: true},
+      'n': {strings: ['i'], optional: false, list: true},
+      'O': {strings: ['k'], optional: true, list: false},
+      'o': {strings: ['i'], optional: true, list: false},
+      'P': {strings: ['k'], optional: true, list: false},
+      'p': {strings: ['i'], optional: true, list: false},
+      'q': {strings: ['i'], optional: true, list: false},
+      'S': {strings: ['S'], optional: false, list: false},
+      'T': {strings: ['i', 'S'], optional: false, list: false},
+      'U': {strings: ['i', 'k', 'S'], optional: false, list: false},
+      'V': {strings: ['k'], optional: true, list: false},
+      'v': {strings: ['i'], optional: true, list: false},
+      'W': {strings: ['S'], optional: false, list: true},
+      'w': {strings: ['w'], optional: false, list: false},
+      'x': {strings: ['a', 'k'], optional: false, list: false},
+      'y': {strings: ['a'], optional: false, list: true},
+      'Z': {strings: ['a', 'k'], optional: false, list: true},
+      'z': {strings: ['k'], optional: false, list: true},
+      '.': {strings: ['a', 'i', 'k', 'S'], optional: false, list: false}
+    };
+    for (const inputTypeString of inputTypeStrings) {
+      if (inputTypeString.length > 0) {
+        const inputTypes = inputTypeString.match(/(?:[aBfhijklOoPpqSTUVvwx\.]|[MmNnWyZz]+)/g);
+        for (let i = 0, length = inputTypes.length; i < length; i++) {
+          const typeInfo = typeInfoByType[inputTypes[i]];
 
-        const typeStrings = this.typeStringsArray[i];
-        if (typeStrings) {
-          for (const string of typeInfo.strings) {
-            if (typeStrings.indexOf(string) < 0)
-              typeStrings.push(string);
+          const typeStrings = this.typeStringsArray[i];
+          if (typeStrings) {
+            for (const string of typeInfo.strings) {
+              if (typeStrings.indexOf(string) < 0)
+                typeStrings.push(string);
+            }
+          } else {
+            this.typeStringsArray[i] = typeInfo.strings.slice();
           }
-        } else {
-          this.typeStringsArray[i] = typeInfo.strings.slice();
-        }
 
-        this.listArray[i] = typeInfo.list;
-        this.optionalArray[i] = typeInfo.optional;
+          this.listArray[i] = typeInfo.list;
+          this.optionalArray[i] = typeInfo.optional;
+        }
       }
     }
   }
-}
-  get displayText() {
-      const length = this.typeStringsArray.length;
-      if (length === 0)
-        return '';
 
-      const components = [];
-      for (let i = 0; i < length; i++) {
-        let string = this.typeStringsArray[i].join(separator);
-        if (string.length > 1)
-          string = openingBracket + string + closingBracket;
-        if (this.nameArray[i])
-          string += this.nameArray[i];
-        components.push(string);
-      }
-      return ' ' + components.join(', ');
+  get displayText() {
+    const length = this.typeStringsArray.length;
+    if (length === 0)
+      return '';
+
+    const components = [];
+    for (let i = 0; i < length; i++) {
+      let string = this.typeStringsArray[i].join(separator);
+      if (string.length > 1)
+        string = openingBracket + string + closingBracket;
+      if (this.nameArray[i])
+        string += this.nameArray[i];
+      components.push(string);
+    }
+    return ' ' + components.join(', ');
   }
 
   get snippet() {
-      const length = this.typeStringsArray.length;
-      if (length === 0)
-        return '';
+    const length = this.typeStringsArray.length;
+    if (length === 0)
+      return '';
 
-      let snippet = '';
-      let optionalIndex = null;
-      for (let i = 0; i < length; i++) {
-        let string = this.typeStringsArray[i].join(separator);
-        if (string.length > 1)
-          string = openingBracket + string + closingBracket;
-        if (this.nameArray[i])
-          string += this.nameArray[i];
-        if (this.listArray[i])
-          string += '…';
-        if (i === 0) {
-          snippet +=  '${1:' + string;
-        } else if (optionalIndex === null) {
-          if (this.optionalArray[i]) {
-            optionalIndex = i - 1;
-            snippet += '/*, ' + string;
-          } else {
-            snippet += '}, ${' + (i + 1) + ':' + string;
-          }
+    let snippet = '';
+    let optionalIndex = null;
+    for (let i = 0; i < length; i++) {
+      let string = this.typeStringsArray[i].join(separator);
+      if (string.length > 1)
+        string = openingBracket + string + closingBracket;
+      if (this.nameArray[i])
+        string += this.nameArray[i];
+      if (this.listArray[i])
+        string += '…';
+      if (i === 0) {
+        snippet +=  '${1:' + string;
+      } else if (optionalIndex === null) {
+        if (this.optionalArray[i]) {
+          optionalIndex = i - 1;
+          snippet += '/*, ' + string;
         } else {
-          snippet += ', ' + string;
+          snippet += '}, ${' + (i + 1) + ':' + string;
         }
+      } else {
+        snippet += ', ' + string;
       }
-      if (optionalIndex !== null)
-        snippet += '*/';
-      return ' ' + snippet + '}';
+    }
+    if (optionalIndex !== null)
+      snippet += '*/';
+    return ' ' + snippet + '}';
   }
 }
 
