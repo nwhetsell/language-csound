@@ -567,6 +567,24 @@
       "type": "function"
     },
     {
+      "leftLabel": "i",
+      "snippet": "centroid ${1:iSignal}",
+      "displayText": "centroid iSignal",
+      "opcode": "centroid",
+      "description": "Calculate the spectral centroid of a signal.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/centroid.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "centroid ${1:kSignal}",
+      "displayText": "centroid kSignal",
+      "opcode": "centroid",
+      "description": "Calculate the spectral centroid of a signal.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/centroid.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "centroid ${1:aSignal}, ${2:ktrig}, ${3:ifftsize}",
       "displayText": "centroid aSignal, ktrig, ifftsize",
@@ -710,8 +728,8 @@
     },
     {
       "leftLabel": "iiiiii",
-      "snippet": "chnparams ${1:S}",
-      "displayText": "chnparams S",
+      "snippet": "chnparams ${1:Sname}",
+      "displayText": "chnparams Sname",
       "opcode": "chnparams",
       "description": "Query parameters of a channel.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/chnparams.html",
@@ -1179,6 +1197,42 @@
       "opcode": "dconv",
       "description": "A direct convolution opcode.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/dconv.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "dct ${1:iin}",
+      "displayText": "dct iin",
+      "opcode": "dct",
+      "description": "Discrete Cosine Transform of a sample array (type-II DCT)",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/dct.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "dct ${1:kin}",
+      "displayText": "dct kin",
+      "opcode": "dct",
+      "description": "Discrete Cosine Transform of a sample array (type-II DCT)",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/dct.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "dctinv ${1:iin}",
+      "displayText": "dctinv iin",
+      "opcode": "dctinv",
+      "description": "Inverse Discrete Cosine Transform of a sample array (type-III DCT)",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/dctinv.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "dctinv ${1:kin}",
+      "displayText": "dctinv kin",
+      "opcode": "dctinv",
+      "description": "Inverse Discrete Cosine Transform of a sample array (type-III DCT)",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/dctinv.html",
       "type": "function"
     },
     {
@@ -2196,8 +2250,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "fout ${1:(S|i)filename}, ${2:iformat}, ${3:aout1…}",
-      "displayText": "fout (S|i)filename, iformat, aout1",
+      "snippet": "fout ${1:Sfilename}, ${2:iformat}, ${3:aout1…}",
+      "displayText": "fout Sfilename, iformat, aout1",
       "opcode": "fout",
       "description": "Outputs a-rate signals to an arbitrary number of channels.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/fout.html",
@@ -2279,6 +2333,15 @@
       "opcode": "ftfree",
       "description": "Deletes function table.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/ftfree.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "ftgen ${1:iFunctionTable}, ${2:itime}, ${3:isize}, ${4:(S|i)gen}, ${5:iarga}",
+      "displayText": "ftgen iFunctionTable, itime, isize, (S|i)gen, iarga",
+      "opcode": "ftgen",
+      "description": "Generate a score function table from within the orchestra.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/ftgen.html",
       "type": "function"
     },
     {
@@ -2494,6 +2557,15 @@
       "opcode": "getcol",
       "description": "Gets a given column from a 2-dimensional array as a vector.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/getcol.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S",
+      "snippet": "getftargs ${1:iftno}, ${2:ktrig}",
+      "displayText": "getftargs iftno, ktrig",
+      "opcode": "getftargs",
+      "description": "Fill a string variable with the arguments used to create a function table at k-rate.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/getftargs.html",
       "type": "function"
     },
     {
@@ -3033,8 +3105,8 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "jitter2 ${1:ktotamp}, ${2:kamp1}, ${3:kcps1}, ${4:kamp2}, ${5:kcps2}, ${6:kamp3}, ${7:kcps3}",
-      "displayText": "jitter2 ktotamp, kamp1, kcps1, kamp2, kcps2, kamp3, kcps3",
+      "snippet": "jitter2 ${1:ktotamp}, ${2:kamp1}, ${3:kcps1}, ${4:kamp2}, ${5:kcps2}, ${6:kamp3}, ${7:kcps3/*, iopt*/}",
+      "displayText": "jitter2 ktotamp, kamp1, kcps1, kamp2, kcps2, kamp3, kcps3, iopt",
       "opcode": "jitter2",
       "description": "Generates a segmented line with user-controllable random segments.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/jitter2.html",
@@ -3718,6 +3790,24 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]",
+      "snippet": "mfb ${1:iin}, ${2:ilow}, ${3:ihigh}, ${4:ibands}",
+      "displayText": "mfb iin, ilow, ihigh, ibands",
+      "opcode": "mfb",
+      "description": "Mel scale filterbank for spectral magnitudes.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mfb.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "mfb ${1:kin}, ${2:klow}, ${3:khigh}, ${4:ibands}",
+      "displayText": "mfb kin, klow, khigh, ibands",
+      "opcode": "mfb",
+      "description": "Mel scale filterbank for spectral magnitudes.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mfb.html",
+      "type": "function"
+    },
+    {
       "snippet": "midglobal ${1:Ssource}, ${2:instrnum…}",
       "displayText": "midglobal Ssource, instrnum",
       "opcode": "midglobal",
@@ -4077,7 +4167,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "a…",
+      "leftLabel": "a[]a…",
       "snippet": "monitor",
       "displayText": "monitor",
       "opcode": "monitor",
@@ -7376,8 +7466,8 @@
     },
     {
       "leftLabel": "w",
-      "snippet": "spectrum ${1:iSignal}, ${2:iprd}, ${3:iocts/*, ifrqa, iq, ihann, idbout, idsprd*/}",
-      "displayText": "spectrum iSignal, iprd, iocts, ifrqa, iq, ihann, idbout, idsprd",
+      "snippet": "spectrum ${1:(a|k)Signal}, ${2:iprd}, ${3:iocts}, ${4:ifrqa/*, iq, ihann, idbout, idsprd, idsinrs*/}",
+      "displayText": "spectrum (a|k)Signal, iprd, iocts, ifrqa, iq, ihann, idbout, idsprd, idsinrs",
       "opcode": "spectrum",
       "description": "Generate a constant-Q, exponentially-spaced DFT.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/spectrum.html",
@@ -7697,8 +7787,8 @@
     },
     {
       "leftLabel": "a…",
-      "snippet": "subinstr ${1:(S|i)nstrnum}, ${2:i4…}",
-      "displayText": "subinstr (S|i)nstrnum, i4",
+      "snippet": "subinstr ${1:(S|i)nstrnum}, ${2:(a|i|k|S)4…}",
+      "displayText": "subinstr (S|i)nstrnum, (a|i|k|S)4",
       "opcode": "subinstr",
       "description": "Creates and runs a numbered instrument instance.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/subinstr.html",
@@ -7706,8 +7796,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "subinstrinit ${1:(S|i)nstrnum}, ${2:i4…}",
-      "displayText": "subinstrinit (S|i)nstrnum, i4",
+      "snippet": "subinstrinit ${1:(S|i)nstrnum}, ${2:(a|i|k|S)4…}",
+      "displayText": "subinstrinit (S|i)nstrnum, (a|i|k|S)4",
       "opcode": "subinstrinit",
       "description": "Creates and runs a numbered instrument instance at init-time.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/subinstrinit.html",

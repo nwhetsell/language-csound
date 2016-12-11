@@ -407,6 +407,7 @@ describe 'language-csound', ->
     it 'tokenizes global values', ->
       globalValues = [
         '0dbfs'
+        'A4'
         'kr'
         'ksmps'
         'nchnls'

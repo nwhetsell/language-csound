@@ -12,9 +12,8 @@ The [Csound grammar](https://github.com/nwhetsell/language-csound/blob/master/gr
 
 ```sh
 cd ~/.atom/packages/language-csound/grammars
-curl https://bitbucket.org/birkenfeld/pygments-main/raw/tip/pygments/regexopt.py > regexopt.py
-curl https://bitbucket.org/birkenfeld/pygments-main/raw/tip/pygments/lexers/_csound_builtins.py > _csound_builtins.py
-patch < _csound_builtins.patch
+curl https://bitbucket.org/nwhetsell/pygments-main/raw/tip/pygments/regexopt.py > regexopt.py
+curl https://bitbucket.org/nwhetsell/pygments-main/raw/tip/pygments/lexers/_csound_builtins.py > _csound_builtins.py
 python update_csound_grammar.py
 ```
 

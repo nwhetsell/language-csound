@@ -6,15 +6,15 @@ const stripBom = require('strip-bom');
 
 // Use OpcodeInfo objects to organize opcode information for creating
 // completions.
-function OpcodeInfo(opcodeEntry) {
+class OpcodeInfo {
+  constructor(opcodeEntry) {
   this.name = opcodeEntry.opname;
   this.inputTypeStrings = [];
   this.inputTypeStringsByLengthByOutputTypeString = {};
   this.addInfoForOpcodeEntry(opcodeEntry);
-}
-Object.defineProperties(OpcodeInfo.prototype, {
-  addInfoForOpcodeEntry: {
-    value: opcodeEntry => {
+  }
+
+  addInfoForOpcodeEntry(opcodeEntry) {
       // Ignore array inputs.
       const inputTypeString = opcodeEntry.intypes.replace(/\[\]/g, '');
       if (this.inputTypeStrings.indexOf(inputTypeString) < 0)
@@ -39,9 +39,8 @@ Object.defineProperties(OpcodeInfo.prototype, {
           this.inputTypeStringsByLengthByOutputTypeString[outputType] = inputTypeStringsByLength;
         }
       }
-    }
   }
-});
+}
 
 // Create a map from opcode names to opcode properties.
 const ignoredOpcodes = [
@@ -142,7 +141,11 @@ for (const opcodeEntry of opcodeList) {
 
 // Use InputArgumentInfo objects to organize input argument types and names for
 // completions.
-function InputArgumentInfo(inputTypeStrings, nameArray) {
+const openingBracket = '(';
+const separator = '|';
+const closingBracket = ')';
+class InputArgumentInfo {
+  constructor(inputTypeStrings, nameArray) {
   this.nameArray = nameArray;
   this.typeStringsArray = [];
   this.listArray = [];
@@ -151,8 +154,8 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
   // <https://github.com/csound/csound/blob/develop/Engine/entry1.c>. The
   // opcodes framebuffer, hdf5read, hdf5write, xin, and xout use the * type
   // character, which is documented in the release notes of Csound 6
-  // <http://www.csounds.com/manual/html/PrefaceWhatsNew.html> as indicating “a
-  // var-arg list of any-type”.
+  // <https://csound.github.io/docs/manual/PrefaceWhatsNew.html> as indicating
+  // “a var-arg list of any-type”.
 
   // i  i-time scalar
   // o  optional i-time scalar defaulting to 0
@@ -255,13 +258,7 @@ function InputArgumentInfo(inputTypeStrings, nameArray) {
     }
   }
 }
-
-const openingBracket = '(';
-const separator = '|';
-const closingBracket = ')';
-Object.defineProperties(InputArgumentInfo.prototype, {
-  displayText: {
-    get: () => {
+  get displayText() {
       const length = this.typeStringsArray.length;
       if (length === 0)
         return '';
@@ -276,11 +273,9 @@ Object.defineProperties(InputArgumentInfo.prototype, {
         components.push(string);
       }
       return ' ' + components.join(', ');
-    }
-  },
+  }
 
-  snippet: {
-    get: () => {
+  get snippet() {
       const length = this.typeStringsArray.length;
       if (length === 0)
         return '';
@@ -311,9 +306,8 @@ Object.defineProperties(InputArgumentInfo.prototype, {
       if (optionalIndex !== null)
         snippet += '*/';
       return ' ' + snippet + '}';
-    }
   }
-});
+}
 
 function formatOutputTypeString(string) {
   string = string.replace(/m+/g, 'a…');
