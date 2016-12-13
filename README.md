@@ -8,7 +8,7 @@ This [Atom](https://atom.io) package adds syntax highlighting, snippets, and aut
 
 ## Updating the Opcode Regex Pattern
 
-The [Csound grammar](https://github.com/nwhetsell/language-csound/blob/master/grammars/csound.cson) contains a long regex pattern that matches Csound’s built-in opcodes. This regex pattern is generated using tools from [Pygments](http://pygments.org). To update the regex pattern on macOS, run in a Terminal
+The [Csound grammar](https://github.com/nwhetsell/language-csound/blob/master/grammars/csound.cson) contains two long regex patterns that match Csound’s built-in opcodes. These regex patterns are generated using tools from [Pygments](http://pygments.org). To update the regex patterns on macOS, enter in Terminal
 
 ```sh
 cd ~/.atom/packages/language-csound/grammars
