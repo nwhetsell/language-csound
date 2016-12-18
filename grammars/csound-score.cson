@@ -1,76 +1,46 @@
-'scopeName': 'source.csound-score'
+'name': 'Csound Score'
+scopeName: 'source.csound-score'
 fileTypes: ['sco']
-name: 'Csound Score'
+
 patterns: [
+  {include: 'source.csound#preprocessorDirectives'}
+  {include: 'source.csound#commentsAndMacroCalls'}
   {
-    include: 'source.csound#preprocessorDirectives'
-  }
-  {
-    include: 'source.csound#commentsAndMacroCalls'
-  }
-  {
-    name: 'keyword.control.csound-score'
+    name:  'keyword.control.csound-score'
     match: '[abefimq-tv-z]|[nN][pP]?'
   }
+  {include: 'source.csound#numbers'}
   {
-    include: 'source.csound#numbers'
-  }
-  {
-    name: 'string.quoted.csound-score'
+    name:  'string.quoted.csound-score'
     begin: '"'
-    beginCaptures:
-      0:
-        name: 'punctuation.definition.string.begin.csound-score'
-    end: '"'
-    endCaptures:
-      0:
-        name: 'punctuation.definition.string.end.csound-score'
-    patterns: [
-      {
-        include: 'source.csound#macroCalls'
-      }
-    ]
-  }
-  {
-    name: 'meta.braced-loop.csound-score'
+    end:   '"'
+    beginCaptures: 0: name: 'punctuation.definition.string.begin.csound-score'
+    endCaptures:   0: name: 'punctuation.definition.string.end.csound-score'
+    patterns: [include: 'source.csound#macroCalls']
+  },{
+    name:  'meta.braced-loop.csound-score'
     begin: '{'
-    beginCaptures:
-      0:
-        name: 'punctuation.csound-score'
-    end: '}'
-    endCaptures:
-      0:
-        name: 'punctuation.csound-score'
+    end:   '}'
+    beginCaptures: 0: name: 'punctuation.csound-score'
+    endCaptures:   0: name: 'punctuation.csound-score'
     patterns: [
       {
-        name: 'meta.braced-loop-details.csound-score'
+        name:  'meta.braced-loop-details.csound-score'
         begin: '\\d+'
-        beginCaptures:
-          0:
-            name: 'constant.numeric.integer.decimal.csound-score'
-        end: '(?=})'
+        end:   '(?=})'
+        beginCaptures: 0: name: 'constant.numeric.integer.decimal.csound-score'
         patterns: [
           {
-            name: 'meta.braced-loop-macro-name.csound-score'
+            name:  'meta.braced-loop-macro-name.csound-score'
             begin: '[A-Z_a-z]\\w*\\b'
-            beginCaptures:
-              0:
-                name: 'entity.name.function.preprocessor.csound-score'
-            end: '(?=})'
-            patterns: [
-              {
-                include: '$self'
-              }
-            ]
+            end:   '(?=})'
+            beginCaptures: 0: name: 'entity.name.function.preprocessor.csound-score'
+            patterns: [include: '$self']
           }
-          {
-            include: '#comments'
-          }
+          {include: '#comments'}
         ]
       }
-      {
-        include: '#comments'
-      }
+      {include: '#comments'}
     ]
   }
 ]
