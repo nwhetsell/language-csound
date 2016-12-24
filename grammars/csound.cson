@@ -3,7 +3,7 @@ scopeName: 'source.csound'
 fileTypes: ['orc', 'udo']
 
 patterns: [
-  {include: '#commentsAndMacroCalls'}
+  {include: '#commentsAndMacroUses'}
   {
     name:  'meta.instrument-block.csound'
     begin: '\\b(?=instr\\b)'
@@ -20,10 +20,10 @@ patterns: [
             name:  'entity.name.function.csound'
             match: '\\d+|[A-Z_a-z]\\w*'
           }
-          {include: '#commentsAndMacroCalls'}
+          {include: '#commentsAndMacroUses'}
         ]
       }
-      {include: '#commentsAndMacroCalls'}
+      {include: '#commentsAndMacroUses'}
       {include: '#labels'}
       {include: '#partialExpressions'}
     ]
@@ -50,15 +50,15 @@ patterns: [
                 begin: '\\b(?:0|[afijkKoOpPStV\\[\\]]+)\\b'
                 end:   ',|(?=\\n)'
                 beginCaptures: 0: name: 'storage.type.csound'
-                patterns: [include: '#commentsAndMacroCalls']
+                patterns: [include: '#commentsAndMacroUses']
               }
-              {include: '#commentsAndMacroCalls'}
+              {include: '#commentsAndMacroUses'}
             ]
           }
-          {include: '#commentsAndMacroCalls'}
+          {include: '#commentsAndMacroUses'}
         ]
       }
-      {include: '#commentsAndMacroCalls'}
+      {include: '#commentsAndMacroUses'}
       {include: '#labels'}
       {include: '#partialExpressions'}
     ]
@@ -84,10 +84,10 @@ repository:
       }
     ]
 
-  commentsAndMacroCalls:
+  commentsAndMacroUses:
     patterns: [
       {include: '#comments'}
-      {include: '#macroCalls'}
+      {include: '#macroUses'}
     ]
 
   escapeSequences:
@@ -108,7 +108,17 @@ repository:
       }
     ]
 
-  macroCalls:
+  macroNames:
+    patterns: [
+      {
+        match: '([A-Z_a-z]\\w*)|(\\d+\\w*)'
+        captures:
+          1: name: 'entity.name.function.preprocessor.csound'
+          2: name: 'entity.invalid.illegal.preprocessor.csound'
+      }
+    ]
+
+  macroUses:
     patterns: [
       {
         name:  'entity.name.function.preprocessor.csound'
@@ -161,7 +171,7 @@ repository:
           2: name: 'comment.line.csound'
           3: name: 'punctuation.definition.comment.line.csound'
         patterns: [
-          {include: '#commentsAndMacroCalls'}
+          {include: '#commentsAndMacroUses'}
           {include: '#partialExpressions'}
         ]
       },{
@@ -174,7 +184,7 @@ repository:
         endCaptures:
           0: name: 'punctuation.definition.string.end.csound'
         patterns: [
-          {include: '#macroCalls'}
+          {include: '#macroUses'}
           { # https://github.com/csound/csound/search?q=sprints1+path%3AOpcodes+filename%3Afout.c
             name:  'constant.character.escape.csound'
             match: '%(?:\\d*(?:\\.\\d+)?[cdhilouxX]|[!%nNrRtT])|[~^]'
@@ -250,7 +260,7 @@ repository:
         end:   '\\n'
         beginCaptures: 0: name: 'keyword.include.preprocessor.csound'
         patterns: [
-          {include: '#commentsAndMacroCalls'}
+          {include: '#commentsAndMacroUses'}
           {
             name:  'string.quoted.include.csound'
             begin: '([^ \\t])'
@@ -264,14 +274,9 @@ repository:
         end:   '(?<=^\\#)|(?<=[^\\\\]\\#)'
         beginCaptures: 0: name: 'keyword.define.preprocessor.csound'
         patterns: [
-          {include: '#commentsAndMacroCalls'}
+          {include: '#commentsAndMacroUses'}
+          {include: '#macroNames'}
           {
-            name:  'entity.name.function.preprocessor.csound'
-            match: '[A-Z_a-z]\\w*'
-          },{
-            name:  'entity.invalid.illegal.preprocessor.csound'
-            match: '\\d+\\w*'
-          },{
             begin: '\\('
             end:   '\\)'
             patterns: [
@@ -299,14 +304,8 @@ repository:
         end:   '\\n'
         beginCaptures: 0: name: 'keyword.preprocessor.csound'
         patterns: [
-          {include: '#commentsAndMacroCalls'}
-          {
-            name:  'entity.name.function.preprocessor.csound'
-            match: '[A-Z_a-z]\\w*'
-          },{
-            name:  'entity.invalid.illegal.preprocessor.csound'
-            match: '\\d+\\w*'
-          }
+          {include: '#commentsAndMacroUses'}
+          {include: '#macroNames'}
         ]
       }
     ]
@@ -320,7 +319,7 @@ repository:
         beginCaptures: 0: name: 'punctuation.definition.string.begin.csound'
         endCaptures:   0: name: 'punctuation.definition.string.end.csound'
         patterns: [
-          {include: '#macroCalls'}
+          {include: '#macroUses'}
           {include: '#escapeSequences'}
         ]
       }

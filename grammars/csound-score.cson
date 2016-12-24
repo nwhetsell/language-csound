@@ -4,7 +4,7 @@ fileTypes: ['sco']
 
 patterns: [
   {include: 'source.csound#preprocessorDirectives'}
-  {include: 'source.csound#commentsAndMacroCalls'}
+  {include: 'source.csound#commentsAndMacroUses'}
   {
     name:  'keyword.control.csound-score'
     match: '[abefimq-tv-z]|[nN][pP]?'
@@ -16,25 +16,27 @@ patterns: [
     end:   '"'
     beginCaptures: 0: name: 'punctuation.definition.string.begin.csound-score'
     endCaptures:   0: name: 'punctuation.definition.string.end.csound-score'
-    patterns: [include: 'source.csound#macroCalls']
+    patterns: [include: 'source.csound#macroUses']
   },{
     name:  'meta.braced-loop.csound-score'
-    begin: '{'
-    end:   '}'
+    begin: '\\{'
+    end:   '\\}'
     beginCaptures: 0: name: 'punctuation.csound-score'
     endCaptures:   0: name: 'punctuation.csound-score'
     patterns: [
       {
         name:  'meta.braced-loop-details.csound-score'
         begin: '\\d+'
-        end:   '(?=})'
+        end:   '(?=\\})'
         beginCaptures: 0: name: 'constant.numeric.integer.decimal.csound-score'
         patterns: [
           {
             name:  'meta.braced-loop-macro-name.csound-score'
-            begin: '[A-Z_a-z]\\w*\\b'
-            end:   '(?=})'
-            beginCaptures: 0: name: 'entity.name.function.preprocessor.csound-score'
+            begin: '(?:([A-Z_a-z]\\w*)|(\\d+\\w*))\\b'
+            end:   '(?=\\})'
+            beginCaptures:
+              1: name: 'entity.name.function.preprocessor.csound-score'
+              2: name: 'entity.invalid.illegal.preprocessor.csound-score'
             patterns: [include: '$self']
           }
           {include: '#comments'}
