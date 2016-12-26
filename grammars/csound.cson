@@ -185,7 +185,7 @@ repository:
           0: name: 'punctuation.definition.string.end.csound'
         patterns: [
           {include: '#macroUses'}
-          { # https://github.com/csound/csound/search?q=sprints1+path%3AOpcodes+filename%3Afout.c
+          { # https://github.com/csound/csound/search?q=printksset_+path%3AOOps+filename%3Augrw1.c
             name:  'constant.character.escape.csound'
             match: '%(?:\\d*(?:\\.\\d+)?[cdhilouxX]|[!%nNrRtT])|[~^]'
           }
