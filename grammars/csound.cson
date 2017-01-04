@@ -186,7 +186,7 @@ repository:
         patterns: [
           {include: '#macroUses'}
           { # https://github.com/csound/csound/search?q=printksset_+path%3AOOps+filename%3Augrw1.c
-            name:  'constant.character.escape.csound'
+            name:  'constant.character.placeholder.csound'
             match: '%(?:\\d*(?:\\.\\d+)?[cdhilouxX]|[!%nNrRtT])|[~^]'
           }
           {include: '#escapeSequences'}
