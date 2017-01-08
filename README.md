@@ -2,6 +2,8 @@
 
 This [Atom](https://atom.io) package adds syntax highlighting, snippets, and autocompletion to [Csound](https://csound.github.io) files. This package is also used by [GitHub Linguist](https://github.com/github/linguist) to highlight Csound files.
 
+<img src="https://cloud.githubusercontent.com/assets/14102861/21751900/edc9d914-d59c-11e6-8e9f-1bed5260b23c.png" width=581>
+
 ## Contributing
 
 [Open an issue](https://github.com/nwhetsell/language-csound/issues), or [fork this project and make a pull request](https://guides.github.com/activities/forking/).
