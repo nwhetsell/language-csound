@@ -235,7 +235,7 @@ describe 'language-csound', ->
             'meta.opcode-definition.csound'
             'meta.opcode-declaration.csound'
             'meta.opcode-details.csound'
-            'meta.opcode-argument-types.csound'
+            'meta.opcode-type-signature.csound'
             'storage.type.csound'
           ]
           expect(tokens[8]).toEqual value: ',', scopes: [
@@ -243,7 +243,7 @@ describe 'language-csound', ->
             'meta.opcode-definition.csound'
             'meta.opcode-declaration.csound'
             'meta.opcode-details.csound'
-            'meta.opcode-argument-types.csound'
+            'meta.opcode-type-signature.csound'
           ]
           expect(tokens[9]).toEqual value: '/*', scopes: [
             'source.csound'
@@ -266,7 +266,7 @@ describe 'language-csound', ->
             'meta.opcode-definition.csound'
             'meta.opcode-declaration.csound'
             'meta.opcode-details.csound'
-            'meta.opcode-argument-types.csound'
+            'meta.opcode-type-signature.csound'
             'storage.type.csound'
           ]
           expect(tokens[12]).toEqual value: '//', scopes: [
@@ -274,14 +274,15 @@ describe 'language-csound', ->
             'meta.opcode-definition.csound'
             'meta.opcode-declaration.csound'
             'meta.opcode-details.csound'
-            'meta.opcode-argument-types.csound'
+            'meta.opcode-type-signature.csound'
             'comment.line.csound'
             'punctuation.definition.comment.line.csound'
           ]
           expect(tokens[13]).toEqual value: '', scopes: [
             'source.csound'
             'meta.opcode-definition.csound'
-            'meta.opcode-declaration.csound']
+            'meta.opcode-declaration.csound'
+          ]
 
           tokens = lines[1]
           expect(tokens.length).toBe 1
@@ -298,6 +299,373 @@ describe 'language-csound', ->
             'meta.opcode-definition.csound'
             'keyword.other.csound'
           ]
+
+    it 'tokenizes comments', ->
+      lines = grammar.tokenizeLines '''
+        /*
+         * comment
+         */
+        ; comment
+        // comment
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '/*', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.begin.csound'
+      ]
+      tokens = lines[1]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: ' * comment', scopes: [
+        'source.csound'
+        'comment.block.csound'
+      ]
+      tokens = lines[2]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: ' ', scopes: [
+        'source.csound'
+        'comment.block.csound'
+      ]
+      expect(tokens[1]).toEqual value: '*/', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.end.csound'
+      ]
+      tokens = lines[3]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: ';', scopes: [
+        'source.csound'
+        'comment.line.csound'
+        'punctuation.definition.comment.line.csound'
+      ]
+      expect(tokens[1]).toEqual value: ' comment', scopes: [
+        'source.csound'
+        'comment.line.csound'
+      ]
+      tokens = lines[4]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: '//', scopes: [
+        'source.csound'
+        'comment.line.csound'
+        'punctuation.definition.comment.line.csound'
+      ]
+      expect(tokens[1]).toEqual value: ' comment', scopes: [
+        'source.csound'
+        'comment.line.csound'
+      ]
+
+    it 'tokenizes numbers', ->
+      lines = grammar.tokenizeLines '''
+        123
+        0123456789
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '123', scopes: [
+        'source.csound'
+        'constant.numeric.integer.decimal.csound'
+      ]
+      tokens = lines[1]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '0123456789', scopes: [
+        'source.csound'
+        'constant.numeric.integer.decimal.csound'
+      ]
+
+      lines = grammar.tokenizeLines '''
+        0xabcdef0123456789
+        0XABCDEF
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: '0x', scopes: [
+        'source.csound'
+        'storage.type.number.csound'
+      ]
+      expect(tokens[1]).toEqual value: 'abcdef0123456789', scopes: [
+        'source.csound'
+        'constant.numeric.integer.hexadecimal.csound'
+      ]
+      tokens = lines[1]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: '0X', scopes: [
+        'source.csound'
+        'storage.type.number.csound'
+      ]
+      expect(tokens[1]).toEqual value: 'ABCDEF', scopes: [
+        'source.csound'
+        'constant.numeric.integer.hexadecimal.csound'
+      ]
+
+      floats = [
+        '1e2'
+        '3e+4'
+        '5e-6'
+        '7E8'
+        '9E+0'
+        '1E-2'
+        '3.'
+        '4.56'
+        '.789'
+      ]
+      lines = grammar.tokenizeLines(floats.join '\n')
+      for i in [0...lines.length]
+        tokens = lines[i]
+        expect(tokens.length).toBe 1
+        expect(tokens[0]).toEqual value: floats[i], scopes: [
+          'source.csound'
+          'constant.numeric.float.csound'
+        ]
+
+    it 'tokenizes quoted strings', ->
+      tokens = (grammar.tokenizeLines '"characters$MACRO."')[0]
+      expect(tokens.length).toBe 4
+      expect(tokens[0]).toEqual value: '"', scopes: [
+        'source.csound'
+        'string.quoted.csound'
+        'punctuation.definition.string.begin.csound'
+      ]
+      expect(tokens[1]).toEqual value: 'characters', scopes: [
+        'source.csound'
+        'string.quoted.csound'
+      ]
+      expect(tokens[2]).toEqual value: '$MACRO.', scopes: [
+        'source.csound'
+        'string.quoted.csound'
+        'entity.name.function.preprocessor.csound'
+      ]
+      expect(tokens[3]).toEqual value: '"', scopes: [
+        'source.csound'
+        'string.quoted.csound'
+        'punctuation.definition.string.end.csound'
+      ]
+
+    it 'tokenizes braced strings', ->
+      lines = grammar.tokenizeLines '''
+        {{
+        characters$MACRO.
+        }}
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '{{', scopes: [
+        'source.csound'
+        'string.braced.csound'
+      ]
+      tokens = lines[1]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: 'characters$MACRO.', scopes: [
+        'source.csound'
+        'string.braced.csound'
+      ]
+      tokens = lines[2]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '}}', scopes: [
+        'source.csound'
+        'string.braced.csound'
+      ]
+
+    it 'tokenizes escape sequences', ->
+      escapeSequences = [
+        '\\\\'
+        '\\a'
+        '\\b'
+        '\\n'
+        '\\r'
+        '\\t'
+        '\\"'
+        '\\012'
+        '\\345'
+        '\\67'
+      ]
+      tokens = (grammar.tokenizeLines "\"#{escapeSequences.join ''}\"")[0]
+      for i in [1...tokens.length - 1]
+        expect(tokens[i]).toEqual value: escapeSequences[i - 1], scopes: [
+          'source.csound'
+          'string.quoted.csound'
+          'constant.character.escape.csound'
+        ]
+      tokens = (grammar.tokenizeLines "{{#{escapeSequences.join ''}}}")[0]
+      for i in [1...tokens.length - 1]
+        expect(tokens[i]).toEqual value: escapeSequences[i - 1], scopes: [
+          'source.csound'
+          'string.braced.csound'
+          'constant.character.escape.csound'
+        ]
+
+    it 'tokenizes operators', ->
+      operators = [
+        '+'
+        '-'
+        '~', '¬'
+        '!'
+        '*'
+        '/'
+        '^'
+        '%'
+        '<<'
+        '>>'
+        '<'
+        '>'
+        '<='
+        '>='
+        '=='
+        '!='
+        '&'
+        '#'
+        '|'
+        '&&'
+        '||'
+        '?', ':'
+        '+='
+        '-='
+        '*='
+        '/='
+      ]
+      tokens = (grammar.tokenizeLines "#{operators.join '\n'}")[0]
+      for i in [0...tokens.length]
+        expect(tokens[i]).toEqual value: operators[i], scopes: [
+          'source.csound'
+          'keyword.operator.csound'
+        ]
+
+    it 'tokenizes global value identifiers', ->
+      globalValueIdentifiers = [
+        '0dbfs'
+        'A4'
+        'kr'
+        'ksmps'
+        'nchnls'
+        'nchnls_i'
+        'sr'
+      ]
+      lines = grammar.tokenizeLines(globalValueIdentifiers.join '\n')
+      for i in [0...lines.length]
+        tokens = lines[i]
+        expect(tokens.length).toBe 1
+        expect(tokens[0]).toEqual value: globalValueIdentifiers[i], scopes: [
+          'source.csound'
+          'variable.other.readwrite.global.csound'
+        ]
+
+    it 'tokenizes keywords', ->
+      keywords = [
+        'do'
+        'else'
+        'elseif'
+        'endif'
+        'enduntil'
+        'fi'
+        'if'
+        'ithen'
+        'kthen'
+        'od'
+        'return'
+        'rireturn'
+        'then'
+        'until'
+        'while'
+      ]
+      lines = grammar.tokenizeLines(keywords.join '\n')
+      for i in [0...lines.length]
+        expect(lines[i][0]).toEqual value: keywords[i], scopes: [
+          'source.csound'
+          'keyword.control.csound'
+        ]
+
+    it 'tokenizes string formatting opcodes', ->
+      opcodes = [
+        'printks'
+        'prints'
+      ]
+      escapeSequences = [
+        '%!'
+        '%%'
+        '%n'
+        '%N'
+        '%r'
+        '%R'
+        '%t'
+        '%T'
+        '\\A'
+        '\\B'
+        '\\N'
+        '\\R'
+        '\\T'
+      ]
+      for opcode in opcodes
+        tokens = (grammar.tokenizeLines "#{opcode} \"#{escapeSequences.join ''}\"")[0]
+        expect(tokens[0]).toEqual value: opcode, scopes: [
+          'source.csound'
+          'support.function.csound'
+        ]
+        expect(tokens[1]).toEqual value: ' ', scopes: [
+          'source.csound'
+        ]
+        expect(tokens[2]).toEqual value: '"', scopes: [
+          'source.csound'
+          'string.quoted.csound'
+          'punctuation.definition.string.begin.csound'
+        ]
+        for i in [3...tokens.length - 1]
+          expect(tokens[i]).toEqual value: escapeSequences[i - 3], scopes: [
+            'source.csound'
+            'string.quoted.csound'
+            'constant.character.escape.csound'
+          ]
+        expect(tokens[tokens.length - 1]).toEqual value: '"', scopes: [
+          'source.csound'
+          'string.quoted.csound'
+          'punctuation.definition.string.end.csound'
+        ]
+
+    it 'tokenizes goto statements', ->
+      keywordsAndOpcodes = [
+        'cggoto'
+        'cigoto'
+        'cingoto'
+        'ckgoto'
+        'cngoto'
+        'goto'
+        'igoto'
+        'kgoto'
+        'loop_ge'
+        'loop_gt'
+        'loop_le'
+        'loop_lt'
+        'reinit'
+        'rigoto'
+        'tigoto'
+        'timout'
+        ''
+      ]
+      # Putting a label after each string is enough to test the grammar, but
+      # it’s not always valid Csound syntax. In particular, loop_ge, loop_gt,
+      # loop_le, and loop_lt all take four arguments, the last of which is a
+      # label.
+      lines = grammar.tokenizeLines(keywordsAndOpcodes.join ' aLabel //\n')
+      for i in [0...lines.length - 1]
+        tokens = lines[i]
+        expect(tokens[0]).toEqual value: keywordsAndOpcodes[i], scopes: [
+          'source.csound'
+          'keyword.control.csound'
+        ]
+        expect(tokens[1]).toEqual value: ' ', scopes: [
+          'source.csound'
+        ]
+        expect(tokens[2]).toEqual value: 'aLabel', scopes: [
+          'source.csound'
+          'entity.name.label.csound'
+        ]
+        expect(tokens[3]).toEqual value: ' ', scopes: [
+          'source.csound'
+        ]
+        expect(tokens[4]).toEqual value: '//', scopes: [
+          'source.csound'
+          'comment.line.csound'
+          'punctuation.definition.comment.line.csound'
+        ]
 
     it 'tokenizes preprocessor directives', ->
       preprocessorDirectives = [
@@ -403,176 +771,3 @@ describe 'language-csound', ->
         'source.csound'
         'punctuation.definition.macro.end.csound'
       ]
-
-    it 'tokenizes global values', ->
-      globalValues = [
-        '0dbfs'
-        'A4'
-        'kr'
-        'ksmps'
-        'nchnls'
-        'nchnls_i'
-        'sr'
-      ]
-      lines = grammar.tokenizeLines(globalValues.join '\n')
-      for i in [0...lines.length]
-        expect(lines[i][0]).toEqual value: globalValues[i], scopes: [
-          'source.csound'
-          'variable.other.readwrite.global.csound'
-        ]
-
-    it 'tokenizes quoted strings', ->
-      lines = grammar.tokenizeLines '"characters$MACRO."'
-      tokens = lines[0]
-      expect(tokens[0]).toEqual value: '"', scopes: [
-        'source.csound'
-        'string.quoted.csound'
-        'punctuation.definition.string.begin.csound'
-      ]
-      expect(tokens[1]).toEqual value: 'characters', scopes: [
-        'source.csound'
-        'string.quoted.csound'
-      ]
-      expect(tokens[2]).toEqual value: '$MACRO.', scopes: [
-        'source.csound'
-        'string.quoted.csound'
-        'entity.name.function.preprocessor.csound'
-      ]
-      expect(tokens[3]).toEqual value: '"', scopes: [
-        'source.csound'
-        'string.quoted.csound'
-        'punctuation.definition.string.end.csound'
-      ]
-
-    it 'tokenizes escaped characters', ->
-      escapedCharacters = [
-        # '%!'
-        # '%%'
-        # '%n'
-        # '%N'
-        # '%r'
-        # '%R'
-        # '%t'
-        # '%T'
-        '\\\\'
-        '\\a'
-        # '\\A'
-        '\\b'
-        # '\\B'
-        '\\n'
-        # '\\N'
-        '\\r'
-        # '\\R'
-        '\\t'
-        # '\\T'
-        '\\"'
-        '\\012'
-        '\\345'
-        '\\67'
-      ]
-      lines = grammar.tokenizeLines "\"#{escapedCharacters.join ''}\""
-      tokens = lines[0]
-      expect(tokens[0]).toEqual value: '"', scopes: [
-        'source.csound'
-        'string.quoted.csound'
-        'punctuation.definition.string.begin.csound'
-      ]
-      for i in [1...tokens.length - 1]
-        expect(tokens[i]).toEqual value: escapedCharacters[i - 1], scopes: [
-          'source.csound'
-          'string.quoted.csound'
-          'constant.character.escape.csound'
-        ]
-      expect(tokens[tokens.length - 1]).toEqual value: '"', scopes: [
-        'source.csound'
-        'string.quoted.csound'
-        'punctuation.definition.string.end.csound'
-      ]
-
-    it 'tokenizes braced strings', ->
-      lines = grammar.tokenizeLines '{{characters}}'
-      tokens = lines[0]
-      expect(tokens[0]).toEqual value: '{{', scopes: [
-        'source.csound'
-        'string.braced.csound'
-      ]
-      expect(tokens[1]).toEqual value: 'characters', scopes: [
-        'source.csound'
-        'string.braced.csound'
-      ]
-      expect(tokens[2]).toEqual value: '}}', scopes: [
-        'source.csound'
-        'string.braced.csound'
-      ]
-
-    it 'tokenizes keywords', ->
-      keywords = [
-        'do'
-        'else'
-        'elseif'
-        'endif'
-        'enduntil'
-        'fi'
-        'if'
-        'ithen'
-        'kthen'
-        'od'
-        'return'
-        'rireturn'
-        'then'
-        'until'
-        'while'
-      ]
-      lines = grammar.tokenizeLines(keywords.join '\n')
-      for i in [0...lines.length]
-        expect(lines[i][0]).toEqual value: keywords[i], scopes: [
-          'source.csound'
-          'keyword.control.csound'
-        ]
-
-    it 'tokenizes goto statements', ->
-      keywordsAndOpcodes = [
-        'cggoto'
-        'cigoto'
-        'cingoto'
-        'ckgoto'
-        'cngoto'
-        'goto'
-        'igoto'
-        'kgoto'
-        'loop_ge'
-        'loop_gt'
-        'loop_le'
-        'loop_lt'
-        'reinit'
-        'rigoto'
-        'tigoto'
-        'timout'
-        ''
-      ]
-      # Putting a label after each string is enough to test the grammar, but
-      # it’s not always valid Csound syntax. In particular, loop_ge, loop_gt,
-      # loop_le, and loop_lt all take four arguments, the last of which is a
-      # label.
-      lines = grammar.tokenizeLines(keywordsAndOpcodes.join ' aLabel //\n')
-      for i in [0...lines.length - 1]
-        tokens = lines[i]
-        expect(tokens[0]).toEqual value: keywordsAndOpcodes[i], scopes: [
-          'source.csound'
-          'keyword.control.csound'
-        ]
-        expect(tokens[1]).toEqual value: ' ', scopes: [
-          'source.csound'
-        ]
-        expect(tokens[2]).toEqual value: 'aLabel', scopes: [
-          'source.csound'
-          'entity.name.label.csound'
-        ]
-        expect(tokens[3]).toEqual value: ' ', scopes: [
-          'source.csound'
-        ]
-        expect(tokens[4]).toEqual value: '//', scopes: [
-          'source.csound'
-          'comment.line.csound'
-          'punctuation.definition.comment.line.csound'
-        ]

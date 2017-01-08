@@ -46,7 +46,7 @@ patterns: [
             beginCaptures: 0: name: 'entity.name.function.opcode.csound'
             patterns: [
               {
-                name:  'meta.opcode-argument-types.csound'
+                name:  'meta.opcode-type-signature.csound'
                 begin: '\\b(?:0|[afijkKoOpPStV\\[\\]]+)\\b'
                 end:   ',|(?=\\n)'
                 beginCaptures: 0: name: 'storage.type.csound'
@@ -132,8 +132,11 @@ repository:
         name:  'constant.numeric.float.csound'
         match: '(?:\\d+[Ee][+-]?\\d+)|(?:\\d+\\.\\d*|\\d*\\.\\d+)(?:[Ee][+-]?\\d+)?'
       },{
-        name:  'constant.numeric.integer.hexadecimal.csound'
-        match: '0[Xx][0-9A-Fa-f]+'
+        name:  ''
+        match: '(0[Xx])([0-9A-Fa-f]+)'
+        captures:
+          1: name: 'storage.type.number.csound'
+          2: name: 'constant.numeric.integer.hexadecimal.csound'
       },{
         name:  'constant.numeric.integer.decimal.csound'
         match: '\\d+'
@@ -150,7 +153,7 @@ repository:
       {include: '#numbers'}
       {
         name:  'keyword.operator.csound'
-        match: '[+\\-*/%^!=&|<>#~¬?:]'
+        match: '\\+=|-=|\\*=|/=|<<|>>|<=|>=|==|&&|\\|\\||[~¬]|[=!+\\-*/^%&|<>#?:]'
       }
       {include: '#quotedStrings'}
       {
@@ -175,21 +178,33 @@ repository:
           {include: '#partialExpressions'}
         ]
       },{
-        name:  'string.quoted.csound'
-        begin: '\\b(printk?s)[ \\t]*(")'
-        end:   '"'
+        begin: '\\b(printk?s)[ \\t]*(?=")'
+        end:   '(?<=")'
         beginCaptures:
           1: name: 'support.function.csound'
           2: name: 'punctuation.definition.string.begin.csound'
         endCaptures:
           0: name: 'punctuation.definition.string.end.csound'
         patterns: [
-          {include: '#macroUses'}
-          { # https://github.com/csound/csound/search?q=printksset_+path%3AOOps+filename%3Augrw1.c
-            name:  'constant.character.placeholder.csound'
-            match: '%(?:\\d*(?:\\.\\d+)?[cdhilouxX]|[!%nNrRtT])|[~^]'
+          {
+            name:  'string.quoted.csound'
+            begin: '"'
+            end:   '"'
+            beginCaptures: 0: name: 'punctuation.definition.string.begin.csound'
+            endCaptures:   0: name: 'punctuation.definition.string.end.csound'
+            patterns: [
+              {include: '#macroUses'}
+              {include: '#escapeSequences'}
+              { # https://github.com/csound/csound/search?q=printksset_+path%3AOOps+filename%3Augrw1.c
+                name:  'constant.character.placeholder.csound'
+                match: '%\\d*(?:\\.\\d+)?[cdhilouxX]|[~^]{1,2}'
+              }
+              {
+                name:  'constant.character.escape.csound'
+                match: '%[!%nNrRtT]|\\\\[ABNRT]'
+              }
+            ]
           }
-          {include: '#escapeSequences'}
         ]
       },{
         begin: '\\b(scoreline(?:_i)?)[ \\t]*(\\{\\{)'
