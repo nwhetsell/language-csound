@@ -3,7 +3,7 @@ describe 'language-csound', ->
     waitsForPromise ->
       atom.packages.activatePackage 'language-csound'
 
-  describe 'Csound Orchestra grammar', ->
+  describe 'Csound grammar', ->
     grammar = undefined
 
     beforeEach ->

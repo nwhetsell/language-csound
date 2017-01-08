@@ -4,28 +4,90 @@ fileTypes: ['csd']
 firstLineMatch: '<CsoundSynthesi[sz]er>'
 
 patterns: [
-  {include: 'source.csound#comments'}
   {
-    name:  'meta.orchestra.csound-document'
-    begin: '<(CsInstruments)>'
-    end:   '</(CsInstruments)>'
+    begin: '<(CsoundSynthesi[sz]er)>'
+    end:   '</(CsoundSynthesi[sz]er)>'
     beginCaptures: 1: name: 'entity.name.tag.csound-document'
     endCaptures:   1: name: 'entity.name.tag.csound-document'
-    patterns: [include: 'source.csound']
+    patterns: [
+      {
+        name:  'meta.orchestra.csound-document'
+        begin: '<(CsInstruments)>'
+        end:   '</(CsInstruments)>'
+        beginCaptures: 1: name: 'entity.name.tag.csound-document'
+        endCaptures:   1: name: 'entity.name.tag.csound-document'
+        patterns: [include: 'source.csound']
+      },{
+        name:  'meta.score.csound-document'
+        begin: '<(CsScore)>'
+        end:   '</(CsScore)>'
+        beginCaptures: 1: name: 'entity.name.tag.csound-document'
+        endCaptures:   1: name: 'entity.name.tag.csound-document'
+        patterns: [include: 'source.csound-score']
+      },{
+        name:  'meta.html.csound-document'
+        begin: '(?=<[hH][tT][mM][lL])'
+        end:   '(?<=</[hH][tT][mM][lL]>)'
+        patterns: [include: 'text.html.basic']
+      }
+      {include: '#tags'}
+    ]
   },{
-    name:  'meta.score.csound-document'
-    begin: '<(CsScore)>'
-    end:   '</(CsScore)>'
+    name:  'meta.cabbage-gui.csound-document'
+    begin: '<(Cabbage)>'
+    end:   '</(Cabbage)>'
     beginCaptures: 1: name: 'entity.name.tag.csound-document'
     endCaptures:   1: name: 'entity.name.tag.csound-document'
-    patterns: [include: 'source.csound-score']
-  },{
-    name:  'meta.html.csound-document'
-    begin: '(?=<[hH][tT][mM][lL])'
-    end:   '(?<=</[hH][tT][mM][lL]>)'
-    patterns: [include: 'text.html.basic']
-  },{
-    match: '</?([a-zA-Z0-9:-]+)>'
-    captures: 1: name: 'entity.name.tag.csound-document'
+    patterns: [
+      # TODO: What kinds of comments are available?
+      {
+        name:  'comment.line.cabbage-gui.csound-document'
+        begin: ';'
+        end:   '(?=\\n)'
+        beginCaptures: 0: name: 'punctuation.definition.comment.line.cabbage-gui.csound-document'
+      }
+      {include: 'source.csound#macroUses'}
+      {include: 'source.csound#preprocessorDirectives'}
+      {include: 'source.csound#floatingPointNumbers'}
+      {include: 'source.csound#decimalNumbers'}
+      {
+        name:  'string.quoted.cabbage-gui.csound-document'
+        begin: '"'
+        end:   '"'
+        beginCaptures: 0: name: 'punctuation.definition.string.begin.cabbage-gui.csound-document'
+        endCaptures:   0: name: 'punctuation.definition.string.end.cabbage-gui.csound-document'
+        patterns: [
+          {include: 'source.csound#macroUses'}
+        ]
+      },{
+        # https://github.com/rorywalsh/cabbage/search?q=GUICtrlsArray+path%3ASource+filename%3ACabbageGUIClass.h
+        # https://github.com/rorywalsh/cabbage/search?q=GUILayoutCtrlsArray+path%3ASource+filename%3ACabbageGUIClass.h
+        match: '^[ \t]*(?:(button|c(?:(?:heck|ombo)box|soundoutput)|encoder|f(?:ilebutton|orm)|g(?:entable|roupbox)|h(?:range|slider)|i(?:mage|nfobutton)|keyboard|l(?:abel|ine)|numberbox|rslider|s(?:ignaldisplay|oundfiler)|text(?:box|editor)|v(?:range|slider)|xypad)|(fftdisplay|hslider2|table|vslider2))\\b'
+        captures:
+          1: name: 'keyword.widget-type.cabbage-gui.csound-document'
+          2: name: 'invalid.deprecated.cabbage-gui.csound-document'
+      },{
+        # https://github.com/rorywalsh/cabbage/search?q=IdentArray+path%3ASource+filename%3ACabbageGUIClass.h
+        name: 'support.function.widget-identifier.cabbage-gui.csound-document'
+        match: '\\b(?i:a(?:ctive|ddress|l(?:ign|pha)|mprange)|bo(?:ld|unds)|c(?:aption|hannel(?:array|s|type)?|o(?:lou?r(?::[01])?|rners))|displaytype|f(?:fttablenumber|il[el]|ont(?:colou?r(?::[01])?|style))|g(?:radient|uirefresh)|highlightcolour|i(?:dentchannel|tems)|kind|l(?:atched|inethickness|ogger)|m(?:ax|i(?:ddlec|n)|ode)|numberofsteps|outline(?:colou?r|thickness)|p(?:l(?:ant|uginid)|o(?:pu(?:late|p(?:text)?)|s))|r(?:a(?:diogroup|nge[xy]?)|escale|otate)|s(?:amplerange|c(?:ale[xy]|r(?:oll(?:bars)?|ubberposition))|h(?:ape|ow)|ize|liderincr|tepbpm|vg(?:debug|file|path))|t(?:able(?:(?:background|grid)?colou?r|numbers?)|ext(?:box|colou?r)?|racker(?:colou?r|thickness))|v(?:alue|elocity|isible)|widgetarray|wrap|zoom)\\b'
+      }
+    ]
+  }
+  {include: '#tags'}
+  { # Treat anything not within tags as a comment.
+    name:  'comment.csound-document'
+    begin: '^'
+    end:   '\n'
   }
 ]
+
+repository:
+  tags:
+    patterns: [
+      {
+        begin: '<([a-zA-Z0-9:-]+)>'
+        end:   '</([a-zA-Z0-9:-]+)>'
+        beginCaptures: 1: name: 'entity.name.tag.csound-document'
+        endCaptures:   1: name: 'entity.name.tag.csound-document'
+      }
+    ]

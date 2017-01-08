@@ -90,11 +90,27 @@ repository:
       {include: '#macroUses'}
     ]
 
+  decimalNumbers:
+    patterns: [
+      {
+        name:  'constant.numeric.integer.decimal.csound'
+        match: '\\d+'
+      }
+    ]
+
   escapeSequences:
     patterns: [
       { # https://github.com/csound/csound/search?q=unquote_string+path%3AEngine+filename%3Acsound_orc_compile.c
         name:  'constant.character.escape.csound'
         match: '\\\\(?:[abfnrtv"\\\\]|[0-7]{1,3})'
+      }
+    ]
+
+  floatingPointNumbers:
+    patterns: [
+      {
+        name:  'constant.numeric.float.csound'
+        match: '(?:\\d+[Ee][+-]?\\d+)|(?:\\d+\\.\\d*|\\d*\\.\\d+)(?:[Ee][+-]?\\d+)?'
       }
     ]
 
@@ -128,19 +144,15 @@ repository:
 
   numbers:
     patterns: [
+      {include: '#floatingPointNumbers'}
       {
-        name:  'constant.numeric.float.csound'
-        match: '(?:\\d+[Ee][+-]?\\d+)|(?:\\d+\\.\\d*|\\d*\\.\\d+)(?:[Ee][+-]?\\d+)?'
-      },{
         name:  ''
         match: '(0[Xx])([0-9A-Fa-f]+)'
         captures:
           1: name: 'storage.type.number.csound'
           2: name: 'constant.numeric.integer.hexadecimal.csound'
-      },{
-        name:  'constant.numeric.integer.decimal.csound'
-        match: '\\d+'
       }
+      {include: '#decimalNumbers'}
     ]
 
   partialExpressions:
