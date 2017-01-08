@@ -523,9 +523,10 @@ describe 'language-csound', ->
         '*='
         '/='
       ]
-      tokens = (grammar.tokenizeLines "#{operators.join '\n'}")[0]
-      for i in [0...tokens.length]
-        expect(tokens[i]).toEqual value: operators[i], scopes: [
+      lines = grammar.tokenizeLines "#{operators.join '\n'}"
+      expect(lines.length).toBe operators.length
+      for i in [0...lines.length]
+        expect(lines[i][0]).toEqual value: operators[i], scopes: [
           'source.csound'
           'keyword.operator.csound'
         ]
