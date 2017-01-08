@@ -39,7 +39,6 @@ patterns: [
     beginCaptures: 1: name: 'entity.name.tag.csound-document'
     endCaptures:   1: name: 'entity.name.tag.csound-document'
     patterns: [
-      # TODO: What kinds of comments are available?
       {
         name:  'comment.line.cabbage-gui.csound-document'
         begin: ';'
