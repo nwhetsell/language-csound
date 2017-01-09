@@ -976,3 +976,50 @@ describe 'language-csound', ->
           'source.csound'
           'keyword.preprocessor.csound'
         ]
+
+    it 'tokenizes function-like macro use', ->
+      tokens = (grammar.tokenizeLines '$MACRO.(i1#i2)//')[0]
+      expect(tokens.length).toBe 9
+      expect(tokens[0]).toEqual value: '$MACRO.', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'entity.name.function.preprocessor.csound'
+      ]
+      expect(tokens[1]).toEqual value: '(', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+      ]
+      expect(tokens[2]).toEqual value: 'i', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'storage.type.csound'
+      ]
+      expect(tokens[3]).toEqual value: '1', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'meta.other.csound'
+      ]
+      expect(tokens[4]).toEqual value: '#', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'punctuation.macro-parameter-separator.csound'
+      ]
+      expect(tokens[5]).toEqual value: 'i', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'storage.type.csound'
+      ]
+      expect(tokens[6]).toEqual value: '2', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'meta.other.csound'
+      ]
+      expect(tokens[7]).toEqual value: ')', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+      ]
+      expect(tokens[8]).toEqual value: '//', scopes: [
+        'source.csound'
+        'comment.line.csound'
+        'punctuation.definition.comment.line.csound'
+      ]

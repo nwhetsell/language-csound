@@ -137,6 +137,18 @@ repository:
   macroUses:
     patterns: [
       {
+        name:  'meta.function-like-macro-use.csound'
+        begin: '(\\$[A-Z_a-z]\\w*\\.?)\\('
+        end:   '\\)'
+        beginCaptures: 1: name: 'entity.name.function.preprocessor.csound'
+        patterns: [
+          {
+            name:  'punctuation.macro-parameter-separator.csound'
+            match: '\\#'
+          }
+          {include: '$self'}
+        ]
+      },{
         name:  'entity.name.function.preprocessor.csound'
         match: '\\$[A-Z_a-z]\\w*(?:\\.|\\b)'
       }
