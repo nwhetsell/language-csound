@@ -288,7 +288,7 @@ repository:
         patterns: [
           {include: '#commentsAndMacroUses'}
           {
-            name:  'string.quoted.include.csound'
+            name:  'string.include.csound'
             begin: '([^ \\t])'
             end:   '\\1'
             beginCaptures: 0: name: 'punctuation.definition.string.begin.csound'

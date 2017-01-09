@@ -523,10 +523,12 @@ describe 'language-csound', ->
         '*='
         '/='
       ]
-      lines = grammar.tokenizeLines "#{operators.join '\n'}"
+      lines = grammar.tokenizeLines(operators.join '\n')
       expect(lines.length).toBe operators.length
       for i in [0...lines.length]
-        expect(lines[i][0]).toEqual value: operators[i], scopes: [
+        tokens = lines[i]
+        expect(tokens.length).toBe 1
+        expect(tokens[0]).toEqual value: operators[i], scopes: [
           'source.csound'
           'keyword.operator.csound'
         ]
@@ -570,7 +572,9 @@ describe 'language-csound', ->
       ]
       lines = grammar.tokenizeLines(keywords.join '\n')
       for i in [0...lines.length]
-        expect(lines[i][0]).toEqual value: keywords[i], scopes: [
+        tokens = lines[i]
+        expect(tokens.length).toBe 1
+        expect(tokens[0]).toEqual value: keywords[i], scopes: [
           'source.csound'
           'keyword.control.csound'
         ]
@@ -668,61 +672,77 @@ describe 'language-csound', ->
           'punctuation.definition.comment.line.csound'
         ]
 
-    it 'tokenizes preprocessor directives', ->
-      preprocessorDirectives = [
-        '#else'
-        '#end'
-        '#endif'
-        '#ifdef'
-        '#ifndef'
-        '#undef'
-        '###'
-        '@ \t0'
-        '@@ \t0'
-      ]
-      lines = grammar.tokenizeLines(preprocessorDirectives.join '\n')
-      for i in [0...lines.length]
-        expect(lines[i][0]).toEqual value: preprocessorDirectives[i], scopes: [
+    it 'tokenizes include directives', ->
+      for character in ['"', '|']
+        tokens = (grammar.tokenizeLines "#include/**/#{character}file.udo#{character}")[0]
+        expect(tokens.length).toBe 7
+        expect(tokens[0]).toEqual value: '#include', scopes: [
           'source.csound'
-          'keyword.preprocessor.csound'
+          'keyword.include.preprocessor.csound'
+        ]
+        expect(tokens[1]).toEqual value: '/*', scopes: [
+          'source.csound'
+          'comment.block.csound'
+          'punctuation.definition.comment.begin.csound'
+        ]
+        expect(tokens[2]).toEqual value: '*/', scopes: [
+          'source.csound'
+          'comment.block.csound'
+          'punctuation.definition.comment.end.csound'
+        ]
+        expect(tokens[3]).toEqual value: character, scopes: [
+          'source.csound'
+          'string.include.csound'
+          'punctuation.definition.string.begin.csound'
+        ]
+        expect(tokens[4]).toEqual value: 'file.udo', scopes: [
+          'source.csound'
+          'string.include.csound'
+        ]
+        expect(tokens[5]).toEqual value: character, scopes: [
+          'source.csound'
+          'string.include.csound'
+          'punctuation.definition.string.end.csound'
+        ]
+        expect(tokens[6]).toEqual value: '', scopes: [
+          'source.csound'
         ]
 
-    it 'tokenizes includes', ->
-      lines = grammar.tokenizeLines '#include/**/"file.udo"'
+    it 'tokenizes object-like macro definitions', ->
+      lines = grammar.tokenizeLines '''
+        # \tdefineMACRO#macro_body#
+        #define/**/
+        MACRO/**/
+        #\\#macro
+        body\\##
+      '''
+
       tokens = lines[0]
-      expect(tokens[0]).toEqual value: '#include', scopes: [
+      expect(tokens.length).toBe 5
+      expect(tokens[0]).toEqual value: '# \tdefine', scopes: [
         'source.csound'
-        'keyword.include.preprocessor.csound'
+        'keyword.define.preprocessor.csound'
       ]
-      expect(tokens[1]).toEqual value: '/*', scopes: [
+      expect(tokens[1]).toEqual value: 'MACRO', scopes: [
         'source.csound'
-        'comment.block.csound'
-        'punctuation.definition.comment.begin.csound'
+        'entity.name.function.preprocessor.csound'
       ]
-      expect(tokens[2]).toEqual value: '*/', scopes: [
+      expect(tokens[2]).toEqual value: '#', scopes: [
         'source.csound'
-        'comment.block.csound'
-        'punctuation.definition.comment.end.csound'
+        'punctuation.definition.macro.begin.csound'
       ]
-      expect(tokens[3]).toEqual value: '"', scopes: [
+      expect(tokens[3]).toEqual value: 'macro_body', scopes: [
         'source.csound'
-        'string.quoted.include.csound'
-        'punctuation.definition.string.begin.csound'
+        'meta.other.csound'
       ]
-      expect(tokens[4]).toEqual value: 'file.udo', scopes: [
+      expect(tokens[4]).toEqual value: '#', scopes: [
         'source.csound'
-        'string.quoted.include.csound'
-      ]
-      expect(tokens[5]).toEqual value: '"', scopes: [
-        'source.csound'
-        'string.quoted.include.csound'
-        'punctuation.definition.string.end.csound'
+        'punctuation.definition.macro.end.csound'
       ]
 
-    it 'tokenizes macro definitions', ->
-      lines = grammar.tokenizeLines '# \tdefine/**/MACRO(ARGUMENT)/**/#$ARGUMENT#'
-      tokens = lines[0]
-      expect(tokens[0]).toEqual value: '# \tdefine', scopes: [
+      tokens = lines[1]
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: '#define', scopes: [
         'source.csound'
         'keyword.define.preprocessor.csound'
       ]
@@ -736,39 +756,223 @@ describe 'language-csound', ->
         'comment.block.csound'
         'punctuation.definition.comment.end.csound'
       ]
-      expect(tokens[3]).toEqual value: 'MACRO', scopes: [
+      tokens = lines[2]
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: 'MACRO', scopes: [
         'source.csound'
         'entity.name.function.preprocessor.csound'
       ]
-      expect(tokens[4]).toEqual value: '(', scopes: [
+      expect(tokens[1]).toEqual value: '/*', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.begin.csound'
+      ]
+      expect(tokens[2]).toEqual value: '*/', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.end.csound'
+      ]
+      tokens = lines[3]
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: '#', scopes: [
+        'source.csound'
+        'punctuation.definition.macro.begin.csound'
+      ]
+      expect(tokens[1]).toEqual value: '\\#', scopes: [
+        'source.csound'
+        'constant.character.escape.csound'
+      ]
+      expect(tokens[2]).toEqual value: 'macro', scopes: [
+        'source.csound'
+        'meta.other.csound'
+      ]
+      tokens = lines[4]
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: 'body', scopes: [
+        'source.csound'
+        'meta.other.csound'
+      ]
+      expect(tokens[1]).toEqual value: '\\#', scopes: [
+        'source.csound'
+        'constant.character.escape.csound'
+      ]
+      expect(tokens[2]).toEqual value: '#', scopes: [
+        'source.csound'
+        'punctuation.definition.macro.end.csound'
+      ]
+
+    it 'tokenizes function-like macro definitions', ->
+      lines = grammar.tokenizeLines '''
+        #defineMACRO(ARG1#ARG2)#macro_body#
+        #define/**/
+        MACRO(ARG1'ARG2'ARG3)/**/
+        #\\#macro
+        body\\##
+      '''
+
+      tokens = lines[0]
+      expect(tokens.length).toBe 10
+      expect(tokens[0]).toEqual value: '#define', scopes: [
+        'source.csound'
+        'keyword.define.preprocessor.csound'
+      ]
+      expect(tokens[1]).toEqual value: 'MACRO', scopes: [
+        'source.csound'
+        'entity.name.function.preprocessor.csound'
+      ]
+      expect(tokens[2]).toEqual value: '(', scopes: [
         'source.csound'
       ]
-      expect(tokens[5]).toEqual value: 'ARGUMENT', scopes: [
+      expect(tokens[3]).toEqual value: 'ARG1', scopes: [
+        'source.csound'
+        'variable.parameter.preprocessor.csound'
+      ]
+      expect(tokens[4]).toEqual value: '#', scopes: [
+        'source.csound'
+      ]
+      expect(tokens[5]).toEqual value: 'ARG2', scopes: [
         'source.csound'
         'variable.parameter.preprocessor.csound'
       ]
       expect(tokens[6]).toEqual value: ')', scopes: [
         'source.csound'
       ]
-      expect(tokens[7]).toEqual value: '/*', scopes: [
+      expect(tokens[7]).toEqual value: '#', scopes: [
+        'source.csound'
+        'punctuation.definition.macro.begin.csound'
+      ]
+      expect(tokens[8]).toEqual value: 'macro_body', scopes: [
+        'source.csound'
+        'meta.other.csound'
+      ]
+      expect(tokens[9]).toEqual value: '#', scopes: [
+        'source.csound'
+        'punctuation.definition.macro.end.csound'
+      ]
+
+      tokens = lines[1]
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: '#define', scopes: [
+        'source.csound'
+        'keyword.define.preprocessor.csound'
+      ]
+      expect(tokens[1]).toEqual value: '/*', scopes: [
         'source.csound'
         'comment.block.csound'
         'punctuation.definition.comment.begin.csound'
       ]
-      expect(tokens[8]).toEqual value: '*/', scopes: [
+      expect(tokens[2]).toEqual value: '*/', scopes: [
         'source.csound'
         'comment.block.csound'
         'punctuation.definition.comment.end.csound'
       ]
-      expect(tokens[9]).toEqual value: '#', scopes: [
-        'source.csound'
-        'punctuation.definition.macro.begin.csound'
-      ]
-      expect(tokens[10]).toEqual value: '$ARGUMENT', scopes: [
+      tokens = lines[2]
+      expect(tokens.length).toBe 10
+      expect(tokens[0]).toEqual value: 'MACRO', scopes: [
         'source.csound'
         'entity.name.function.preprocessor.csound'
       ]
-      expect(tokens[11]).toEqual value: '#', scopes: [
+      expect(tokens[1]).toEqual value: '(', scopes: [
+        'source.csound'
+      ]
+      expect(tokens[2]).toEqual value: 'ARG1', scopes: [
+        'source.csound'
+        'variable.parameter.preprocessor.csound'
+      ]
+      expect(tokens[3]).toEqual value: "'", scopes: [
+        'source.csound'
+      ]
+      expect(tokens[4]).toEqual value: 'ARG2', scopes: [
+        'source.csound'
+        'variable.parameter.preprocessor.csound'
+      ]
+      expect(tokens[5]).toEqual value: "'", scopes: [
+        'source.csound'
+      ]
+      expect(tokens[6]).toEqual value: 'ARG3', scopes: [
+        'source.csound'
+        'variable.parameter.preprocessor.csound'
+      ]
+      expect(tokens[7]).toEqual value: ')', scopes: [
+        'source.csound'
+      ]
+      expect(tokens[8]).toEqual value: '/*', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.begin.csound'
+      ]
+      expect(tokens[9]).toEqual value: '*/', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.end.csound'
+      ]
+      tokens = lines[3]
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: '#', scopes: [
+        'source.csound'
+        'punctuation.definition.macro.begin.csound'
+      ]
+      expect(tokens[1]).toEqual value: '\\#', scopes: [
+        'source.csound'
+        'constant.character.escape.csound'
+      ]
+      expect(tokens[2]).toEqual value: 'macro', scopes: [
+        'source.csound'
+        'meta.other.csound'
+      ]
+      tokens = lines[4]
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: 'body', scopes: [
+        'source.csound'
+        'meta.other.csound'
+      ]
+      expect(tokens[1]).toEqual value: '\\#', scopes: [
+        'source.csound'
+        'constant.character.escape.csound'
+      ]
+      expect(tokens[2]).toEqual value: '#', scopes: [
         'source.csound'
         'punctuation.definition.macro.end.csound'
       ]
+
+    it 'tokenizes macro preprocessor directives', ->
+      preprocessorDirectives = [
+        '#ifdef'
+        '#ifndef'
+        '#undef'
+        ''
+      ]
+      lines = grammar.tokenizeLines(preprocessorDirectives.join ' MACRO\n')
+      for i in [0...lines.length - 1]
+        tokens = lines[i]
+        expect(tokens.length).toBe 4
+        expect(tokens[0]).toEqual value: preprocessorDirectives[i], scopes: [
+          'source.csound'
+          'keyword.preprocessor.csound'
+        ]
+        expect(tokens[1]).toEqual value: ' ', scopes: [
+          'source.csound'
+        ]
+        expect(tokens[2]).toEqual value: 'MACRO', scopes: [
+          'source.csound'
+          'entity.name.function.preprocessor.csound'
+        ]
+        expect(tokens[3]).toEqual value: '', scopes: [
+          'source.csound'
+        ]
+
+    it 'tokenizes other preprocessor directives', ->
+      preprocessorDirectives = [
+        '#else'
+        '#end'
+        '#endif'
+        '###'
+        '@ \t0'
+        '@@ \t0'
+      ]
+      lines = grammar.tokenizeLines(preprocessorDirectives.join '\n')
+      for i in [0...lines.length]
+        expect(lines[i][0]).toEqual value: preprocessorDirectives[i], scopes: [
+          'source.csound'
+          'keyword.preprocessor.csound'
+        ]
