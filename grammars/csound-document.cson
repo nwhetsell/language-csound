@@ -67,7 +67,7 @@ patterns: [
           2: name: 'invalid.deprecated.cabbage-gui.csound-document'
       },{
         # https://github.com/rorywalsh/cabbage/search?q=IdentArray+path%3ASource+filename%3ACabbageGUIClass.h
-        name: 'support.function.widget-identifier.cabbage-gui.csound-document'
+        name:  'support.function.widget-identifier.cabbage-gui.csound-document'
         match: '\\b(?i:a(?:ctive|ddress|l(?:ign|pha)|mprange)|bo(?:ld|unds)|c(?:aption|hannel(?:array|s|type)?|o(?:lou?r(?::[01])?|rners))|displaytype|f(?:fttablenumber|il[el]|ont(?:colou?r(?::[01])?|style))|g(?:radient|uirefresh)|highlightcolour|i(?:dentchannel|tems)|kind|l(?:atched|inethickness|ogger)|m(?:ax|i(?:ddlec|n)|ode)|numberofsteps|outline(?:colou?r|thickness)|p(?:l(?:ant|uginid)|o(?:pu(?:late|p(?:text)?)|s))|r(?:a(?:diogroup|nge[xy]?)|escale|otate)|s(?:amplerange|c(?:ale[xy]|r(?:oll(?:bars)?|ubberposition))|h(?:ape|ow)|ize|liderincr|tepbpm|vg(?:debug|file|path))|t(?:able(?:(?:background|grid)?colou?r|numbers?)|ext(?:box|colou?r)?|racker(?:colou?r|thickness))|v(?:alue|elocity|isible)|widgetarray|wrap|zoom)\\b'
       }
     ]
