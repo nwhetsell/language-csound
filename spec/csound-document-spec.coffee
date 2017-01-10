@@ -21,17 +21,17 @@ describe 'language-csound', ->
         'encoder'
         'hrange'
         'hslider'
-       #'hslider3'
         'numberbox'
         'rslider'
         'vrange'
         'vslider'
-       #'vslider3'
         'xypad'
       ]
       deprecatedWidgetTypes = [
         'hslider2'
+        'hslider3'
         'vslider2'
+        'vslider3'
       ]
       lines = grammar.tokenizeLines(
         '<Cabbage>\n' +

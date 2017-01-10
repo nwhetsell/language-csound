@@ -61,7 +61,7 @@ patterns: [
       },{
         # https://github.com/rorywalsh/cabaiste/search?q=CabbageControlWidgetStrings+path%3ASource+filename%3ACabbageIds.h
         # https://github.com/rorywalsh/cabaiste/search?q=CabbageLayoutWidgetStrings+path%3ASource+filename%3ACabbageIds.h
-        match: '^[ \t]*(?i:(button|checkbox|combobox|encoder|hrange|hslider|numberbox|rslider|vrange|vslider|xypad|csoundoutput|filebutton|form|gentable|groupbox|hostbpm|hostplaying|hostppqpos|hosttime|image|infobutton|keyboard|label|line|loadbutton|signaldisplay|socketreceive|socketsend|soundfiler|source|stepper|textbox|texteditor)|(hslider2|vslider2|directorylist|fftdisplay|hostrecording|listbox|multitab|patmatrix|popupmenu|pvsview|recordbutton|snapshot|sourcebutton|table|transport))\\b'
+        match: '^[ \t]*(?i:(button|checkbox|combobox|encoder|hrange|hslider|numberbox|rslider|vrange|vslider|xypad|csoundoutput|filebutton|form|gentable|groupbox|hostbpm|hostplaying|hostppqpos|hosttime|image|infobutton|keyboard|label|line|loadbutton|signaldisplay|socketreceive|socketsend|soundfiler|source|stepper|textbox|texteditor)|(hslider2|hslider3|vslider2|vslider3|directorylist|fftdisplay|hostrecording|listbox|multitab|patmatrix|popupmenu|pvsview|recordbutton|snapshot|sourcebutton|table|transport))\\b'
         captures:
           1: name: 'keyword.widget-type.cabbage-gui.csound-document'
           2: name: 'invalid.deprecated.cabbage-gui.csound-document'
