@@ -39,6 +39,7 @@ patterns: [
     beginCaptures: 1: name: 'entity.name.tag.csound-document'
     endCaptures:   1: name: 'entity.name.tag.csound-document'
     patterns: [
+      # TODO: What kinds of comments are available?
       {
         name:  'comment.line.cabbage-gui.csound-document'
         begin: ';'
@@ -59,16 +60,18 @@ patterns: [
           {include: 'source.csound#macroUses'}
         ]
       },{
-        # https://github.com/rorywalsh/cabbage/search?q=GUICtrlsArray+path%3ASource+filename%3ACabbageGUIClass.h
-        # https://github.com/rorywalsh/cabbage/search?q=GUILayoutCtrlsArray+path%3ASource+filename%3ACabbageGUIClass.h
-        match: '^[ \t]*(?:(button|c(?:(?:heck|ombo)box|soundoutput)|encoder|f(?:ilebutton|orm)|g(?:entable|roupbox)|h(?:range|slider)|i(?:mage|nfobutton)|keyboard|l(?:abel|ine)|numberbox|rslider|s(?:ignaldisplay|oundfiler)|text(?:box|editor)|v(?:range|slider)|xypad)|(fftdisplay|hslider2|table|vslider2))\\b'
+        # https://github.com/rorywalsh/cabaiste/search?q=CabbageControlWidgetStrings+path%3ASource+filename%3ACabbageIds.h
+        # https://github.com/rorywalsh/cabaiste/search?q=CabbageLayoutWidgetStrings+path%3ASource+filename%3ACabbageIds.h
+        match: '^[ \t]*(?i:(button|checkbox|combobox|encoder|hrange|hslider|numberbox|rslider|vrange|vslider|xypad|csoundoutput|filebutton|form|gentable|groupbox|hostbpm|hostplaying|hostppqpos|hosttime|image|infobutton|keyboard|label|line|loadbutton|signaldisplay|socketreceive|socketsend|soundfiler|source|stepper|textbox|texteditor)|(hslider2|vslider2|directorylist|fftdisplay|hostrecording|listbox|multitab|patmatrix|popupmenu|pvsview|recordbutton|snapshot|sourcebutton|table|transport))\\b'
         captures:
           1: name: 'keyword.widget-type.cabbage-gui.csound-document'
           2: name: 'invalid.deprecated.cabbage-gui.csound-document'
       },{
-        # https://github.com/rorywalsh/cabbage/search?q=IdentArray+path%3ASource+filename%3ACabbageGUIClass.h
-        name:  'support.function.widget-identifier.cabbage-gui.csound-document'
-        match: '\\b(?i:a(?:ctive|ddress|l(?:ign|pha)|mprange)|bo(?:ld|unds)|c(?:aption|hannel(?:array|s|type)?|o(?:lou?r(?::[01])?|rners))|displaytype|f(?:fttablenumber|il[el]|ont(?:colou?r(?::[01])?|style))|g(?:radient|uirefresh)|highlightcolour|i(?:dentchannel|tems)|kind|l(?:atched|inethickness|ogger)|m(?:ax|i(?:ddlec|n)|ode)|numberofsteps|outline(?:colou?r|thickness)|p(?:l(?:ant|uginid)|o(?:pu(?:late|p(?:text)?)|s))|r(?:a(?:diogroup|nge[xy]?)|escale|otate)|s(?:amplerange|c(?:ale[xy]|r(?:oll(?:bars)?|ubberposition))|h(?:ape|ow)|ize|liderincr|tepbpm|vg(?:debug|file|path))|t(?:able(?:(?:background|grid)?colou?r|numbers?)|ext(?:box|colou?r)?|racker(?:colou?r|thickness))|v(?:alue|elocity|isible)|widgetarray|wrap|zoom)\\b'
+        # https://github.com/rorywalsh/cabaiste/search?q=CabbageIdentifierStrings+path%3ASource+filename%3ACabbageIds.h
+        match: '\\b(?i:(active|address|align|alpha|amprange|arrowbackgroundcolour|arrowcolour|backgroundcolor|backgroundcolour|ballcolour|blacknotecolour|bounds|caption|channel|channelarray|channels|channeltype|color:0|color:1|color|colour:0|colour:1|colour|corners|displaytype|file|fill|fontcolor:0|fontcolor:1|fontcolor|fontcolour:0|fontcolour:1|fontcolour|fontstyle|guirefresh|highlightcolour|identchannel|imgdebug|imgfile|imgpath|items|keywidth|kind|latched|linethickness|max|menucolor|middlec|min|mode|noteseparatorcolour|numberofsteps|outlinecolor|outlinecolour|outlinethickness|plant|pluginid|populate|popup|popuptext|pos|radiogroup|range|rangex|rangey|refreshfiles|rescale|rotate|samplerange|scrubberposition|shape|show|signalvariable|size|sliderincr|tablebackgroundcolour|tablecolor|tablecolour|tablegridcolor|tablegridcolour|tablenumber|tablenumbers|text|textbox|textcolor|textcolour|titlebarcolour|trackercolor|trackercolour|trackerthickness|updaterate|value|valuetextbox|velocity|visible|whitenotecolour|widgetarray|wrap|zoom)|(bold|ffttablenumber|gradient|logger|scalex|scaley|scroll|scrollbars|tablebackgroundcolor))\\b'
+        captures:
+          1: name: 'support.function.widget-identifier.cabbage-gui.csound-document'
+          2: name: 'invalid.deprecated.cabbage-gui.csound-document'
       }
     ]
   }

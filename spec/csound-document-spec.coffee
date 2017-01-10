@@ -13,7 +13,7 @@ describe 'language-csound', ->
       expect(grammar.scopeName).toBe 'source.csound-document'
 
     it 'tokenizes Cabbage widget types', ->
-      # https://github.com/rorywalsh/cabbage/search?q=GUICtrlsArray+path%3ASource+filename%3ACabbageGUIClass.h
+      # https://github.com/rorywalsh/cabaiste/search?q=CabbageControlWidgetStrings+path%3ASource+filename%3ACabbageIds.h
       widgetTypes = [
         'button'
         'checkbox'
@@ -58,45 +58,46 @@ describe 'language-csound', ->
           'invalid.deprecated.cabbage-gui.csound-document'
         ]
 
-      # https://github.com/rorywalsh/cabbage/search?q=GUILayoutCtrlsArray+path%3ASource+filename%3ACabbageGUIClass.h
+      # https://github.com/rorywalsh/cabaiste/search?q=CabbageLayoutWidgetStrings+path%3ASource+filename%3ACabbageIds.h
       widgetTypes = [
         'csoundoutput'
-       #'directorylist'
         'filebutton'
         'form'
         'gentable'
         'groupbox'
-       #'hostbpm'
-       #'hostplaying'
-       #'hostppqpos'
-       #'hostrecording'
-       #'hosttime'
+        'hostbpm'
+        'hostplaying'
+        'hostppqpos'
+        'hosttime'
         'image'
         'infobutton'
         'keyboard'
         'label'
-       #'line'
-       #'listbox'
-       #'loadbutton'
-       #'multitab'
-       #'patmatrix'
-       #'popupmenu'
-       #'pvsview'
-       #'recordbutton'
-       #'snapshot'
-       #'socketreceive'
-       #'socketsend'
+        'line'
+        'loadbutton'
+        'signaldisplay'
+        'socketreceive'
+        'socketsend'
         'soundfiler'
-       #'source'
-       #'sourcebutton'
-       #'stepper'
+        'source'
+        'stepper'
         'textbox'
         'texteditor'
-       #'transport'
       ]
       deprecatedWidgetTypes = [
+        'directorylist'
         'fftdisplay'
+        'hostrecording'
+        'listbox'
+        'multitab'
+        'patmatrix'
+        'popupmenu'
+        'pvsview'
+        'recordbutton'
+        'snapshot'
+        'sourcebutton'
         'table'
+        'transport'
       ]
       lines = grammar.tokenizeLines(
         '<Cabbage>\n' +
@@ -124,14 +125,19 @@ describe 'language-csound', ->
         ]
 
     it 'tokenizes Cabbage widget identifiers', ->
-      # https://github.com/rorywalsh/cabbage/search?q=IdentArray+path%3ASource+filename%3ACabbageGUIClass.h
+      # https://github.com/rorywalsh/cabaiste/search?q=CabbageIdentifierStrings+path%3ASource+filename%3ACabbageIds.h
       widgetIdentifiers = [
         'active'
         'address'
         'align'
         'alpha'
         'amprange'
-        'bold'
+        'arrowbackgroundcolour'
+        'arrowcolour'
+        'backgroundcolor'
+        'backgroundcolour'
+        'ballcolour'
+        'blacknotecolour'
         'bounds'
         'caption'
         'channel'
@@ -146,7 +152,6 @@ describe 'language-csound', ->
         'colour'
         'corners'
         'displaytype'
-        'ffttablenumber'
         'file'
         'fill'
         'fontcolor:0'
@@ -156,19 +161,23 @@ describe 'language-csound', ->
         'fontcolour:1'
         'fontcolour'
         'fontstyle'
-        'gradient'
         'guirefresh'
         'highlightcolour'
         'identchannel'
+        'imgdebug'
+        'imgfile'
+        'imgpath'
         'items'
+        'keywidth'
         'kind'
         'latched'
         'linethickness'
-        'logger'
         'max'
+        'menucolor'
         'middlec'
         'min'
         'mode'
+        'noteseparatorcolour'
         'numberofsteps'
         'outlinecolor'
         'outlinecolour'
@@ -183,23 +192,16 @@ describe 'language-csound', ->
         'range'
         'rangex'
         'rangey'
+        'refreshfiles'
         'rescale'
         'rotate'
         'samplerange'
-        'scalex'
-        'scaley'
-        'scroll'
-        'scrollbars'
         'scrubberposition'
         'shape'
         'show'
+        'signalvariable'
         'size'
         'sliderincr'
-        'stepbpm'
-        'svgdebug'
-        'svgfile'
-        'svgpath'
-        'tablebackgroundcolor'
         'tablebackgroundcolour'
         'tablecolor'
         'tablecolour'
@@ -211,15 +213,30 @@ describe 'language-csound', ->
        #'textbox'
         'textcolor'
         'textcolour'
+        'titlebarcolour'
         'trackercolor'
         'trackercolour'
         'trackerthickness'
+        'updaterate'
         'value'
+        'valuetextbox'
         'velocity'
         'visible'
+        'whitenotecolour'
         'widgetarray'
         'wrap'
         'zoom'
+      ]
+      deprecatedWidgetIdentifiers = [
+        'bold'
+        'ffttablenumber'
+        'gradient'
+        'logger'
+        'scalex'
+        'scaley'
+        'scroll'
+        'scrollbars'
+        'tablebackgroundcolor'
       ]
       lines = grammar.tokenizeLines(
         '<Cabbage>\n' +
@@ -232,4 +249,16 @@ describe 'language-csound', ->
           'source.csound-document'
           'meta.cabbage-gui.csound-document'
           'support.function.widget-identifier.cabbage-gui.csound-document'
+        ]
+      lines = grammar.tokenizeLines(
+        '<Cabbage>\n' +
+        (deprecatedWidgetIdentifiers.join '\n') +
+        '</Cabbage>\n'
+      )
+      expect(lines.length - 2).toBe deprecatedWidgetIdentifiers.length
+      for i in [1...lines.length - 1]
+        expect(lines[i][0]).toEqual value: deprecatedWidgetIdentifiers[i - 1], scopes: [
+          'source.csound-document'
+          'meta.cabbage-gui.csound-document'
+          'invalid.deprecated.cabbage-gui.csound-document'
         ]
