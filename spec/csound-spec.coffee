@@ -419,7 +419,7 @@ describe 'language-csound', ->
         ]
 
     it 'tokenizes quoted strings', ->
-      tokens = (grammar.tokenizeLines '"characters$MACRO."')[0]
+      {tokens} = grammar.tokenizeLine '"characters$MACRO."'
       expect(tokens.length).toBe 4
       expect(tokens[0]).toEqual value: '"', scopes: [
         'source.csound'
@@ -479,14 +479,14 @@ describe 'language-csound', ->
         '\\345'
         '\\67'
       ]
-      tokens = (grammar.tokenizeLines "\"#{escapeSequences.join ''}\"")[0]
+      {tokens} = grammar.tokenizeLine "\"#{escapeSequences.join ''}\""
       for i in [1...tokens.length - 1]
         expect(tokens[i]).toEqual value: escapeSequences[i - 1], scopes: [
           'source.csound'
           'string.quoted.csound'
           'constant.character.escape.csound'
         ]
-      tokens = (grammar.tokenizeLines "{{#{escapeSequences.join ''}}}")[0]
+      {tokens} = grammar.tokenizeLine "{{#{escapeSequences.join ''}}}"
       for i in [1...tokens.length - 1]
         expect(tokens[i]).toEqual value: escapeSequences[i - 1], scopes: [
           'source.csound'
@@ -600,7 +600,7 @@ describe 'language-csound', ->
         '\\T'
       ]
       for opcode in opcodes
-        tokens = (grammar.tokenizeLines "#{opcode} \"#{escapeSequences.join ''}\"")[0]
+        {tokens} = grammar.tokenizeLine "#{opcode} \"#{escapeSequences.join ''}\""
         expect(tokens[0]).toEqual value: opcode, scopes: [
           'source.csound'
           'support.function.csound'
@@ -674,7 +674,7 @@ describe 'language-csound', ->
 
     it 'tokenizes include directives', ->
       for character in ['"', '|']
-        tokens = (grammar.tokenizeLines "#include/**/#{character}file.udo#{character}")[0]
+        {tokens} = grammar.tokenizeLine "#include/**/#{character}file.udo#{character}"
         expect(tokens.length).toBe 7
         expect(tokens[0]).toEqual value: '#include', scopes: [
           'source.csound'
@@ -978,7 +978,7 @@ describe 'language-csound', ->
         ]
 
     it 'tokenizes function-like macro use', ->
-      tokens = (grammar.tokenizeLines '$MACRO.(i1#i2)//')[0]
+      {tokens} = grammar.tokenizeLine '$MACRO.(i1#i2)//'
       expect(tokens.length).toBe 9
       expect(tokens[0]).toEqual value: '$MACRO.', scopes: [
         'source.csound'
