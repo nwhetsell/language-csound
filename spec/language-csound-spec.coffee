@@ -1070,6 +1070,145 @@ describe 'language-csound', ->
       ]
 
 
+  describe 'Csound Score grammar', ->
+    grammar = undefined
+
+    beforeEach ->
+      grammar = atom.grammars.grammarForScopeName 'source.csound-score'
+
+    it 'is defined', ->
+      expect(grammar.scopeName).toBe 'source.csound-score'
+
+    it 'tokenizes mark statements', ->
+      lines = grammar.tokenizeLines '''
+        m mark
+        n mark
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 4
+      expect(tokens[0]).toEqual value: 'm', scopes: [
+        'source.csound-score'
+        'keyword.mark.preprocessor.csound-score'
+      ]
+      expect(tokens[1]).toEqual value: ' ', scopes: [
+        'source.csound-score'
+      ]
+      expect(tokens[2]).toEqual value: 'mark', scopes: [
+        'source.csound-score'
+        'entity.name.label.csound-score'
+      ]
+      expect(tokens[3]).toEqual value: '', scopes: [
+        'source.csound-score'
+      ]
+      tokens = lines[1]
+      expect(tokens.length).toBe 4
+      expect(tokens[0]).toEqual value: 'n', scopes: [
+        'source.csound-score'
+        'keyword.repeat-mark.preprocessor.csound-score'
+      ]
+      expect(tokens[1]).toEqual value: ' ', scopes: [
+        'source.csound-score'
+      ]
+      expect(tokens[2]).toEqual value: 'mark', scopes: [
+        'source.csound-score'
+        'entity.name.label.csound-score'
+      ]
+      expect(tokens[3]).toEqual value: '', scopes: [
+        'source.csound-score'
+      ]
+
+    it 'tokenizes repeat section statements', ->
+      {tokens} = grammar.tokenizeLine 'r 1 MACRO\n'
+      expect(tokens.length).toBe 6
+      expect(tokens[0]).toEqual value: 'r', scopes: [
+        'source.csound-score'
+        'keyword.repeat-section.preprocessor.csound-score'
+      ]
+      expect(tokens[1]).toEqual value: ' ', scopes: [
+        'source.csound-score'
+      ]
+      expect(tokens[2]).toEqual value: '1', scopes: [
+        'source.csound-score'
+        'constant.numeric.integer.decimal.csound-score'
+      ]
+      expect(tokens[3]).toEqual value: ' ', scopes: [
+        'source.csound-score'
+      ]
+      expect(tokens[4]).toEqual value: 'MACRO', scopes: [
+        'source.csound-score'
+        'entity.name.function.preprocessor.csound'
+      ]
+      expect(tokens[5]).toEqual value: '\n', scopes: [
+        'source.csound-score'
+      ]
+
+    it 'tokenizes other score statements', ->
+      scoreStatements = [
+        'a' # advance
+        'b' # beat offset
+        'C' # carry
+        'e' # end
+        'f' # function table
+        'i' # instrument
+        'q' # quiet
+        's' # section end
+        't' # tempo
+        'v' # local tempo
+        'w'
+        'x' # skip
+        'y' # random number generator seed
+        'z'
+      ]
+      lines = grammar.tokenizeLines(scoreStatements.join '\n')
+      for i in [0...lines.length]
+        expect(lines[i][0]).toEqual value: scoreStatements[i], scopes: [
+          'source.csound-score'
+          'keyword.control.csound-score'
+        ]
+
+    it 'tokenizes braced loops', ->
+      lines = grammar.tokenizeLines '''
+        { 10 I
+        }
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 5
+      expect(tokens[0]).toEqual value: '{', scopes: [
+        'source.csound-score'
+        'meta.braced-loop.csound-score'
+        'punctuation.csound-score'
+      ]
+      expect(tokens[1]).toEqual value: ' ', scopes: [
+        'source.csound-score'
+        'meta.braced-loop.csound-score'
+      ]
+      expect(tokens[2]).toEqual value: '10', scopes: [
+        'source.csound-score'
+        'meta.braced-loop.csound-score'
+        'meta.braced-loop-details.csound-score'
+        'constant.numeric.integer.decimal.csound-score'
+      ]
+      expect(tokens[3]).toEqual value: ' ', scopes: [
+        'source.csound-score'
+        'meta.braced-loop.csound-score'
+        'meta.braced-loop-details.csound-score'
+      ]
+      expect(tokens[4]).toEqual value: 'I', scopes: [
+        'source.csound-score'
+        'meta.braced-loop.csound-score'
+        'meta.braced-loop-details.csound-score'
+        'meta.braced-loop-macro-name.csound-score'
+        'entity.name.function.preprocessor.csound-score'
+      ]
+      tokens = lines[1]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '}', scopes: [
+        'source.csound-score'
+        'meta.braced-loop.csound-score'
+        'punctuation.csound-score'
+      ]
+
+
   describe 'Csound Document grammar', ->
     grammar = undefined
 

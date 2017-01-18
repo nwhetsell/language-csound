@@ -6,8 +6,46 @@ patterns: [
   {include: 'source.csound#preprocessorDirectives'}
   {include: 'source.csound#commentsAndMacroUses'}
   {
+    # w and z statements are in
+    # https://github.com/csound/csound/blob/develop/Engine/csound_sco.lex, but
+    # they appear to be undocumented.
     name:  'keyword.control.csound-score'
-    match: '[abefimq-tv-z]|[nN][pP]?'
+    match: '[abCefiqstvwxyz]'
+  },{
+    name:  'meta.p-symbol.csound-score'
+    match: '((?:[nN]|[pP])[pP])(\\d+)'
+    beginCaptures:
+      1: name: 'keyword.control.csound-score'
+      2: name: 'constant.numeric.integer.decimal.csound-score'
+  },{
+    begin: '(m)|(n)'
+    end:   '\\n'
+    beginCaptures:
+      1: name: 'keyword.mark.preprocessor.csound-score'
+      2: name: 'keyword.repeat-mark.preprocessor.csound-score'
+    patterns: [
+      {include: 'source.csound#comments'}
+      {
+        name:  'entity.name.label.csound-score'
+        match: '[A-Z_a-z]\\w*'
+      }
+    ]
+  },{
+    begin: 'r\\b'
+    end:   '\\n'
+    beginCaptures: 0: name: 'keyword.repeat-section.preprocessor.csound-score'
+    patterns: [
+      {include: 'source.csound#comments'}
+      {
+        begin: '\\d+'
+        end:   '(?=\\n)'
+        beginCaptures: 0: name: 'constant.numeric.integer.decimal.csound-score'
+        patterns: [
+          {include: 'source.csound#comments'}
+          {include: 'source.csound#macroNames'}
+        ]
+      }
+    ]
   }
   {include: 'source.csound#numbers'}
   {
