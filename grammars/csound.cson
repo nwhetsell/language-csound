@@ -134,6 +134,36 @@ repository:
       }
     ]
 
+  # Csound’s preprocessor can’t handle parameter values that are wrapped in
+  # parentheses <https://github.com/csound/csound/issues/721>. For example,
+  #   $MACRO((value))
+  # passes (value, not (value), to MACRO. The workaround for this implemented in
+  # https://github.com/csound/csound/commit/3e0b441b55fd8e07d70b0908da8165b889feb883
+  # is to require escaping end parentheses. Because this is not required by the
+  # C preprocessor, it is likely to be unexpected, so scope parentheses in macro
+  # parameter values differently.
+  macroParameterValueParenthetical:
+    patterns: [
+      {
+        name:  'meta.macro-parameter-value-parenthetical.csound'
+        begin: '\\('
+        end:   '(\\))|(\\\\\\))'
+        beginCaptures:
+          0: name: 'constant.character.escape.csound'
+        endCaptures:
+          1: name: 'entity.invalid.illegal.preprocessor.csound'
+          2: name: 'constant.character.escape.csound'
+        patterns: [
+          {include: '#macroParameterValueParenthetical'}
+          {
+            name:  'entity.invalid.illegal.preprocessor.csound'
+            match: "[#']"
+          }
+          {include: '$self'}
+        ]
+      }
+    ]
+
   macroUses:
     patterns: [
       {
@@ -142,9 +172,10 @@ repository:
         end:   '\\)'
         beginCaptures: 1: name: 'entity.name.function.preprocessor.csound'
         patterns: [
+          {include: '#macroParameterValueParenthetical'}
           {
             name:  'punctuation.macro-parameter-separator.csound'
-            match: '\\#'
+            match: "[#']"
           }
           {include: '$self'}
         ]
@@ -204,11 +235,7 @@ repository:
       },{
         begin: '\\b(printk?s)[ \\t]*(?=")'
         end:   '(?<=")'
-        beginCaptures:
-          1: name: 'support.function.csound'
-          2: name: 'punctuation.definition.string.begin.csound'
-        endCaptures:
-          0: name: 'punctuation.definition.string.end.csound'
+        beginCaptures: 1: name: 'support.function.csound'
         patterns: [
           {
             name:  'string.quoted.csound'
@@ -221,10 +248,10 @@ repository:
               {include: '#escapeSequences'}
               { # https://github.com/csound/csound/search?q=printksset_+path%3AOOps+filename%3Augrw1.c
                 name:  'constant.character.placeholder.csound'
-                match: '%\\d*(?:\\.\\d+)?[cdhilouxX]|[~^]{1,2}'
+                match: '%\\d*(?:\\.\\d+)?[cdhilouxX]'
               },{
                 name:  'constant.character.escape.csound'
-                match: '%[!%nNrRtT]|\\\\[ABNRT]'
+                match: '%[!%nNrRtT]|\\\\[ABNRT]|[~^]{1,2}'
               }
             ]
           }
