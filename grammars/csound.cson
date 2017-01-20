@@ -281,7 +281,7 @@ repository:
           }
         ]
       },{
-        begin: '\\b(scoreline(?:_i)?)[ \\t]*(\\{\\{)'
+        begin: '\\b(readscore|scoreline(?:_i)?)[ \\t]*(\\{\\{)'
         end:   '\\}\\}'
         beginCaptures:
           1: name: 'support.function.csound'
