@@ -12,6 +12,13 @@ patterns: [
     patterns: [
       {
         name:  'meta.orchestra.csound-document'
+        begin: '<(CsOptions)>'
+        end:   '</(CsOptions)>'
+        beginCaptures: 1: name: 'entity.name.tag.csound-document'
+        endCaptures:   1: name: 'entity.name.tag.csound-document'
+        patterns: [include: 'source.csound#comments']
+      },{
+        name:  'meta.orchestra.csound-document'
         begin: '<(CsInstruments)>'
         end:   '</(CsInstruments)>'
         beginCaptures: 1: name: 'entity.name.tag.csound-document'
