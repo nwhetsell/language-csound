@@ -579,7 +579,7 @@ describe 'language-csound', ->
           'keyword.control.csound'
         ]
 
-    it 'tokenizes string formatting opcodes', ->
+    it 'tokenizes escape sequences in printing opcodes', ->
       opcodes = [
         'printks'
         'prints'
