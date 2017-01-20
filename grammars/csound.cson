@@ -248,7 +248,7 @@ repository:
               {include: '#escapeSequences'}
               {
                 name:  'constant.character.placeholder.csound'
-                match: '%\\d*(?:\\.\\d+)?[diuoxXfFeEgGaAc]'
+                match: '%[#0\\- +]*\\d*(?:\\.\\d+)?[diuoxXfFeEgGaAc]'
               },{
                 name:  'constant.character.escape.csound'
                 match: '%[!%nNrRtT]|\\\\[ABNRT]|[~^]{1,2}'
@@ -272,7 +272,7 @@ repository:
               {include: '#escapeSequences'}
               {
                 name:  'constant.character.placeholder.csound'
-                match: '%\\d*(?:\\.\\d+)?[diuoxXfFeEgGcs]'
+                match: '%[#0\\- +]*\\d*(?:\\.\\d+)?[diuoxXfFeEgGcs]'
               },{
                 name:  'constant.character.escape.csound'
                 match: '%%'
