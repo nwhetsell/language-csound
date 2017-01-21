@@ -593,11 +593,16 @@ describe 'language-csound', ->
         '%R'
         '%t'
         '%T'
-        '\\A'
-        '\\B'
-        '\\N'
-        '\\R'
-        '\\T'
+        '\\\\a'
+        '\\\\A'
+        '\\\\b'
+        '\\\\B'
+        '\\\\n'
+        '\\\\N'
+        '\\\\r'
+        '\\\\R'
+        '\\\\t'
+        '\\\\T'
       ]
       for opcode in opcodes
         {tokens} = grammar.tokenizeLine "#{opcode} \"#{escapeSequences.join ''}\""

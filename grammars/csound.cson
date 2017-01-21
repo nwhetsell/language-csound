@@ -114,6 +114,35 @@ repository:
       }
     ]
 
+  # The formatSpecifiers patterns are included in quoted and braced strings.
+  # This means that format specifiers are highlighted in all strings, even
+  # though only
+  #   fprintks        https://csound.github.io/docs/manual/fprintks.html
+  #   fprints         https://csound.github.io/docs/manual/fprints.html
+  #   printf/printf_i https://csound.github.io/docs/manual/printf.html
+  #   printks         https://csound.github.io/docs/manual/printks.html
+  #   prints          https://csound.github.io/docs/manual/prints.html
+  #   sprintf         https://csound.github.io/docs/manual/sprintf.html
+  #   sprintfk        https://csound.github.io/docs/manual/sprintfk.html
+  # work with strings that contain format specifiers. In addition, these
+  # opcodes’ handling of format specifiers is inconsistent:
+  #   - fprintks, fprints, printks, and prints do accept %a and %A specifiers,
+  #     but can’t accept %s specifiers.
+  #   - printf, printf_i, sprintf, and sprintfk don’t accept %a and %A
+  #     specifiers, but do accept %s specifiers.
+  # See https://github.com/csound/csound/issues/747 for more information.
+  formatSpecifiers:
+    patterns: [
+      {
+        name:  'constant.character.placeholder.csound'
+        match: '%[#0\\- +]*\\d*(?:\\.\\d+)?[diuoxXfFeEgGaAcs]'
+      }
+      {
+        name:  'constant.character.escape.csound'
+        match: '%%'
+      }
+    ]
+
   labels:
     patterns: [
       {
@@ -189,7 +218,6 @@ repository:
     patterns: [
       {include: '#floatingPointNumbers'}
       {
-        name:  ''
         match: '(0[Xx])([0-9A-Fa-f]+)'
         captures:
           1: name: 'storage.type.number.csound'
@@ -215,7 +243,10 @@ repository:
         name:  'string.braced.csound'
         begin: '\\{\\{'
         end:   '\\}\\}'
-        patterns: [include: '#escapeSequences']
+        patterns: [
+          {include: '#escapeSequences'}
+          {include: '#formatSpecifiers'}
+        ]
       },{
         name:  'keyword.control.csound'
         match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|r(?:ir)?eturn|then|until|while)\\b'
@@ -245,37 +276,15 @@ repository:
             endCaptures:   0: name: 'punctuation.definition.string.end.csound'
             patterns: [
               {include: '#macroUses'}
-              {include: '#escapeSequences'}
               {
-                name:  'constant.character.placeholder.csound'
-                match: '%[#0\\- +]*\\d*(?:\\.\\d+)?[diuoxXfFeEgGaAc]'
-              },{
                 name:  'constant.character.escape.csound'
-                match: '%[!%nNrRtT]|\\\\[ABNRT]|[~^]{1,2}'
+                match: '\\\\\\\\[aAbBnNrRtT]'
               }
-            ]
-          }
-        ]
-      },{
-        begin: '\\b(sprintfk?)[ \\t]*(?=")'
-        end:   '(?<=")'
-        beginCaptures: 1: name: 'support.function.csound'
-        patterns: [
-          {
-            name:  'string.quoted.csound'
-            begin: '"'
-            end:   '"'
-            beginCaptures: 0: name: 'punctuation.definition.string.begin.csound'
-            endCaptures:   0: name: 'punctuation.definition.string.end.csound'
-            patterns: [
-              {include: '#macroUses'}
               {include: '#escapeSequences'}
+              {include: '#formatSpecifiers'}
               {
-                name:  'constant.character.placeholder.csound'
-                match: '%[#0\\- +]*\\d*(?:\\.\\d+)?[diuoxXfFeEgGcs]'
-              },{
                 name:  'constant.character.escape.csound'
-                match: '%%'
+                match: '%[!nNrRtT]|[~^]{1,2}'
               }
             ]
           }
@@ -410,6 +419,7 @@ repository:
         patterns: [
           {include: '#macroUses'}
           {include: '#escapeSequences'}
+          {include: '#formatSpecifiers'}
         ]
       }
     ]
