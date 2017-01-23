@@ -1159,10 +1159,8 @@ describe 'language-csound', ->
         's' # section end
         't' # tempo
         'v' # local tempo
-        'w'
         'x' # skip
         'y' # random number generator seed
-        'z'
       ]
       lines = grammar.tokenizeLines(scoreStatements.join '\n')
       for i in [0...lines.length]
@@ -1170,6 +1168,18 @@ describe 'language-csound', ->
           'source.csound-score'
           'keyword.control.csound-score'
         ]
+      {tokens} = grammar.tokenizeLine 'w'
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: 'w', scopes: [
+        'source.csound-score'
+        'entity.invalid.illegal.csound-score'
+      ]
+      {tokens} = grammar.tokenizeLine 'z'
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: 'z', scopes: [
+        'source.csound-score'
+        'constant.numeric.language.csound-score'
+      ]
 
     it 'tokenizes braced loops', ->
       lines = grammar.tokenizeLines '''

@@ -6,11 +6,20 @@ patterns: [
   {include: 'source.csound#preprocessorDirectives'}
   {include: 'source.csound#commentsAndMacroUses'}
   {
-    # w and z statements are in
-    # https://github.com/csound/csound/blob/develop/Engine/csound_sco.lex, but
-    # they appear to be undocumented.
     name:  'keyword.control.csound-score'
-    match: '[abCefiqstvwxyz]'
+    match: '[abCefiqstvxy]'
+  },{
+    # w statements are generated internally and should not be used directly; see
+    # https://github.com/csound/csound/issues/750.
+    name:  'entity.invalid.illegal.csound-score'
+    match: 'w'
+  },{
+    # z is not a statement, but rather a constant equal to 800,000,000,000.
+    # 800 billion seconds is about 25,367.8 years. See also
+    # https://csound.github.io/docs/manual/ScoreTop.html and
+    # https://github.com/csound/csound/search?q=stof+path%3AEngine+filename%3Asread.c.
+    name:  'constant.numeric.language.csound-score'
+    match: 'z'
   },{
     name:  'meta.p-symbol.csound-score'
     match: '((?:[nN]|[pP])[pP])(\\d+)'
