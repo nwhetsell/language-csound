@@ -169,8 +169,8 @@ describe 'language-csound', ->
       ]
 
     it 'tokenizes user-defined opcodes', ->
-      # The Csound Orchestra grammar relies on the existence of an active text
-      # editor to tokenize user-defined opcodes.
+      # The Csound grammar relies on the existence of an active text editor to
+      # tokenize user-defined opcodes.
       waitsForPromise ->
         atom.workspace.open().then (editor) ->
           lines = grammar.tokenizeLines '''

@@ -82,11 +82,6 @@ patterns: [
     ]
   }
   {include: '#tags'}
-  { # Treat anything not within tags as a comment.
-    name:  'comment.csound-document'
-    begin: '^'
-    end:   '\n'
-  }
 ]
 
 repository:
