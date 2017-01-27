@@ -9,7 +9,7 @@ patterns: [
     name:  'keyword.control.csound-score'
     match: '[abCefiqstvxy]'
   },{
-    # w statements are generated internally and should not be used directly; see
+    # w statements are generated internally and should not be used; see
     # https://github.com/csound/csound/issues/750.
     name:  'entity.invalid.illegal.csound-score'
     match: 'w'

@@ -12,6 +12,61 @@ describe 'language-csound', ->
     it 'is defined', ->
       expect(grammar.scopeName).toBe 'source.csound'
 
+    it 'tokenizes comments', ->
+      lines = grammar.tokenizeLines '''
+        /*
+         * comment
+         */
+        ; comment
+        // comment
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '/*', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.begin.csound'
+      ]
+      tokens = lines[1]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: ' * comment', scopes: [
+        'source.csound'
+        'comment.block.csound'
+      ]
+      tokens = lines[2]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: ' ', scopes: [
+        'source.csound'
+        'comment.block.csound'
+      ]
+      expect(tokens[1]).toEqual value: '*/', scopes: [
+        'source.csound'
+        'comment.block.csound'
+        'punctuation.definition.comment.end.csound'
+      ]
+      tokens = lines[3]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: ';', scopes: [
+        'source.csound'
+        'comment.line.csound'
+        'punctuation.definition.comment.line.csound'
+      ]
+      expect(tokens[1]).toEqual value: ' comment', scopes: [
+        'source.csound'
+        'comment.line.csound'
+      ]
+      tokens = lines[4]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: '//', scopes: [
+        'source.csound'
+        'comment.line.csound'
+        'punctuation.definition.comment.line.csound'
+      ]
+      expect(tokens[1]).toEqual value: ' comment', scopes: [
+        'source.csound'
+        'comment.line.csound'
+      ]
+
     it 'tokenizes instrument blocks', ->
       lines = grammar.tokenizeLines '''
         instr/**/1,/**/N_a_M_e_,/**/+Name//
@@ -175,7 +230,7 @@ describe 'language-csound', ->
         atom.workspace.open().then (editor) ->
           lines = grammar.tokenizeLines '''
             opcode/**/aUDO,/**/0,/**/0//
-            aUDO
+              aUDO
             endop
           '''
 
@@ -285,8 +340,12 @@ describe 'language-csound', ->
           ]
 
           tokens = lines[1]
-          expect(tokens.length).toBe 1
-          expect(tokens[0]).toEqual value: 'aUDO', scopes: [
+          expect(tokens.length).toBe 2
+          expect(tokens[0]).toEqual value: '  ', scopes: [
+            'source.csound'
+            'meta.opcode-definition.csound'
+          ]
+          expect(tokens[1]).toEqual value: 'aUDO', scopes: [
             'source.csound'
             'meta.opcode-definition.csound'
             'entity.name.function.opcode.csound'
@@ -299,61 +358,6 @@ describe 'language-csound', ->
             'meta.opcode-definition.csound'
             'keyword.other.csound'
           ]
-
-    it 'tokenizes comments', ->
-      lines = grammar.tokenizeLines '''
-        /*
-         * comment
-         */
-        ; comment
-        // comment
-      '''
-      tokens = lines[0]
-      expect(tokens.length).toBe 1
-      expect(tokens[0]).toEqual value: '/*', scopes: [
-        'source.csound'
-        'comment.block.csound'
-        'punctuation.definition.comment.begin.csound'
-      ]
-      tokens = lines[1]
-      expect(tokens.length).toBe 1
-      expect(tokens[0]).toEqual value: ' * comment', scopes: [
-        'source.csound'
-        'comment.block.csound'
-      ]
-      tokens = lines[2]
-      expect(tokens.length).toBe 2
-      expect(tokens[0]).toEqual value: ' ', scopes: [
-        'source.csound'
-        'comment.block.csound'
-      ]
-      expect(tokens[1]).toEqual value: '*/', scopes: [
-        'source.csound'
-        'comment.block.csound'
-        'punctuation.definition.comment.end.csound'
-      ]
-      tokens = lines[3]
-      expect(tokens.length).toBe 2
-      expect(tokens[0]).toEqual value: ';', scopes: [
-        'source.csound'
-        'comment.line.csound'
-        'punctuation.definition.comment.line.csound'
-      ]
-      expect(tokens[1]).toEqual value: ' comment', scopes: [
-        'source.csound'
-        'comment.line.csound'
-      ]
-      tokens = lines[4]
-      expect(tokens.length).toBe 2
-      expect(tokens[0]).toEqual value: '//', scopes: [
-        'source.csound'
-        'comment.line.csound'
-        'punctuation.definition.comment.line.csound'
-      ]
-      expect(tokens[1]).toEqual value: ' comment', scopes: [
-        'source.csound'
-        'comment.line.csound'
-      ]
 
     it 'tokenizes numbers', ->
       lines = grammar.tokenizeLines '''
@@ -579,7 +583,7 @@ describe 'language-csound', ->
           'keyword.control.csound'
         ]
 
-    it 'tokenizes escape sequences in printing opcodes', ->
+    it 'tokenizes printks and prints escape sequences', ->
       opcodes = [
         'printks'
         'prints'
