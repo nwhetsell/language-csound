@@ -22,7 +22,7 @@ patterns: [
     match: 'z'
   },{
     name:  'meta.p-symbol.csound-score'
-    match: '((?:[nN]|[pP])[pP])(\\d+)'
+    match: '([nNpP][pP])(\\d+)'
     beginCaptures:
       1: name: 'keyword.control.csound-score'
       2: name: 'constant.numeric.integer.decimal.csound-score'
