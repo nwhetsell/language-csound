@@ -1168,7 +1168,9 @@ describe 'language-csound', ->
       ]
       lines = grammar.tokenizeLines(scoreStatements.join '\n')
       for i in [0...lines.length]
-        expect(lines[i][0]).toEqual value: scoreStatements[i], scopes: [
+        tokens = lines[i]
+        expect(tokens.length).toBe 1
+        expect(tokens[0]).toEqual value: scoreStatements[i], scopes: [
           'source.csound-score'
           'keyword.control.csound-score'
         ]
@@ -1184,6 +1186,30 @@ describe 'language-csound', ->
         'source.csound-score'
         'constant.numeric.language.csound-score'
       ]
+
+    it 'tokenizes next-p and previous-p symbols', ->
+      scoreStatements = [
+        'np1'
+        'nP2'
+        'Np3'
+        'NP4'
+      ]
+      lines = grammar.tokenizeLines(scoreStatements.join '\n')
+      i = 1
+      for token in ['np', 'nP', 'Np', 'NP']
+        {tokens} = grammar.tokenizeLine token + i
+        expect(tokens.length).toBe 2
+        expect(tokens[0]).toEqual value: token, scopes: [
+          'source.csound-score'
+          'meta.p-symbol.csound-score'
+          'keyword.control.csound-score'
+        ]
+        expect(tokens[1]).toEqual value: i.toString(), scopes: [
+          'source.csound-score'
+          'meta.p-symbol.csound-score'
+          'constant.numeric.integer.decimal.csound-score'
+        ]
+        i++
 
     it 'tokenizes braced loops', ->
       lines = grammar.tokenizeLines '''

@@ -23,7 +23,7 @@ patterns: [
   },{
     name:  'meta.p-symbol.csound-score'
     match: '([nNpP][pP])(\\d+)'
-    beginCaptures:
+    captures:
       1: name: 'keyword.control.csound-score'
       2: name: 'constant.numeric.integer.decimal.csound-score'
   },{
@@ -58,6 +58,9 @@ patterns: [
   }
   {include: 'source.csound#numbers'}
   {
+    name:  'keyword.operator.csound-score'
+    match: '[!+\\-*/^%&|<>#~.]'
+  },{
     name:  'string.quoted.csound-score'
     begin: '"'
     end:   '"'
