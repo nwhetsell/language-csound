@@ -68,6 +68,12 @@ patterns: [
 ]
 
 repository:
+  bracedStringContents:
+    patterns: [
+      {include: '#escapeSequences'}
+      {include: '#formatSpecifiers'}
+    ]
+
   comments:
     patterns: [
       {
@@ -159,7 +165,7 @@ repository:
         match: '([A-Z_a-z]\\w*)|(\\d+\\w*)'
         captures:
           1: name: 'entity.name.function.preprocessor.csound'
-          2: name: 'entity.invalid.illegal.preprocessor.csound'
+          2: name: 'invalid.illegal.csound'
       }
     ]
 
@@ -168,8 +174,8 @@ repository:
   #   $MACRO((value))
   # passes (value, not (value), to MACRO. The workaround for this implemented in
   # https://github.com/csound/csound/commit/3e0b441b55fd8e07d70b0908da8165b889feb883
-  # is to require escaping end parentheses. Because this is not required by the
-  # C preprocessor, it is likely to be unexpected, so scope parentheses in macro
+  # is to require escaping end parentheses. Because this isn’t required by the
+  # C preprocessor, it’s likely to be unexpected, so scope parentheses in macro
   # parameter values differently.
   macroParameterValueParenthetical:
     patterns: [
@@ -180,12 +186,12 @@ repository:
         beginCaptures:
           0: name: 'constant.character.escape.csound'
         endCaptures:
-          1: name: 'entity.invalid.illegal.preprocessor.csound'
+          1: name: 'invalid.illegal.csound'
           2: name: 'constant.character.escape.csound'
         patterns: [
           {include: '#macroParameterValueParenthetical'}
           {
-            name:  'entity.invalid.illegal.preprocessor.csound'
+            name:  'invalid.illegal.csound'
             match: "[#']"
           }
           {include: '$self'}
@@ -201,6 +207,35 @@ repository:
         end:   '\\)'
         beginCaptures: 1: name: 'entity.name.function.preprocessor.csound'
         patterns: [
+          {
+            name:  'string.quoted.csound'
+            begin: '"'
+            end:   '"'
+            beginCaptures: 0: name: 'punctuation.definition.string.begin.csound'
+            endCaptures:   0: name: 'punctuation.definition.string.end.csound'
+            patterns: [
+              {
+                match: '(\\))|(\\\\\\))'
+                captures:
+                  1: name: 'invalid.illegal.csound'
+                  2: name: 'constant.character.escape.csound'
+              }
+              {include: '#quotedStringContents'}
+            ]
+          },{
+            name:  'string.braced.csound'
+            begin: '\\{\\{'
+            end:   '\\}\\}'
+            patterns: [
+              {
+                match: '(\\))|(\\\\\\))'
+                captures:
+                  1: name: 'invalid.illegal.csound'
+                  2: name: 'constant.character.escape.csound'
+              }
+              {include: '#bracedStringContents'}
+            ]
+          }
           {include: '#macroParameterValueParenthetical'}
           {
             name:  'punctuation.macro-parameter-separator.csound'
@@ -243,10 +278,7 @@ repository:
         name:  'string.braced.csound'
         begin: '\\{\\{'
         end:   '\\}\\}'
-        patterns: [
-          {include: '#escapeSequences'}
-          {include: '#formatSpecifiers'}
-        ]
+        patterns: [include: '#bracedStringContents']
       },{
         name:  'keyword.control.csound'
         match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|r(?:ir)?eturn|then|until|while)\\b'
@@ -408,6 +440,12 @@ repository:
       }
     ]
 
+  quotedStringContents:
+    patterns: [
+      {include: '#macroUses'}
+      {include: '#bracedStringContents'}
+    ]
+
   quotedStrings:
     patterns: [
       {
@@ -416,10 +454,6 @@ repository:
         end:   '"'
         beginCaptures: 0: name: 'punctuation.definition.string.begin.csound'
         endCaptures:   0: name: 'punctuation.definition.string.end.csound'
-        patterns: [
-          {include: '#macroUses'}
-          {include: '#escapeSequences'}
-          {include: '#formatSpecifiers'}
-        ]
+        patterns: [include: '#quotedStringContents']
       }
     ]

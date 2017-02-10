@@ -987,8 +987,8 @@ describe 'language-csound', ->
         ]
 
     it 'tokenizes function-like macros', ->
-      {tokens} = grammar.tokenizeLine "$MACRO.(i1#i2'((i3)\\))//"
-      expect(tokens.length).toBe 16
+      {tokens} = grammar.tokenizeLine '$MACRO.(((x\\))\' "x)\\)x\\))"# {{x\\))x)\\)}});'
+      expect(tokens.length).toBe 29
       expect(tokens[0]).toEqual value: '$MACRO.', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
@@ -998,81 +998,152 @@ describe 'language-csound', ->
         'source.csound'
         'meta.function-like-macro-use.csound'
       ]
-      expect(tokens[2]).toEqual value: 'i', scopes: [
+      expect(tokens[2]).toEqual value: '(', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'storage.type.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
+        'constant.character.escape.csound'
       ]
-      expect(tokens[3]).toEqual value: '1', scopes: [
+      expect(tokens[3]).toEqual value: '(', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
+        'constant.character.escape.csound'
+      ]
+      expect(tokens[4]).toEqual value: 'x', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
         'meta.other.csound'
       ]
-      expect(tokens[4]).toEqual value: '#', scopes: [
+      expect(tokens[5]).toEqual value: '\\)', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'punctuation.macro-parameter-separator.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
+        'constant.character.escape.csound'
       ]
-      expect(tokens[5]).toEqual value: 'i', scopes: [
+      expect(tokens[6]).toEqual value: ')', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'storage.type.csound'
-      ]
-      expect(tokens[6]).toEqual value: '2', scopes: [
-        'source.csound'
-        'meta.function-like-macro-use.csound'
-        'meta.other.csound'
+        'meta.macro-parameter-value-parenthetical.csound'
+        'invalid.illegal.csound'
       ]
       expect(tokens[7]).toEqual value: "'", scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
         'punctuation.macro-parameter-separator.csound'
       ]
-      expect(tokens[8]).toEqual value: '(', scopes: [
+      expect(tokens[8]).toEqual value: ' ', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
+      ]
+      expect(tokens[9]).toEqual value: '"', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.quoted.csound'
+        'punctuation.definition.string.begin.csound'
+      ]
+      expect(tokens[10]).toEqual value: 'x', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.quoted.csound'
+      ]
+      expect(tokens[11]).toEqual value: ')', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.quoted.csound'
+        'invalid.illegal.csound'
+      ]
+      expect(tokens[12]).toEqual value: '\\)', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.quoted.csound'
         'constant.character.escape.csound'
       ]
-      expect(tokens[9]).toEqual value: '(', scopes: [
+      expect(tokens[13]).toEqual value: 'x', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
+        'string.quoted.csound'
+      ]
+      expect(tokens[14]).toEqual value: '\\)', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.quoted.csound'
         'constant.character.escape.csound'
       ]
-      expect(tokens[10]).toEqual value: 'i', scopes: [
+      expect(tokens[15]).toEqual value: ')', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
-        'storage.type.csound'
+        'string.quoted.csound'
+        'invalid.illegal.csound'
       ]
-      expect(tokens[11]).toEqual value: '3', scopes: [
+      expect(tokens[16]).toEqual value: '"', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
-        'meta.other.csound'
+        'string.quoted.csound'
+        'punctuation.definition.string.end.csound'
       ]
-      expect(tokens[12]).toEqual value: ')', scopes: [
+      expect(tokens[17]).toEqual value: '#', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
-        'entity.invalid.illegal.preprocessor.csound'
+        'punctuation.macro-parameter-separator.csound'
       ]
-      expect(tokens[13]).toEqual value: '\\)', scopes: [
+      expect(tokens[18]).toEqual value: ' ', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
-        'meta.macro-parameter-value-parenthetical.csound'
+      ]
+      expect(tokens[19]).toEqual value: '{{', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
+      ]
+      expect(tokens[20]).toEqual value: 'x', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
+      ]
+      expect(tokens[21]).toEqual value: '\\)', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
         'constant.character.escape.csound'
       ]
-      expect(tokens[14]).toEqual value: ')', scopes: [
+      expect(tokens[22]).toEqual value: ')', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
+        'invalid.illegal.csound'
+      ]
+      expect(tokens[23]).toEqual value: 'x', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
+      ]
+      expect(tokens[24]).toEqual value: ')', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
+        'invalid.illegal.csound'
+      ]
+      expect(tokens[25]).toEqual value: '\\)', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
+        'constant.character.escape.csound'
+      ]
+      expect(tokens[26]).toEqual value: '}}', scopes: [
+        'source.csound'
+        'meta.function-like-macro-use.csound'
+        'string.braced.csound'
+      ]
+      expect(tokens[27]).toEqual value: ')', scopes: [
         'source.csound'
         'meta.function-like-macro-use.csound'
       ]
-      expect(tokens[15]).toEqual value: '//', scopes: [
+      expect(tokens[28]).toEqual value: ';', scopes: [
         'source.csound'
         'comment.line.csound'
         'punctuation.definition.comment.line.csound'
