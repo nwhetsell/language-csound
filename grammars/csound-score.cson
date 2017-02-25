@@ -75,24 +75,45 @@ patterns: [
     endCaptures:   0: name: 'punctuation.csound-score'
     patterns: [
       {
-        name:  'meta.braced-loop-details.csound-score'
-        begin: '\\d+'
-        end:   '(?=\\})'
-        beginCaptures: 0: name: 'constant.numeric.integer.decimal.csound-score'
+        name: 'meta.braced-loop-details.csound-score'
+        begin: '\\G'
+        end:   '(?=\\n)'
         patterns: [
           {
-            name:  'meta.braced-loop-macro-name.csound-score'
-            begin: '(?:([A-Z_a-z]\\w*)|(\\d+\\w*))\\b'
-            end:   '(?=\\})'
-            beginCaptures:
-              1: name: 'entity.name.function.preprocessor.csound-score'
-              2: name: 'invalid.illegal.csound-score'
-            patterns: [include: '$self']
+            begin: '\\d+'
+            end:   '(?=\\n)'
+            beginCaptures: 0: name: 'constant.numeric.integer.decimal.csound-score'
+            patterns: [
+              {
+                begin: '[A-Z_a-z]\\w*\\b'
+                end:   '(?=\\n)'
+                beginCaptures: 0: name: 'entity.name.function.preprocessor.csound-score'
+                patterns: [
+                  {include: '#comments'}
+                  {
+                    name:  'invalid.illegal.csound-score'
+                    match: '\\S+'
+                  }
+                ]
+              }
+              {include: '#comments'}
+              {
+                name:  'invalid.illegal.csound-score'
+                match: '\\S+'
+              }
+            ]
           }
           {include: '#comments'}
+          {
+            name:  'invalid.illegal.csound-score'
+            match: '\\S+'
+          }
         ]
+      },{
+        begin: '\\n'
+        end:   '(?=\\})'
+        patterns: [include: '$self']
       }
-      {include: '#comments'}
     ]
   }
 ]

@@ -629,12 +629,29 @@ describe 'language-csound', ->
         }
       '''
       tokens = lines[0]
-      expect(tokens.length).toBe 5
+      expect(tokens.length).toBe 6
       expect(tokens[0]).toEqual value: '{', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'punctuation.csound-score']
-      expect(tokens[1]).toEqual value: ' ', scopes: ['source.csound-score', 'meta.braced-loop.csound-score']
+      expect(tokens[1]).toEqual value: ' ', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score']
       expect(tokens[2]).toEqual value: '10', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score', 'constant.numeric.integer.decimal.csound-score']
       expect(tokens[3]).toEqual value: ' ', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score']
-      expect(tokens[4]).toEqual value: 'I', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score', 'meta.braced-loop-macro-name.csound-score', 'entity.name.function.preprocessor.csound-score']
+      expect(tokens[4]).toEqual value: 'I', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score', 'entity.name.function.preprocessor.csound-score']
+      expect(tokens[5]).toEqual value: '', scopes: ['source.csound-score', 'meta.braced-loop.csound-score']
+      tokens = lines[1]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: '}', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'punctuation.csound-score']
+
+      lines = grammar.tokenizeLines '''
+        { 3 $FOO
+        }
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 6
+      expect(tokens[0]).toEqual value: '{', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'punctuation.csound-score']
+      expect(tokens[1]).toEqual value: ' ', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score']
+      expect(tokens[2]).toEqual value: '3', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score', 'constant.numeric.integer.decimal.csound-score']
+      expect(tokens[3]).toEqual value: ' ', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score']
+      expect(tokens[4]).toEqual value: '$FOO', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'meta.braced-loop-details.csound-score', 'invalid.illegal.csound-score']
+      expect(tokens[5]).toEqual value: '', scopes: ['source.csound-score', 'meta.braced-loop.csound-score']
       tokens = lines[1]
       expect(tokens.length).toBe 1
       expect(tokens[0]).toEqual value: '}', scopes: ['source.csound-score', 'meta.braced-loop.csound-score', 'punctuation.csound-score']
