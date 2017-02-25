@@ -32,12 +32,12 @@ describe 'language-csound', ->
       expect(tokens[1]).toEqual value: '*/', scopes: ['source.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
       tokens = lines[3]
       expect(tokens.length).toBe 2
-      expect(tokens[0]).toEqual value: ';', scopes: ['source.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
-      expect(tokens[1]).toEqual value: ' comment', scopes: ['source.csound', 'comment.line.csound']
+      expect(tokens[0]).toEqual value: ';', scopes: ['source.csound', 'comment.line.semicolon.csound', 'punctuation.definition.comment.csound']
+      expect(tokens[1]).toEqual value: ' comment', scopes: ['source.csound', 'comment.line.semicolon.csound']
       tokens = lines[4]
       expect(tokens.length).toBe 2
-      expect(tokens[0]).toEqual value: '//', scopes: ['source.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
-      expect(tokens[1]).toEqual value: ' comment', scopes: ['source.csound', 'comment.line.csound']
+      expect(tokens[0]).toEqual value: '//', scopes: ['source.csound', 'comment.line.double-slash.csound', 'punctuation.definition.comment.csound']
+      expect(tokens[1]).toEqual value: ' comment', scopes: ['source.csound', 'comment.line.double-slash.csound']
 
     it 'tokenizes instrument blocks', ->
       lines = grammar.tokenizeLines '''
@@ -62,7 +62,7 @@ describe 'language-csound', ->
       expect(tokens[10]).toEqual value: '*/', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
       expect(tokens[11]).toEqual value: '+', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
       expect(tokens[12]).toEqual value: 'Name', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'entity.name.function.csound']
-      expect(tokens[13]).toEqual value: '//', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
+      expect(tokens[13]).toEqual value: '//', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound', 'comment.line.double-slash.csound', 'punctuation.definition.comment.csound']
       expect(tokens[14]).toEqual value: '', scopes: ['source.csound', 'meta.instrument-block.csound', 'meta.instrument-declaration.csound']
 
       tokens = lines[1]
@@ -108,7 +108,7 @@ describe 'language-csound', ->
           expect(tokens[9]).toEqual value: '/*', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'comment.block.csound', 'punctuation.definition.comment.begin.csound']
           expect(tokens[10]).toEqual value: '*/', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'comment.block.csound', 'punctuation.definition.comment.end.csound']
           expect(tokens[11]).toEqual value: '0', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'meta.opcode-type-signature.csound', 'storage.type.csound']
-          expect(tokens[12]).toEqual value: '//', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'meta.opcode-type-signature.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
+          expect(tokens[12]).toEqual value: '//', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound', 'meta.opcode-details.csound', 'meta.opcode-type-signature.csound', 'comment.line.double-slash.csound', 'punctuation.definition.comment.csound']
           expect(tokens[13]).toEqual value: '', scopes: ['source.csound', 'meta.opcode-definition.csound', 'meta.opcode-declaration.csound']
 
           tokens = lines[1]
@@ -169,6 +169,37 @@ describe 'language-csound', ->
       expect(tokens[1]).toEqual value: 'characters', scopes: ['source.csound', 'string.quoted.csound']
       expect(tokens[2]).toEqual value: '$MACRO.', scopes: ['source.csound', 'string.quoted.csound', 'entity.name.function.preprocessor.csound']
       expect(tokens[3]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.end.csound']
+
+      lines = grammar.tokenizeLines '''
+        "error
+        ok"
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.begin.csound']
+      expect(tokens[1]).toEqual value: 'error', scopes: ['source.csound', 'string.quoted.csound', 'invalid.illegal.csound']
+      tokens = lines[1]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: 'ok', scopes: ['source.csound', 'string.quoted.csound']
+      expect(tokens[1]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.end.csound']
+
+      lines = grammar.tokenizeLines '''
+        "chara\\ ;comment
+        cters"
+      '''
+      tokens = lines[0]
+      expect(tokens.length).toBe 7
+      expect(tokens[0]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.begin.csound']
+      expect(tokens[1]).toEqual value: 'chara', scopes: ['source.csound', 'string.quoted.csound']
+      expect(tokens[2]).toEqual value: '\\', scopes: ['source.csound', 'string.quoted.csound', 'meta.line-continuation.csound', 'constant.character.escape.line-continuation.csound']
+      expect(tokens[3]).toEqual value: ' ', scopes: ['source.csound', 'string.quoted.csound', 'meta.line-continuation.csound']
+      expect(tokens[4]).toEqual value: ';', scopes: ['source.csound', 'string.quoted.csound', 'meta.line-continuation.csound', 'comment.line.semicolon.csound', 'punctuation.definition.comment.csound']
+      expect(tokens[5]).toEqual value: 'comment', scopes: ['source.csound', 'string.quoted.csound', 'meta.line-continuation.csound', 'comment.line.semicolon.csound']
+      expect(tokens[6]).toEqual value: '', scopes: ['source.csound', 'string.quoted.csound', 'meta.line-continuation.csound']
+      tokens = lines[1]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: 'cters', scopes: ['source.csound', 'string.quoted.csound']
+      expect(tokens[1]).toEqual value: '"', scopes: ['source.csound', 'string.quoted.csound', 'punctuation.definition.string.end.csound']
 
     it 'tokenizes braced strings', ->
       lines = grammar.tokenizeLines '''
@@ -347,7 +378,7 @@ describe 'language-csound', ->
         expect(tokens[1]).toEqual value: ' ', scopes: ['source.csound']
         expect(tokens[2]).toEqual value: 'aLabel', scopes: ['source.csound', 'entity.name.label.csound']
         expect(tokens[3]).toEqual value: ' ', scopes: ['source.csound']
-        expect(tokens[4]).toEqual value: '//', scopes: ['source.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
+        expect(tokens[4]).toEqual value: '//', scopes: ['source.csound', 'comment.line.double-slash.csound', 'punctuation.definition.comment.csound']
 
     it 'tokenizes include directives', ->
       for character in ['"', '|']
@@ -509,7 +540,7 @@ describe 'language-csound', ->
       expect(tokens[25]).toEqual value: '\\)', scopes: ['source.csound', 'meta.function-like-macro-use.csound', 'string.braced.csound', 'constant.character.escape.csound']
       expect(tokens[26]).toEqual value: '}}', scopes: ['source.csound', 'meta.function-like-macro-use.csound', 'string.braced.csound']
       expect(tokens[27]).toEqual value: ')', scopes: ['source.csound', 'meta.function-like-macro-use.csound']
-      expect(tokens[28]).toEqual value: ';', scopes: ['source.csound', 'comment.line.csound', 'punctuation.definition.comment.line.csound']
+      expect(tokens[28]).toEqual value: ';', scopes: ['source.csound', 'comment.line.semicolon.csound', 'punctuation.definition.comment.csound']
 
 
   describe 'Csound Score grammar', ->

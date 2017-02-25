@@ -83,10 +83,21 @@ repository:
         beginCaptures: 0: name: 'punctuation.definition.comment.begin.csound'
         endCaptures:   0: name: 'punctuation.definition.comment.end.csound'
       },{
-        name:  'comment.line.csound'
-        begin: '//|;'
+        name:  'comment.line.double-slash.csound'
+        begin: '//'
         end:   '(?=\\n)'
-        beginCaptures: 0: name: 'punctuation.definition.comment.line.csound'
+        beginCaptures: 0: name: 'punctuation.definition.comment.csound'
+      }
+      {include: '#semicolonComments'}
+      {include: '#lineContinuations'}
+    ]
+  semicolonComments:
+    patterns: [
+      {
+        name:  'comment.line.semicolon.csound'
+        begin: ';'
+        end:   '(?=\\n)'
+        beginCaptures: 0: name: 'punctuation.definition.comment.csound'
       }
     ]
 
@@ -155,6 +166,23 @@ repository:
         captures:
           1: name: 'entity.name.label.csound'
           2: name: 'entity.punctuation.label.csound'
+      }
+    ]
+
+  lineContinuations:
+    patterns: [
+      {
+        name:  'meta.line-continuation.csound'
+        begin: '\\\\'
+        end:   '\\n'
+        beginCaptures: 0: name: 'constant.character.escape.line-continuation.csound'
+        patterns: [
+          {include: '#semicolonComments'}
+          {
+            name:  'invalid.illegal.csound'
+            match: '[^\\s]+'
+          }
+        ]
       }
     ]
 
@@ -283,13 +311,15 @@ repository:
         match: '\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|r(?:ir)?eturn|then|until|while)\\b'
       },{
         begin: '\\b((?:c(?:g|in?|k|nk?)goto)|goto|igoto|kgoto|loop_[gl][et]|r(?:einit|igoto)|ti(?:goto|mout))\\b'
-        end:   '(\\w+)\\s*((//|;).*)?\\n'
+        end:   '(\\w+)\\s*(?:((//).*)|((;).*))?\\n'
         beginCaptures:
           1: name: 'keyword.control.csound'
         endCaptures:
           1: name: 'entity.name.label.csound'
-          2: name: 'comment.line.csound'
-          3: name: 'punctuation.definition.comment.line.csound'
+          2: name: 'comment.line.double-slash.csound'
+          3: name: 'punctuation.definition.comment.csound'
+          4: name: 'comment.line.semicolon.csound'
+          5: name: 'punctuation.definition.comment.csound'
         patterns: [
           {include: '#commentsAndMacroUses'}
           {include: '#partialExpressions'}
@@ -443,6 +473,11 @@ repository:
     patterns: [
       {include: '#macroUses'}
       {include: '#bracedStringContents'}
+      {include: '#lineContinuations'}
+      {
+        name:  "invalid.illegal.csound"
+        match: '[^"\\\\\\n]*\\n'
+      }
     ]
 
   quotedStrings:
