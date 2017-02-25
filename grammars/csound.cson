@@ -142,8 +142,7 @@ repository:
       {
         name:  'constant.character.placeholder.csound'
         match: '%[#0\\- +]*\\d*(?:\\.\\d+)?[diuoxXfFeEgGaAcs]'
-      }
-      {
+      },{
         name:  'constant.character.escape.csound'
         match: '%%'
       }
