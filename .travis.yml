@@ -1,0 +1,1 @@
+script: curl --silent https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh
