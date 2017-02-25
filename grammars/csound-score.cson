@@ -11,7 +11,7 @@ patterns: [
   },{
     # w statements are generated internally and should not be used; see
     # https://github.com/csound/csound/issues/750.
-    name:  'entity.invalid.illegal.csound-score'
+    name:  'invalid.illegal.csound-score'
     match: 'w'
   },{
     # z is not a statement, but rather a constant equal to 800,000,000,000.
@@ -86,7 +86,7 @@ patterns: [
             end:   '(?=\\})'
             beginCaptures:
               1: name: 'entity.name.function.preprocessor.csound-score'
-              2: name: 'entity.invalid.illegal.preprocessor.csound-score'
+              2: name: 'invalid.illegal.csound-score'
             patterns: [include: '$self']
           }
           {include: '#comments'}

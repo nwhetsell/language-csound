@@ -1249,7 +1249,7 @@ describe 'language-csound', ->
       expect(tokens.length).toBe 1
       expect(tokens[0]).toEqual value: 'w', scopes: [
         'source.csound-score'
-        'entity.invalid.illegal.csound-score'
+        'invalid.illegal.csound-score'
       ]
       {tokens} = grammar.tokenizeLine 'z'
       expect(tokens.length).toBe 1
