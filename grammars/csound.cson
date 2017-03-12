@@ -180,7 +180,7 @@ repository:
           {include: '#semicolonComments'}
           {
             name:  'invalid.illegal.csound'
-            match: '[^\\s]+'
+            match: '\\S+'
           }
         ]
       }

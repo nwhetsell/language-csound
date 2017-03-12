@@ -9,7 +9,6 @@ LanguageCsound =
   activate: (state) ->
     @subscriptions = new CompositeDisposable
 
-    grammar = atom.grammars.grammarForScopeName 'source.csound'
     callback = (grammar) ->
       return unless grammar.scopeName is 'source.csound'
       grammar.createPattern = (options) ->
@@ -17,10 +16,9 @@ LanguageCsound =
       grammar.rawRepository.partialExpressions.patterns.splice -1, 0, {
         name: 'meta.autocompletion.csound'
         match: '(\\([aikpSw|]+\\))\\w*\\b'
-        captures:
-          1:
-            name: 'storage.type.csound'
+        captures: 1: name: 'storage.type.csound'
       }
+    grammar = atom.grammars.grammarForScopeName 'source.csound'
     if grammar
       callback grammar
     else
