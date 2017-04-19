@@ -89,7 +89,7 @@ describe "language-csound", ->
       waitsForPromise ->
         atom.workspace.open().then (editor) ->
           lines = grammar.tokenizeLines """
-            opcode/**/aUDO,/**/0,/**/0//
+            opcode/**/aUDO,/**/ai[]k[],/**/0//
               aUDO
             endop
           """
@@ -103,7 +103,7 @@ describe "language-csound", ->
           expect(tokens[4]).toEqual value: ",", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound"]
           expect(tokens[5]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
           expect(tokens[6]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
-          expect(tokens[7]).toEqual value: "0", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "storage.type.csound"]
+          expect(tokens[7]).toEqual value: "ai[]k[]", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "storage.type.csound"]
           expect(tokens[8]).toEqual value: ",", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound"]
           expect(tokens[9]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
           expect(tokens[10]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
