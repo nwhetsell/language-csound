@@ -1,118 +1,118 @@
-'name': 'Csound Score'
-scopeName: 'source.csound-score'
-fileTypes: ['sco']
+"name": "Csound Score"
+scopeName: "source.csound-score"
+fileTypes: ["sco"]
 
 patterns: [
-  {include: 'source.csound#preprocessorDirectives'}
-  {include: 'source.csound#commentsAndMacroUses'}
+  {include: "source.csound#preprocessorDirectives"}
+  {include: "source.csound#commentsAndMacroUses"}
   {
-    name:  'keyword.control.csound-score'
-    match: '[abCefiqstvxy]'
+    name:  "keyword.control.csound-score"
+    match: "[abCefiqstvxy]"
   },{
     # w statements are generated internally and should not be used; see
     # https://github.com/csound/csound/issues/750.
-    name:  'invalid.illegal.csound-score'
-    match: 'w'
+    name:  "invalid.illegal.csound-score"
+    match: "w"
   },{
     # z is not a statement, but rather a constant equal to 800,000,000,000.
     # 800 billion seconds is about 25,367.8 years. See also
     # https://csound.github.io/docs/manual/ScoreTop.html and
     # https://github.com/csound/csound/search?q=stof+path%3AEngine+filename%3Asread.c.
-    name:  'constant.numeric.language.csound-score'
-    match: 'z'
+    name:  "constant.numeric.language.csound-score"
+    match: "z"
   },{
-    name:  'meta.p-symbol.csound-score'
-    match: '([nNpP][pP])(\\d+)'
+    name:  "meta.p-symbol.csound-score"
+    match: "([nNpP][pP])(\\d+)"
     captures:
-      1: name: 'keyword.control.csound-score'
-      2: name: 'constant.numeric.integer.decimal.csound-score'
+      1: name: "keyword.control.csound-score"
+      2: name: "constant.numeric.integer.decimal.csound-score"
   },{
-    begin: '(m)|(n)'
-    end:   '\\n'
+    begin: "(m)|(n)"
+    end:   "\\n"
     beginCaptures:
-      1: name: 'keyword.mark.preprocessor.csound-score'
-      2: name: 'keyword.repeat-mark.preprocessor.csound-score'
+      1: name: "keyword.mark.preprocessor.csound-score"
+      2: name: "keyword.repeat-mark.preprocessor.csound-score"
     patterns: [
-      {include: 'source.csound#comments'}
+      {include: "source.csound#comments"}
       {
-        name:  'entity.name.label.csound-score'
-        match: '[A-Z_a-z]\\w*'
+        name:  "entity.name.label.csound-score"
+        match: "[A-Z_a-z]\\w*"
       }
     ]
   },{
-    begin: 'r\\b'
-    end:   '\\n'
-    beginCaptures: 0: name: 'keyword.repeat-section.preprocessor.csound-score'
+    begin: "r\\b"
+    end:   "\\n"
+    beginCaptures: 0: name: "keyword.repeat-section.preprocessor.csound-score"
     patterns: [
-      {include: 'source.csound#comments'}
+      {include: "source.csound#comments"}
       {
-        begin: '\\d+'
-        end:   '(?=\\n)'
-        beginCaptures: 0: name: 'constant.numeric.integer.decimal.csound-score'
+        begin: "\\d+"
+        end:   "(?=\\n)"
+        beginCaptures: 0: name: "constant.numeric.integer.decimal.csound-score"
         patterns: [
-          {include: 'source.csound#comments'}
-          {include: 'source.csound#macroNames'}
+          {include: "source.csound#comments"}
+          {include: "source.csound#macroNames"}
         ]
       }
     ]
   }
-  {include: 'source.csound#numbers'}
+  {include: "source.csound#numbers"}
   {
-    name:  'keyword.operator.csound-score'
-    match: '[!+\\-*/^%&|<>#~.]'
+    name:  "keyword.operator.csound-score"
+    match: "[!+\\-*/^%&|<>#~.]"
   },{
-    name:  'string.quoted.csound-score'
+    name:  "string.quoted.csound-score"
     begin: '"'
     end:   '"'
-    beginCaptures: 0: name: 'punctuation.definition.string.begin.csound-score'
-    endCaptures:   0: name: 'punctuation.definition.string.end.csound-score'
-    patterns: [include: 'source.csound#macroUses']
+    beginCaptures: 0: name: "punctuation.definition.string.begin.csound-score"
+    endCaptures:   0: name: "punctuation.definition.string.end.csound-score"
+    patterns: [include: "source.csound#macroUses"]
   },{
-    name:  'meta.braced-loop.csound-score'
-    begin: '\\{'
-    end:   '\\}'
-    beginCaptures: 0: name: 'punctuation.csound-score'
-    endCaptures:   0: name: 'punctuation.csound-score'
+    name:  "meta.braced-loop.csound-score"
+    begin: "\\{"
+    end:   "\\}"
+    beginCaptures: 0: name: "punctuation.csound-score"
+    endCaptures:   0: name: "punctuation.csound-score"
     patterns: [
       {
-        name: 'meta.braced-loop-details.csound-score'
-        begin: '\\G'
-        end:   '(?=\\n)'
+        name: "meta.braced-loop-details.csound-score"
+        begin: "\\G"
+        end:   "(?=\\n)"
         patterns: [
           {
-            begin: '\\d+'
-            end:   '(?=\\n)'
-            beginCaptures: 0: name: 'constant.numeric.integer.decimal.csound-score'
+            begin: "\\d+"
+            end:   "(?=\\n)"
+            beginCaptures: 0: name: "constant.numeric.integer.decimal.csound-score"
             patterns: [
               {
-                begin: '[A-Z_a-z]\\w*\\b'
-                end:   '(?=\\n)'
-                beginCaptures: 0: name: 'entity.name.function.preprocessor.csound-score'
+                begin: "[A-Z_a-z]\\w*\\b"
+                end:   "(?=\\n)"
+                beginCaptures: 0: name: "entity.name.function.preprocessor.csound-score"
                 patterns: [
-                  {include: '#comments'}
+                  {include: "#comments"}
                   {
-                    name:  'invalid.illegal.csound-score'
-                    match: '\\S+'
+                    name:  "invalid.illegal.csound-score"
+                    match: "\\S+"
                   }
                 ]
               }
-              {include: '#comments'}
+              {include: "#comments"}
               {
-                name:  'invalid.illegal.csound-score'
-                match: '\\S+'
+                name:  "invalid.illegal.csound-score"
+                match: "\\S+"
               }
             ]
           }
-          {include: '#comments'}
+          {include: "#comments"}
           {
-            name:  'invalid.illegal.csound-score'
-            match: '\\S+'
+            name:  "invalid.illegal.csound-score"
+            match: "\\S+"
           }
         ]
       },{
-        begin: '\\n'
-        end:   '(?=\\})'
-        patterns: [include: '$self']
+        begin: "\\n"
+        end:   "(?=\\})"
+        patterns: [include: "$self"]
       }
     ]
   }
