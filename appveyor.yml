@@ -5,4 +5,3 @@ build_script:
 
 skip_tags: true
 test: off
-deploy: off
