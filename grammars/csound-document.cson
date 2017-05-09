@@ -5,31 +5,55 @@ firstLineMatch: "<CsoundSynthesi[sz]er>"
 
 patterns: [
   {
-    begin: "<(CsoundSynthesi[sz]er)>"
-    end:   "</(CsoundSynthesi[sz]er)>"
-    beginCaptures: 1: name: "entity.name.tag.csound-document"
-    endCaptures:   1: name: "entity.name.tag.csound-document"
+    begin: "(<)(CsoundSynthesi[sz]er)(>)"
+    end:   "(</)(CsoundSynthesi[sz]er)(>)"
+    beginCaptures:
+      1: name: "punctuation.definition.tag.begin.csound-document"
+      2: name: "entity.name.tag.begin.csound-document"
+      3: name: "punctuation.definition.tag.begin.csound-document"
+    endCaptures:
+      1: name: "punctuation.definition.tag.end.csound-document"
+      2: name: "entity.name.tag.end.csound-document"
+      3: name: "punctuation.definition.tag.end.csound-document"
     patterns: [
       {
         name:  "meta.orchestra.csound-document"
-        begin: "<(CsOptions)>"
-        end:   "</(CsOptions)>"
-        beginCaptures: 1: name: "entity.name.tag.csound-document"
-        endCaptures:   1: name: "entity.name.tag.csound-document"
+        begin: "(<)(CsOptions)(>)"
+        end:   "(</)(CsOptions)(>)"
+        beginCaptures:
+          1: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.begin.csound-document"
+          3: name: "punctuation.definition.tag.begin.csound-document"
+        endCaptures:
+          1: name: "punctuation.definition.tag.end.csound-document"
+          2: name: "entity.name.tag.end.csound-document"
+          3: name: "punctuation.definition.tag.end.csound-document"
         patterns: [include: "source.csound#comments"]
       },{
         name:  "meta.orchestra.csound-document"
-        begin: "<(CsInstruments)>"
-        end:   "</(CsInstruments)>"
-        beginCaptures: 1: name: "entity.name.tag.csound-document"
-        endCaptures:   1: name: "entity.name.tag.csound-document"
+        begin: "(<)(CsInstruments)(>)"
+        end:   "(</)(CsInstruments)(>)"
+        beginCaptures:
+          1: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.begin.csound-document"
+          3: name: "punctuation.definition.tag.begin.csound-document"
+        endCaptures:
+          1: name: "punctuation.definition.tag.end.csound-document"
+          2: name: "entity.name.tag.end.csound-document"
+          3: name: "punctuation.definition.tag.end.csound-document"
         patterns: [include: "source.csound"]
       },{
         name:  "meta.score.csound-document"
-        begin: "<(CsScore)>"
-        end:   "</(CsScore)>"
-        beginCaptures: 1: name: "entity.name.tag.csound-document"
-        endCaptures:   1: name: "entity.name.tag.csound-document"
+        begin: "(<)(CsScore)(>)"
+        end:   "(</)(CsScore)(>)"
+        beginCaptures:
+          1: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.begin.csound-document"
+          3: name: "punctuation.definition.tag.begin.csound-document"
+        endCaptures:
+          1: name: "punctuation.definition.tag.end.csound-document"
+          2: name: "entity.name.tag.end.csound-document"
+          3: name: "punctuation.definition.tag.end.csound-document"
         patterns: [include: "source.csound-score"]
       },{
         name:  "meta.html.csound-document"
@@ -88,9 +112,15 @@ repository:
   tags:
     patterns: [
       {
-        begin: "<([a-zA-Z0-9:-]+)>"
-        end:   "</([a-zA-Z0-9:-]+)>"
-        beginCaptures: 1: name: "entity.name.tag.csound-document"
-        endCaptures:   1: name: "entity.name.tag.csound-document"
+        begin: "(<)([a-zA-Z0-9:-]+)(>)"
+        end:   "(</)([a-zA-Z0-9:-]+)(>)"
+        beginCaptures:
+          1: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.begin.csound-document"
+          3: name: "punctuation.definition.tag.begin.csound-document"
+        endCaptures:
+          1: name: "punctuation.definition.tag.end.csound-document"
+          2: name: "entity.name.tag.end.csound-document"
+          3: name: "punctuation.definition.tag.end.csound-document"
       }
     ]
