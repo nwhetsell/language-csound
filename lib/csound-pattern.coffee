@@ -5,17 +5,18 @@ Pattern = require (require 'path').join(atom.config.resourcePath, 'node_modules'
 module.exports =
 class CsoundPattern extends Pattern
   @subscriptions = new CompositeDisposable
-  @userDefinedOpcodesByTextEditorIDs = {}
+  @userDefinedOpcodesByWorkspaceIDs = {}
 
-  @userDefinedOpcodesForTextEditor: (editor) ->
-    return unless editor
+  @userDefinedOpcodesForWorkspace: (workspace) ->
+    return unless workspace
 
-    userDefinedOpcodes = @userDefinedOpcodesByTextEditorIDs[editor.id]
+    userDefinedOpcodes = @userDefinedOpcodesByWorkspaceIDs[workspace.id]
 
     unless userDefinedOpcodes
       userDefinedOpcodes = []
-      @userDefinedOpcodesByTextEditorIDs[editor.id] = userDefinedOpcodes
+      @userDefinedOpcodesByWorkspaceIDs[workspace.id] = userDefinedOpcodes
 
+      @subscriptions.add workspace.observeTextEditors((editor) =>
       @subscriptions.add editor.buffer.onWillChange((event) ->
         # bufferRangeForScopeAtPosition is a private method of TextEditor
         # (https://github.com/atom/atom/search?q=bufferRangeForScopeAtPosition+path%3Asrc+filename%3Atext-editor.coffee)
@@ -31,13 +32,14 @@ class CsoundPattern extends Pattern
             # (https://github.com/atom/atom/search?q=invalidateRow+path%3Asrc+filename%3Atokenized-buffer.coffee)
             editor.tokenizedBuffer.invalidateRow row for row in [0...editor.getLineCount()] when !editor.isBufferRowCommented(row)
       )
+      )
 
     userDefinedOpcodes
 
   handleMatch: (stack, line, captureIndicesArray, rule, endPatternMatch) ->
     tags = super
 
-    userDefinedOpcodes = CsoundPattern.userDefinedOpcodesForTextEditor atom.workspace.getActiveTextEditor()
+    userDefinedOpcodes = CsoundPattern.userDefinedOpcodesForWorkspace atom.workspace
 
     # Handle a Csound name as a user-defined opcode, or variable with a
     # storage-type prefix.
