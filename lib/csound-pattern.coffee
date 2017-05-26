@@ -36,7 +36,7 @@ class CsoundPattern extends Pattern
 
     userDefinedOpcodes
 
-  handleMatch: (stack, line, captureIndicesArray, rule, endPatternMatch) ->
+  handleMatch: (stack, line, captureIndicesArray) ->
     tags = super
 
     userDefinedOpcodes = CsoundPattern.userDefinedOpcodesForWorkspace atom.workspace
