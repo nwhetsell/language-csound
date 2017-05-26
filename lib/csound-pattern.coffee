@@ -17,21 +17,21 @@ class CsoundPattern extends Pattern
       @userDefinedOpcodesByWorkspaceIDs[workspace.id] = userDefinedOpcodes
 
       @subscriptions.add workspace.observeTextEditors((editor) =>
-      @subscriptions.add editor.buffer.onWillChange((event) ->
-        # bufferRangeForScopeAtPosition is a private method of TextEditor
-        # (https://github.com/atom/atom/search?q=bufferRangeForScopeAtPosition+path%3Asrc+filename%3Atext-editor.coffee)
-        range = editor.bufferRangeForScopeAtPosition 'entity.name.function.opcode.csound', event.oldRange.start
+        @subscriptions.add editor.buffer.onWillChange((event) ->
+          # bufferRangeForScopeAtPosition is a private method of TextEditor
+          # (https://github.com/atom/atom/search?q=bufferRangeForScopeAtPosition+path%3Asrc+filename%3Atext-editor.coffee)
+          range = editor.bufferRangeForScopeAtPosition 'entity.name.function.opcode.csound', event.oldRange.start
 
-        if range
-          index = userDefinedOpcodes.indexOf editor.getTextInBufferRange(range)
-          if index >= 0
-            userDefinedOpcodes.splice index, 1
-            # tokenizedBuffer is a private property of TextEditor
-            # (https://github.com/atom/atom/search?q=tokenizedBuffer+path%3Asrc+filename%3Atext-editor.coffee)
-            # that returns an instance of the private class TokenizedBuffer
-            # (https://github.com/atom/atom/search?q=invalidateRow+path%3Asrc+filename%3Atokenized-buffer.coffee)
-            editor.tokenizedBuffer.invalidateRow row for row in [0...editor.getLineCount()] when !editor.isBufferRowCommented(row)
-      )
+          if range
+            index = userDefinedOpcodes.indexOf editor.getTextInBufferRange(range)
+            if index >= 0
+              userDefinedOpcodes.splice index, 1
+              # tokenizedBuffer is a private property of TextEditor
+              # (https://github.com/atom/atom/search?q=tokenizedBuffer+path%3Asrc+filename%3Atext-editor.coffee)
+              # that returns an instance of the private class TokenizedBuffer
+              # (https://github.com/atom/atom/search?q=invalidateRow+path%3Asrc+filename%3Atokenized-buffer.coffee)
+              editor.tokenizedBuffer.invalidateRow row for row in [0...editor.getLineCount()] when !editor.isBufferRowCommented(row)
+        )
       )
 
     userDefinedOpcodes
