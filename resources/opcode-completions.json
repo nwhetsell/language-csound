@@ -110,6 +110,24 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "OSClisten ${1:ihandle}, ${2:Sdest}, ${3:Stype}",
+      "displayText": "OSClisten ihandle, Sdest, Stype",
+      "opcode": "OSClisten",
+      "description": "Listen for OSC messages to a particular path.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/OSClisten.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S[]k",
+      "snippet": "OSCraw ${1:iport}",
+      "displayText": "OSCraw iport",
+      "opcode": "OSCraw",
+      "description": "Listen for all OSC messages at a given port.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/OSCraw.html",
+      "type": "function"
+    },
+    {
       "snippet": "OSCsend ${1:kwhen}, ${2:Shost}, ${3:kport}, ${4:Sdestination}, ${5:Stype}",
       "displayText": "OSCsend kwhen, Shost, kport, Sdestination, Stype",
       "opcode": "OSCsend",
@@ -200,8 +218,8 @@
     },
     {
       "leftLabel": "i",
-      "snippet": "ampmidid ${1:ivelocity}, ${2:idecibels}",
-      "displayText": "ampmidid ivelocity, idecibels",
+      "snippet": "ampmidid ${1:ivelocity}, ${2:idecibels/*, i*/}",
+      "displayText": "ampmidid ivelocity, idecibels, i",
       "opcode": "ampmidid",
       "description": "Musically map MIDI velocity to peak amplitude within a specified dynamic range in decibels.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/ampmidid.html",
@@ -209,8 +227,8 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "ampmidid ${1:kvelocity}, ${2:idecibels}",
-      "displayText": "ampmidid kvelocity, idecibels",
+      "snippet": "ampmidid ${1:kvelocity}, ${2:idecibels/*, i*/}",
+      "displayText": "ampmidid kvelocity, idecibels, i",
       "opcode": "ampmidid",
       "description": "Musically map MIDI velocity to peak amplitude within a specified dynamic range in decibels.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/ampmidid.html",
@@ -415,6 +433,33 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "bpf ${1:kx}, ${2:kx1}, ${3:ky1}, ${4:kx2}, ${5:k..}, ${6:kxn}, ${7:kyn}",
+      "displayText": "bpf kx, kx1, ky1, kx2, k.., kxn, kyn",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "bpf ${1:kx}, ${2:kx1}, ${3:ky1}, ${4:kx2}, ${5:k..}, ${6:kxn}, ${7:kyn}, ${8:k}, ${9:k}",
+      "displayText": "bpf kx, kx1, ky1, kx2, k.., kxn, kyn, k, k",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "bpf ${1:kx}, ${2:kx1}, ${3:ky1}, ${4:kx2}, ${5:k..}, ${6:kxn}, ${7:kyn}, ${8:k}, ${9:k}, ${10:k}, ${11:k}",
+      "displayText": "bpf kx, kx1, ky1, kx2, k.., kxn, kyn, k, k, k, k",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "a",
       "snippet": "bqrez ${1:aSignal}, ${2:(a|k)fco}, ${3:(a|k)res/*, imode, iskip*/}",
       "displayText": "bqrez aSignal, (a|k)fco, (a|k)res, imode, iskip",
@@ -556,6 +601,24 @@
       "opcode": "cauchyi",
       "description": "Cauchy distribution random number generator with interpolation.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/cauchyi.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "cbrt ${1:iarg}",
+      "displayText": "cbrt iarg",
+      "opcode": "cbrt",
+      "description": "Cubic root function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/cbrt.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "cbrt ${1:karg}",
+      "displayText": "cbrt karg",
+      "opcode": "cbrt",
+      "description": "Cubic root function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/cbrt.html",
       "type": "function"
     },
     {
@@ -793,6 +856,15 @@
       "opcode": "clockon",
       "description": "Starts one of a number of internal clocks.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/clockon.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "cmp ${1:aL}, ${2:S_operator}, ${3:(a|k)R}",
+      "displayText": "cmp aL, S_operator, (a|k)R",
+      "opcode": "cmp",
+      "description": "Compares two audio signals",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/cmp.html",
       "type": "function"
     },
     {
@@ -1350,6 +1422,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "diode_ladder ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)k/*, knlp, ksaturation, istor*/}",
+      "displayText": "diode_ladder ain, (a|k)cf, (a|k)k, knlp, ksaturation, istor",
+      "opcode": "diode_ladder",
+      "description": "Zero-delay feedback implementation of 4 pole diode ladder filter.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/diode_ladder.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "S[]",
       "snippet": "directory ${1:SDirectory}, ${2:(a|i|k|S)Extention…}",
       "displayText": "directory SDirectory, (a|i|k|S)Extention",
@@ -1471,6 +1552,24 @@
       "opcode": "doppler",
       "description": "A fast and robust method for approximating sound propagation, achieving convincing Doppler shifts without having to solve equations.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/doppler.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "dot ${1:iarr1/iarr1}, ${2:iarr2/iarr2 (k- or i-arrays )}",
+      "displayText": "dot iarr1/iarr1, iarr2/iarr2 (k- or i-arrays )",
+      "opcode": "dot",
+      "description": "Calculates the dot product of two arrays.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/dot.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "dot ${1:karr1/iarr1}, ${2:karr2/iarr2 (k- or i-arrays )}",
+      "displayText": "dot karr1/iarr1, karr2/iarr2 (k- or i-arrays )",
+      "opcode": "dot",
+      "description": "Calculates the dot product of two arrays.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/dot.html",
       "type": "function"
     },
     {
@@ -2105,6 +2204,33 @@
       "type": "function"
     },
     {
+      "leftLabel": "aa",
+      "snippet": "fmanal ${1:are}, ${2:aim}",
+      "displayText": "fmanal are, aim",
+      "opcode": "fmanal",
+      "description": "AM/FM analysis from quadrature signal.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/fmanal.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "fmax ${1:iarg1}, ${2:iarg2}",
+      "displayText": "fmax iarg1, iarg2",
+      "opcode": "fmax",
+      "description": "Maximum value function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/fmax.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "fmax ${1:karg1}, ${2:karg2}",
+      "displayText": "fmax karg1, karg2",
+      "opcode": "fmax",
+      "description": "Maximum value function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/fmax.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "a",
       "snippet": "fmb3 ${1:kAmplitude}, ${2:kFrequency}, ${3:kc1}, ${4:kc2}, ${5:kvdepth}, ${6:kvrate/*, ifn1, ifn2, ifn3, ifn4, ivfn*/}",
       "displayText": "fmb3 kAmplitude, kFrequency, kc1, kc2, kvdepth, kvrate, ifn1, ifn2, ifn3, ifn4, ivfn",
@@ -2123,12 +2249,48 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]",
+      "snippet": "fmin ${1:iarg1}, ${2:iarg2}",
+      "displayText": "fmin iarg1, iarg2",
+      "opcode": "fmin",
+      "description": "Minimum value function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/fmin.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "fmin ${1:karg1}, ${2:karg2}",
+      "displayText": "fmin karg1, karg2",
+      "opcode": "fmin",
+      "description": "Minimum value function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/fmin.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "a",
       "snippet": "fmmetal ${1:kAmplitude}, ${2:kFrequency}, ${3:kc1}, ${4:kc2}, ${5:kvdepth}, ${6:kvrate}, ${7:ifn1}, ${8:ifn2}, ${9:ifn3}, ${10:ifn4}, ${11:ivfn}",
       "displayText": "fmmetal kAmplitude, kFrequency, kc1, kc2, kvdepth, kvrate, ifn1, ifn2, ifn3, ifn4, ivfn",
       "opcode": "fmmetal",
       "description": "Uses FM synthesis to create a Heavy Metal sound.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/fmmetal.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "fmod ${1:iarg1}, ${2:iarg2}",
+      "displayText": "fmod iarg1, iarg2",
+      "opcode": "fmod",
+      "description": "Compute the floating point remainder operation.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/fmod.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "fmod ${1:karg1}, ${2:karg2}",
+      "displayText": "fmod karg1, karg2",
+      "opcode": "fmod",
+      "description": "Compute the floating point remainder operation.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/fmod.html",
       "type": "function"
     },
     {
@@ -2364,8 +2526,8 @@
     },
     {
       "leftLabel": "i",
-      "snippet": "ftgentmp ${1:ip1}, ${2:ip2dummy}, ${3:isize}, ${4:igen}, ${5:(S|i)arga}, ${6:iargb…}",
-      "displayText": "ftgentmp ip1, ip2dummy, isize, igen, (S|i)arga, iargb",
+      "snippet": "ftgentmp ${1:ip1}, ${2:ip2dummy}, ${3:isize}, ${4:(S|i)gen}, ${5:(S|i)arga}, ${6:iargb…}",
+      "displayText": "ftgentmp ip1, ip2dummy, isize, (S|i)gen, (S|i)arga, iargb",
       "opcode": "ftgentmp",
       "description": "Generate a score function table from within the orchestra, which is deleted at the end of the note.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/ftgentmp.html",
@@ -2395,6 +2557,24 @@
       "opcode": "ftmorf",
       "description": "Morphs between multiple ftables as specified in a list.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/ftmorf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "ftom ${1:iFrequency}",
+      "displayText": "ftom iFrequency",
+      "opcode": "ftom",
+      "description": "Convert frequency to midi",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/ftom.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "ftom ${1:kFrequency}",
+      "displayText": "ftom kFrequency",
+      "opcode": "ftom",
+      "description": "Convert frequency to midi",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/ftom.html",
       "type": "function"
     },
     {
@@ -2659,6 +2839,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "aa",
+      "snippet": "hilbert2 ${1:aSignal}, ${2:ifftsize}, ${3:ihopsize}",
+      "displayText": "hilbert2 aSignal, ifftsize, ihopsize",
+      "opcode": "hilbert2",
+      "description": "A Hilbert rransformer.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/hilbert2.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "aaiii",
       "snippet": "hrtfearly ${1:asrc}, ${2:(a|k)srcx}, ${3:(a|k)srcy}, ${4:(a|k)srcz}, ${5:(a|k)lstnrx}, ${6:(a|k)lstnry}, ${7:(a|k)lstnrz}, ${8:Sfilel}, ${9:Sfiler}, ${10:idefroom/*, ifade, isr, iorder, ithreed, kheadrot, iroomx, iroomy, iroomz, iwallhigh, iwalllow, iwallgain1, iwallgain2, iwallgain3, ifloorhigh, ifloorlow, ifloorgain1, ifloorgain2, ifloorgain3, iceilinghigh, iceilinglow, iceilinggain1, iceilinggain2, iceilinggain3*/}",
       "displayText": "hrtfearly asrc, (a|k)srcx, (a|k)srcy, (a|k)srcz, (a|k)lstnrx, (a|k)lstnry, (a|k)lstnrz, Sfilel, Sfiler, idefroom, ifade, isr, iorder, ithreed, kheadrot, iroomx, iroomy, iroomz, iwallhigh, iwalllow, iwallgain1, iwallgain2, iwallgain3, ifloorhigh, ifloorlow, ifloorgain1, ifloorgain2, ifloorgain3, iceilinghigh, iceilinglow, iceilinggain1, iceilinggain2, iceilinggain3",
@@ -2743,6 +2932,24 @@
       "opcode": "hvs3",
       "description": "Allows three-dimensional Hyper Vectorial Synthesis (HVS) controlled by externally-updated k-variables.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/hvs3.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "hypot ${1:iarg1}, ${2:iarg2}",
+      "displayText": "hypot iarg1, iarg2",
+      "opcode": "hypot",
+      "description": "Euclidean distance function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/hypot.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "hypot ${1:karg1}, ${2:karg2}",
+      "displayText": "hypot karg1, karg2",
+      "opcode": "hypot",
+      "description": "Euclidean distance function.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/hypot.html",
       "type": "function"
     },
     {
@@ -3166,12 +3373,48 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]",
+      "snippet": "limit ${1:iSignal}, ${2:ilow}, ${3:ihigh}",
+      "displayText": "limit iSignal, ilow, ihigh",
+      "opcode": "limit",
+      "description": "Sets the lower and upper limits of the value it processes.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/limit.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "limit ${1:kSignal}, ${2:klow}, ${3:khigh}",
       "displayText": "limit kSignal, klow, khigh",
       "opcode": "limit",
       "description": "Sets the lower and upper limits of the value it processes.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/limit.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "limit ${1:kSignal}, ${2:klow}, ${3:khigh}",
+      "displayText": "limit kSignal, klow, khigh",
+      "opcode": "limit",
+      "description": "Sets the lower and upper limits of the value it processes.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/limit.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "limit1 ${1:iarg}",
+      "displayText": "limit1 iarg",
+      "opcode": "limit1",
+      "description": "Limiting function",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/limit1.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "limit1 ${1:karg}",
+      "displayText": "limit1 karg",
+      "opcode": "limit1",
+      "description": "Limiting function",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/limit1.html",
       "type": "function"
     },
     {
@@ -3229,6 +3472,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "linlin ${1:kin}, ${2:ksrclo}, ${3:ksrchi}, ${4:kdstlo}, ${5:kdsthi}",
+      "displayText": "linlin kin, ksrclo, ksrchi, kdstlo, kdsthi",
+      "opcode": "linlin",
+      "description": "Linear to linear interpolation",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/linlin.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "aik",
       "snippet": "linrand ${1:krange}",
       "displayText": "linrand krange",
@@ -3262,6 +3514,15 @@
       "opcode": "linsegr",
       "description": "Trace a series of line segments between specified points including a release segment.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/linsegr.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "liveconv ${1:ain}, ${2:ift}, ${3:iplen}, ${4:kupdate}, ${5:kclear}",
+      "displayText": "liveconv ain, ift, iplen, kupdate, kclear",
+      "opcode": "liveconv",
+      "description": "Partitioned convolution with dynamically reloadable impulse response",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/liveconv.html",
       "type": "function"
     },
     {
@@ -3816,6 +4077,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "kk",
+      "snippet": "midiarp ${1:kRate/*, kMode*/}",
+      "displayText": "midiarp kRate, kMode",
+      "opcode": "midiarp",
+      "description": "Generates arpeggios based on currently held MIDI notes.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/midiarp.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "i",
       "snippet": "midic14 ${1:ictlno1}, ${2:ictlno2}, ${3:imin}, ${4:imax/*, iFunctionTable*/}",
       "displayText": "midic14 ictlno1, ictlno2, imin, imax, iFunctionTable",
@@ -4273,6 +4543,33 @@
       "type": "function"
     },
     {
+      "leftLabel": "i",
+      "snippet": "mtof ${1:imidi}",
+      "displayText": "mtof imidi",
+      "opcode": "mtof",
+      "description": "Convert a midi to frequency",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mtof.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "mtof ${1:kmidi}",
+      "displayText": "mtof kmidi",
+      "opcode": "mtof",
+      "description": "Convert a midi to frequency",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mtof.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S",
+      "snippet": "mton ${1:(i|k)midi}",
+      "displayText": "mton (i|k)midi",
+      "opcode": "mton",
+      "description": "Convert midi note number to string note name",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/mton.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "a",
       "snippet": "multitap ${1:aSignal}, ${2:itime1…}",
       "displayText": "multitap aSignal, itime1",
@@ -4472,6 +4769,15 @@
       "opcode": "nstrnum",
       "description": "Returns the number of a named instrument.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/nstrnum.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "ik",
+      "snippet": "ntom ${1:Snote}",
+      "displayText": "ntom Snote",
+      "opcode": "ntom",
+      "description": "Convert note name to midi note number",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/ntom.html",
       "type": "function"
     },
     {
@@ -4992,11 +5298,28 @@
     },
     {
       "leftLabel": "aa…",
-      "snippet": "partikkel ${1:(a|k)grainfreq}, ${2:kdistribution}, ${3:idisttab}, ${4:async}, ${5:kenv2amt}, ${6:ienv2tab}, ${7:ienv_attack}, ${8:ienv_decay}, ${9:ksustain_amount}, ${10:ka_d_ratio}, ${11:kduration}, ${12:kAmplitude}, ${13:igainmasks}, ${14:kwavfreq}, ${15:ksweepshape}, ${16:iwavfreqstarttab}, ${17:iwavfreqendtab}, ${18:awavfm}, ${19:ifmamptab}, ${20:kfmenv}, ${21:icosine}, ${22:ktraincps}, ${23:knumpartials}, ${24:kchroma}, ${25:ichannelmasks}, ${26:krandommask}, ${27:kwaveform1}, ${28:kwaveform2}, ${29:kwaveform3}, ${30:kwaveform4}, ${31:iwaveamptab}, ${32:asamplepos1}, ${33:asamplepos2}, ${34:asamplepos3}, ${35:asamplepos4}, ${36:kwavekey1}, ${37:kwavekey2}, ${38:kwavekey3}, ${39:kwavekey4}, ${40:imax_grains/*, iopcode_id, i*/}",
-      "displayText": "partikkel (a|k)grainfreq, kdistribution, idisttab, async, kenv2amt, ienv2tab, ienv_attack, ienv_decay, ksustain_amount, ka_d_ratio, kduration, kAmplitude, igainmasks, kwavfreq, ksweepshape, iwavfreqstarttab, iwavfreqendtab, awavfm, ifmamptab, kfmenv, icosine, ktraincps, knumpartials, kchroma, ichannelmasks, krandommask, kwaveform1, kwaveform2, kwaveform3, kwaveform4, iwaveamptab, asamplepos1, asamplepos2, asamplepos3, asamplepos4, kwavekey1, kwavekey2, kwavekey3, kwavekey4, imax_grains, iopcode_id, i",
+      "snippet": "partikkel ${1:(a|k)grainfreq}, ${2:kdistribution}, ${3:idisttab}, ${4:async}, ${5:kenv2amt}, ${6:ienv2tab}, ${7:ienv_attack}, ${8:ienv_decay}, ${9:ksustain_amount}, ${10:ka_d_ratio}, ${11:kduration}, ${12:kAmplitude}, ${13:igainmasks}, ${14:kwavfreq}, ${15:ksweepshape}, ${16:iwavfreqstarttab}, ${17:iwavfreqendtab}, ${18:awavfm}, ${19:ifmamptab}, ${20:kfmenv}, ${21:icosine}, ${22:ktraincps}, ${23:knumpartials}, ${24:kchroma}, ${25:ichannelmasks}, ${26:krandommask}, ${27:kwaveform1}, ${28:kwaveform2}, ${29:kwaveform3}, ${30:kwaveform4}, ${31:iwaveamptab}, ${32:asamplepos1}, ${33:asamplepos2}, ${34:asamplepos3}, ${35:asamplepos4}, ${36:kwavekey1}, ${37:kwavekey2}, ${38:kwavekey3}, ${39:kwavekey4}, ${40:imax_grains/*, iopcode_id, ipanlaws*/}",
+      "displayText": "partikkel (a|k)grainfreq, kdistribution, idisttab, async, kenv2amt, ienv2tab, ienv_attack, ienv_decay, ksustain_amount, ka_d_ratio, kduration, kAmplitude, igainmasks, kwavfreq, ksweepshape, iwavfreqstarttab, iwavfreqendtab, awavfm, ifmamptab, kfmenv, icosine, ktraincps, knumpartials, kchroma, ichannelmasks, krandommask, kwaveform1, kwaveform2, kwaveform3, kwaveform4, iwaveamptab, asamplepos1, asamplepos2, asamplepos3, asamplepos4, kwavekey1, kwavekey2, kwavekey3, kwavekey4, imax_grains, iopcode_id, ipanlaws",
       "opcode": "partikkel",
       "description": "Granular synthesizer with \"per grain\" control over many of its parameters. Has a sync input to sychronize its internal grain scheduler clock to an external clock source.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/partikkel.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "partikkelget ${1:kparameterindex}, ${2:iopcode_id}",
+      "displayText": "partikkelget kparameterindex, iopcode_id",
+      "opcode": "partikkelget",
+      "description": "Get mask index for a specific mask parameter of a running partikkel instance.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/partikkelget.html",
+      "type": "function"
+    },
+    {
+      "snippet": "partikkelset ${1:kparameterindex}, ${2:kmaskindex}, ${3:iopcode_id}",
+      "displayText": "partikkelset kparameterindex, kmaskindex, iopcode_id",
+      "opcode": "partikkelset",
+      "description": "Set mask index for a specific mask parameter of a running partikkel instance.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/partikkelset.html",
       "type": "function"
     },
     {
@@ -5060,6 +5383,24 @@
       "opcode": "pchmidib",
       "description": "Get the note number of the current MIDI event and modify it by the current pitch-bend value, express it in pitch-class units.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/pchmidib.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "pchtom ${1:ipch}",
+      "displayText": "pchtom ipch",
+      "opcode": "pchtom",
+      "description": "Convert pch to midi note number",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/pchtom.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "pchtom ${1:kpch}",
+      "displayText": "pchtom kpch",
+      "opcode": "pchtom",
+      "description": "Convert pch to midi note number",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/pchtom.html",
       "type": "function"
     },
     {
@@ -5396,9 +5737,27 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]",
+      "snippet": "pow ${1:iarg}, ${2:ipow}",
+      "displayText": "pow iarg, ipow",
+      "opcode": "pow",
+      "description": "Computes one argument to the power of another argument.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/pow.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "pow ${1:karg}, ${2:kpow/*, inorm*/}",
       "displayText": "pow karg, kpow, inorm",
+      "opcode": "pow",
+      "description": "Computes one argument to the power of another argument.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/pow.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "pow ${1:karg}, ${2:kpow}",
+      "displayText": "pow karg, kpow",
       "opcode": "pow",
       "description": "Computes one argument to the power of another argument.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/pow.html",
@@ -5493,6 +5852,24 @@
       "leftLabel": "a",
       "snippet": "product ${1:asig1…}",
       "displayText": "product asig1",
+      "opcode": "product",
+      "description": "Multiplies any number of a-rate signals.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/product.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "product ${1:isig1}",
+      "displayText": "product isig1",
+      "opcode": "product",
+      "description": "Multiplies any number of a-rate signals.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/product.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "product ${1:ksig1}",
+      "displayText": "product ksig1",
       "opcode": "product",
       "description": "Multiplies any number of a-rate signals.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/product.html",
@@ -5687,6 +6064,15 @@
       "leftLabel": "k",
       "snippet": "pvs2tab ${1:kvar|kvar}, ${2:fSignal}",
       "displayText": "pvs2tab kvar|kvar, fSignal",
+      "opcode": "pvs2tab",
+      "description": "Copies spectral data to k-rate arrays (or t-variables). Also known as pvs2array.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/pvs2tab.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "pvs2tab ${1:kvar|kvar}, ${2:kSignal}, ${3:f}",
+      "displayText": "pvs2tab kvar|kvar, kSignal, f",
       "opcode": "pvs2tab",
       "description": "Copies spectral data to k-rate arrays (or t-variables). Also known as pvs2array.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/pvs2tab.html",
@@ -6038,6 +6424,15 @@
       "opcode": "pvstencil",
       "description": "Transforms a pvoc stream according to a masking function table.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/pvstencil.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "f",
+      "snippet": "pvstrace ${1:fsigin}, ${2:kn}",
+      "displayText": "pvstrace fsigin, kn",
+      "opcode": "pvstrace",
+      "description": "Retain only the N loudest bins.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/pvstrace.html",
       "type": "function"
     },
     {
@@ -6643,6 +7038,96 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "sc_lag ${1:ain}, ${2:klagtime/*, initialvalue=0*/}",
+      "displayText": "sc_lag ain, klagtime, initialvalue=0",
+      "opcode": "sc_lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sc_lag ${1:kin}, ${2:klagtime/*, initialvalue=0*/}",
+      "displayText": "sc_lag kin, klagtime, initialvalue=0",
+      "opcode": "sc_lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "sc_lagud ${1:ain}, ${2:klagup}, ${3:klagdown/*, i*/}",
+      "displayText": "sc_lagud ain, klagup, klagdown, i",
+      "opcode": "sc_lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_lagud.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sc_lagud ${1:kin}, ${2:klagup}, ${3:klagdown/*, i*/}",
+      "displayText": "sc_lagud kin, klagup, klagdown, i",
+      "opcode": "sc_lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_lagud.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "sc_phasor ${1:atrig}, ${2:(a|k)rate}, ${3:kstart}, ${4:kend}",
+      "displayText": "sc_phasor atrig, (a|k)rate, kstart, kend",
+      "opcode": "sc_phasor",
+      "description": "A resettable linear ramp between two levels",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_phasor.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "sc_phasor ${1:atrig}, ${2:(a|k)rate}, ${3:kstart}, ${4:kend}, ${5:kresetPos}",
+      "displayText": "sc_phasor atrig, (a|k)rate, kstart, kend, kresetPos",
+      "opcode": "sc_phasor",
+      "description": "A resettable linear ramp between two levels",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_phasor.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sc_phasor ${1:ktrig}, ${2:krate}, ${3:kstart}, ${4:kend}",
+      "displayText": "sc_phasor ktrig, krate, kstart, kend",
+      "opcode": "sc_phasor",
+      "description": "A resettable linear ramp between two levels",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_phasor.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sc_phasor ${1:ktrig}, ${2:krate}, ${3:kstart}, ${4:kend}, ${5:kresetPos}",
+      "displayText": "sc_phasor ktrig, krate, kstart, kend, kresetPos",
+      "opcode": "sc_phasor",
+      "description": "A resettable linear ramp between two levels",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_phasor.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "sc_trig ${1:ain}, ${2:kDuration}",
+      "displayText": "sc_trig ain, kDuration",
+      "opcode": "sc_trig",
+      "description": "Timed trigger",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_trig.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sc_trig ${1:kin}, ${2:kDuration}",
+      "displayText": "sc_trig kin, kDuration",
+      "opcode": "sc_trig",
+      "description": "Timed trigger",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_trig.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "scale ${1:kinput}, ${2:kmax}, ${3:kmin}",
       "displayText": "scale kinput, kmax, kmin",
@@ -6761,6 +7246,15 @@
       "opcode": "sekere",
       "description": "Semi-physical model of a sekere sound.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/sekere.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "select ${1:a1}, ${2:a2}, ${3:aless}, ${4:aequal}, ${5:amore}",
+      "displayText": "select a1, a2, aless, aequal, amore",
+      "opcode": "select",
+      "description": "Select sample value based on audio-rate comparisons.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/select.html",
       "type": "function"
     },
     {
@@ -7305,7 +7799,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "ak",
+      "leftLabel": "Sak",
       "snippet": "sockrecv ${1:iport}, ${2:ilength}",
       "displayText": "sockrecv iport, ilength",
       "opcode": "sockrecv",
@@ -7320,6 +7814,42 @@
       "opcode": "socksend",
       "description": "Sends data to other processes using the low-level UDP or TCP protocols",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/socksend.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "sorta ${1:i/i (k- or i-arrays )}",
+      "displayText": "sorta i/i (k- or i-arrays )",
+      "opcode": "sorta",
+      "description": "Sorts an array in ascending order.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sorta.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "sorta ${1:k/i (k- or i-arrays )}",
+      "displayText": "sorta k/i (k- or i-arrays )",
+      "opcode": "sorta",
+      "description": "Sorts an array in ascending order.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sorta.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "sortd ${1:i/i (k- or i-arrays )}",
+      "displayText": "sortd i/i (k- or i-arrays )",
+      "opcode": "sortd",
+      "description": "Sorts an array in descending order.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sortd.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "sortd ${1:k/i (k- or i-arrays )}",
+      "displayText": "sortd k/i (k- or i-arrays )",
+      "opcode": "sortd",
+      "description": "Sorts an array in descending order.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sortd.html",
       "type": "function"
     },
     {
@@ -7808,7 +8338,25 @@
       "snippet": "sum ${1:asig1…}",
       "displayText": "sum asig1",
       "opcode": "sum",
-      "description": "Sums any number of a-rate signals.",
+      "description": "Sums any number of a-rate signals, or array elements.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sum.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "sum ${1:isig1}",
+      "displayText": "sum isig1",
+      "opcode": "sum",
+      "description": "Sums any number of a-rate signals, or array elements.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/sum.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sum ${1:ksig1}",
+      "displayText": "sum ksig1",
+      "opcode": "sum",
+      "description": "Sums any number of a-rate signals, or array elements.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/sum.html",
       "type": "function"
     },
@@ -7897,6 +8445,15 @@
       "leftLabel": "f",
       "snippet": "tab2pvs ${1:kvar|karr/*, ihopsize, iwinsize, iwintype*/}",
       "displayText": "tab2pvs kvar|karr, ihopsize, iwinsize, iwintype",
+      "opcode": "tab2pvs",
+      "description": "Copies spectral data from k-rate arrays (or t-variables.). Also known as pvsfromarray.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/tab2pvs.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "f",
+      "snippet": "tab2pvs ${1:kvar|karr}, ${2:khopsize/*, iwinsize, iwintype, i*/}",
+      "displayText": "tab2pvs kvar|karr, khopsize, iwinsize, iwintype, i",
       "opcode": "tab2pvs",
       "description": "Copies spectral data from k-rate arrays (or t-variables.). Also known as pvsfromarray.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/tab2pvs.html",
@@ -8590,6 +9147,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "tvconv ${1:asig1}, ${2:asig2}, ${3:(a|k)freez1}, ${4:(a|k)freez2}, ${5:iparts}, ${6:ifils}",
+      "displayText": "tvconv asig1, asig2, (a|k)freez1, (a|k)freez2, iparts, ifils",
+      "opcode": "tvconv",
+      "description": "A time-varying convolution (FIR filter) opcode.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/tvconv.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "aik",
       "snippet": "unirand ${1:krange}",
       "displayText": "unirand krange",
@@ -8765,8 +9331,18 @@
       "type": "function"
     },
     {
-      "snippet": "vbaplsinit ${1:idim}, ${2:ilsnum/*, idir1, idir2 ..., idir32, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i*/}",
-      "displayText": "vbaplsinit idim, ilsnum, idir1, idir2 ..., idir32, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i",
+      "leftLabel": "",
+      "snippet": "vbaplsinit ${1:idim}, ${2:ilsnum}, ${3:idir1}",
+      "displayText": "vbaplsinit idim, ilsnum, idir1",
+      "opcode": "vbaplsinit",
+      "description": "Configures VBAP output according to loudspeaker parameters.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/vbaplsinit.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "",
+      "snippet": "vbaplsinit ${1:idim}, ${2:ilsnum/*, idir1, idir2 ..., idir32, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i*/}",
+      "displayText": "vbaplsinit idim, ilsnum, idir1, idir2 ..., idir32, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, i",
       "opcode": "vbaplsinit",
       "description": "Configures VBAP output according to loudspeaker parameters.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/vbaplsinit.html",
@@ -9366,6 +9942,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "*",
+      "snippet": "websocket ${1:iport}, ${2:(a|i|k|S)in}",
+      "displayText": "websocket iport, (a|i|k|S)in",
+      "opcode": "websocket",
+      "description": "Read and write signals and arrays using a websocket connection.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/websocket.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "aik",
       "snippet": "weibull ${1:ksigma}, ${2:ktau}",
       "displayText": "weibull ksigma, ktau",
@@ -9604,6 +10189,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "xyscale ${1:kx}, ${2:ky}, ${3:(i|k)00}, ${4:(i|k)10}, ${5:(i|k)01}, ${6:(i|k)11}",
+      "displayText": "xyscale kx, ky, (i|k)00, (i|k)10, (i|k)01, (i|k)11",
+      "opcode": "xyscale",
+      "description": "2D linear interpolation",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/xyscale.html",
+      "type": "function"
+    },
+    {
       "snippet": "zacl ${1:kfirst}, ${2:klast}",
       "displayText": "zacl kfirst, klast",
       "opcode": "zacl",
@@ -9660,6 +10254,51 @@
       "opcode": "zawm",
       "description": "Writes to a za variable at a-rate with mixing.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/zawm.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "zdf_1pole ${1:ain}, ${2:(a|k)cf/*, kmode, istor*/}",
+      "displayText": "zdf_1pole ain, (a|k)cf, kmode, istor",
+      "opcode": "zdf_1pole",
+      "description": "Zero-delay feedback implementation of 1 pole filter.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/zdf_1pole.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "aa",
+      "snippet": "zdf_1pole_mode ${1:ain}, ${2:(a|k)cf/*, istor*/}",
+      "displayText": "zdf_1pole_mode ain, (a|k)cf, istor",
+      "opcode": "zdf_1pole_mode",
+      "description": "Zero-delay feedback implementation of 1 pole filter with multimode output.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/zdf_1pole_mode.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "zdf_2pole ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)Q/*, kmode, istor*/}",
+      "displayText": "zdf_2pole ain, (a|k)cf, (a|k)Q, kmode, istor",
+      "opcode": "zdf_2pole",
+      "description": "Zero-delay feedback implementation of 2 pole filter.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/zdf_2pole.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "aaa",
+      "snippet": "zdf_2pole_mode ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)/*, istor*/}",
+      "displayText": "zdf_2pole_mode ain, (a|k)cf, (a|k), istor",
+      "opcode": "zdf_2pole_mode",
+      "description": "Zero-delay feedback implementation of 2 pole filter with multimode output.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/zdf_2pole_mode.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "zdf_ladder ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)Q/*, istor*/}",
+      "displayText": "zdf_ladder ain, (a|k)cf, (a|k)Q, istor",
+      "opcode": "zdf_ladder",
+      "description": "Zero-delay feedback implementation of 4 pole ladder filter.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/zdf_ladder.html",
       "type": "function"
     },
     {

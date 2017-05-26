@@ -347,6 +347,7 @@ const XMLHeader = `<?xml version="1.0" encoding="utf-8"?>
   <!ENTITY nameandres "Andrés Cabrera">
   <!ENTITY nameanthony "Anthony Kozar">
   <!ENTITY namebarry "Barry L. Vercoe">
+  <!ENTITY nameeduardo "Eduardo Moguillansky">
   <!ENTITY namegabriel "Gabriel Maldonado">
   <!ENTITY namehans "Hans Mikelson">
   <!ENTITY nameistvan "Istvan Varga">
