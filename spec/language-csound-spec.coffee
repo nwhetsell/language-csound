@@ -585,6 +585,7 @@ describe "language-csound", ->
         "a" # advance
         "b" # beat offset
         "C" # carry
+        "d" # delete
         "e" # end
         "f" # function table
         "i" # instrument

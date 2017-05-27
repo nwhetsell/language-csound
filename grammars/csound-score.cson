@@ -7,7 +7,7 @@ patterns: [
   {include: "source.csound#commentsAndMacroUses"}
   {
     name:  "keyword.control.csound-score"
-    match: "[abCefiqstvxy]"
+    match: "[abCdefiqstvxy]"
   },{
     # w statements are generated internally and should not be used; see
     # https://github.com/csound/csound/issues/750.
