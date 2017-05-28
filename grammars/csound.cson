@@ -197,30 +197,17 @@ repository:
       }
     ]
 
-  # Csound’s preprocessor can’t handle parameter values that are wrapped in
-  # parentheses <https://github.com/csound/csound/issues/721>. For example,
-  #   $MACRO((value))
-  # passes (value, not (value), to MACRO. The workaround for this implemented in
-  # https://github.com/csound/csound/commit/3e0b441b55fd8e07d70b0908da8165b889feb883
-  # is to require escaping end parentheses. Because this isn’t required by the
-  # C preprocessor, it’s likely to be unexpected, so scope parentheses in macro
-  # parameter values differently.
   macroParameterValueParenthetical:
     patterns: [
       {
         name:  "meta.macro-parameter-value-parenthetical.csound"
         begin: "\\("
-        end:   "(\\))|(\\\\\\))"
-        beginCaptures:
-          0: name: "constant.character.escape.csound"
-        endCaptures:
-          1: name: "invalid.illegal.csound"
-          2: name: "constant.character.escape.csound"
+        end:   "\\)"
         patterns: [
           {include: "#macroParameterValueParenthetical"}
           {
-            name:  "invalid.illegal.csound"
-            match: "[#']"
+            name:  "constant.character.escape.csound"
+            match: "\\\\\\)"
           }
           {include: "$self"}
         ]
@@ -243,7 +230,7 @@ repository:
             endCaptures:   0: name: "punctuation.definition.string.end.csound"
             patterns: [
               {
-                match: "(\\))|(\\\\\\))"
+                match: "(\\(|\\)|[#'])|(\\\\(?:\\(|\\)|[#']))"
                 captures:
                   1: name: "invalid.illegal.csound"
                   2: name: "constant.character.escape.csound"
@@ -256,7 +243,7 @@ repository:
             end:   "\\}\\}"
             patterns: [
               {
-                match: "(\\))|(\\\\\\))"
+                match: "(\\(|\\)|[#'])|(\\\\(?:\\(|\\)|[#']))"
                 captures:
                   1: name: "invalid.illegal.csound"
                   2: name: "constant.character.escape.csound"
