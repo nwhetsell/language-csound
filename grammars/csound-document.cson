@@ -65,10 +65,16 @@ patterns: [
     ]
   },{
     name:  "meta.cabbage-gui.csound-document"
-    begin: "<(Cabbage)>"
-    end:   "</(Cabbage)>"
-    beginCaptures: 1: name: "entity.name.tag.csound-document"
-    endCaptures:   1: name: "entity.name.tag.csound-document"
+    begin: "(<)(Cabbage)(>)"
+    end:   "(</)(Cabbage)(>)"
+    beginCaptures:
+      1: name: "punctuation.definition.tag.begin.csound-document"
+      2: name: "entity.name.tag.begin.csound-document"
+      3: name: "punctuation.definition.tag.begin.csound-document"
+    endCaptures:
+      1: name: "punctuation.definition.tag.end.csound-document"
+      2: name: "entity.name.tag.end.csound-document"
+      3: name: "punctuation.definition.tag.end.csound-document"
     patterns: [
       {
         name:  "comment.line.cabbage-gui.csound-document"
