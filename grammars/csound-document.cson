@@ -82,8 +82,8 @@ patterns: [
       {include: "source.csound#decimalNumbers"}
       {
         name:  "string.quoted.cabbage-gui.csound-document"
-        begin: """
-        end:   """
+        begin: '"'
+        end:   '"'
         beginCaptures: 0: name: "punctuation.definition.string.begin.cabbage-gui.csound-document"
         endCaptures:   0: name: "punctuation.definition.string.end.cabbage-gui.csound-document"
         patterns: [
