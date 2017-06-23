@@ -268,7 +268,7 @@ repository:
     patterns: [
       {include: "#floatingPointNumbers"}
       {
-        match: "(0[Xx])(\\h+)"
+        match: "(0[Xx])([0-9A-Fa-f]+)"
         captures:
           1: name: "storage.type.number.csound"
           2: name: "constant.numeric.integer.hexadecimal.csound"
