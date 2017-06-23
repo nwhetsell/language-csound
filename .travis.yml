@@ -1,5 +1,7 @@
 # https://github.com/atom/ci
 
+dist: trusty
+
 language: generic
 
 os:
