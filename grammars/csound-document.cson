@@ -41,6 +41,7 @@ patterns: [
           1: name: "punctuation.definition.tag.end.csound-document"
           2: name: "entity.name.tag.end.csound-document"
           3: name: "punctuation.definition.tag.end.csound-document"
+        contentName: "source.csound.embedded.csound-document"
         patterns: [include: "source.csound"]
       },{
         name:  "meta.score.csound-document"
@@ -54,6 +55,7 @@ patterns: [
           1: name: "punctuation.definition.tag.end.csound-document"
           2: name: "entity.name.tag.end.csound-document"
           3: name: "punctuation.definition.tag.end.csound-document"
+        contentName: "source.csound-score.embedded.csound-document"
         patterns: [include: "source.csound-score"]
       },{
         name:  "meta.html.csound-document"

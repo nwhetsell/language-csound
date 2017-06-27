@@ -1,6 +1,8 @@
 ".source.csound, .source.csound-score":
   editor:
     commentStart: "; "
+    softTabs: true
+    tabLength: 4
 
 ".source.csound":
   editor:
