@@ -120,8 +120,8 @@ repository:
   tags:
     patterns: [
       {
-        begin: "(<)([a-zA-Z0-9:-]+)(>)"
-        end:   "(</)([a-zA-Z0-9:-]+)(>)"
+        begin: "(<)([0-9A-Za-z:-]+)(>)"
+        end:   "(</)([0-9A-Za-z:-]+)(>)"
         beginCaptures:
           1: name: "punctuation.definition.tag.begin.csound-document"
           2: name: "entity.name.tag.begin.csound-document"
