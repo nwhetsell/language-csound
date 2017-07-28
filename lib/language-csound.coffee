@@ -29,7 +29,7 @@ LanguageCsound =
 
   providers: -> {
     selector: '.source.csound'
-    disableForSelector: '.source.csound .comment, .source.csound .string'
+    disableForSelector: '.source.csound .comment, .source.csound .line-continuation, .source.csound .string'
     filterSuggestions: true
 
     getSuggestions: ({editor, bufferPosition, scopeDescriptor, prefix}) ->
