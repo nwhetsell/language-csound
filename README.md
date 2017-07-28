@@ -9,7 +9,7 @@ autocompletion to [Csound](https://csound.github.io) files. This package is also
 used by [GitHub Linguist](https://github.com/github/linguist) to highlight
 Csound files.
 
-<img src="https://cloud.githubusercontent.com/assets/14102861/21751900/edc9d914-d59c-11e6-8e9f-1bed5260b23c.png" width=581>
+<img src="https://user-images.githubusercontent.com/14102861/28718447-0bafd418-7374-11e7-9848-3eef56a213fb.png">
 
 ## Contributing
 
