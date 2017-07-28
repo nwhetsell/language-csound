@@ -84,41 +84,37 @@ describe "language-csound", ->
       expect(tokens[0]).toEqual value: "endin", scopes: ["source.csound", "meta.instrument-block.csound", "keyword.other.csound"]
 
     it "tokenizes user-defined opcodes", ->
-      # The Csound grammar relies on the existence of an active text editor to
-      # tokenize user-defined opcodes.
-      waitsForPromise ->
-        atom.workspace.open().then (editor) ->
-          lines = grammar.tokenizeLines """
-            opcode/**/aUDO,/**/ai[]k[],/**/0//
-              aUDO
-            endop
-          """
+      lines = grammar.tokenizeLines """
+        opcode/**/aUDO,/**/ai[]k[],/**/0//
+          aUDO
+        endop
+      """
 
-          tokens = lines[0]
-          expect(tokens.length).toBe 14
-          expect(tokens[0]).toEqual value: "opcode", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "keyword.function.csound"]
-          expect(tokens[1]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
-          expect(tokens[2]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
-          expect(tokens[3]).toEqual value: "aUDO", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "entity.name.function.opcode.csound"]
-          expect(tokens[4]).toEqual value: ",", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound"]
-          expect(tokens[5]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
-          expect(tokens[6]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
-          expect(tokens[7]).toEqual value: "ai[]k[]", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "storage.type.csound"]
-          expect(tokens[8]).toEqual value: ",", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound"]
-          expect(tokens[9]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
-          expect(tokens[10]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
-          expect(tokens[11]).toEqual value: "0", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "storage.type.csound"]
-          expect(tokens[12]).toEqual value: "//", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "comment.line.double-slash.csound", "punctuation.definition.comment.csound"]
-          expect(tokens[13]).toEqual value: "", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound"]
+      tokens = lines[0]
+      expect(tokens.length).toBe 14
+      expect(tokens[0]).toEqual value: "opcode", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "keyword.function.csound"]
+      expect(tokens[1]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
+      expect(tokens[2]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
+      expect(tokens[3]).toEqual value: "aUDO", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "entity.name.function.opcode.csound"]
+      expect(tokens[4]).toEqual value: ",", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound"]
+      expect(tokens[5]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
+      expect(tokens[6]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
+      expect(tokens[7]).toEqual value: "ai[]k[]", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "storage.type.csound"]
+      expect(tokens[8]).toEqual value: ",", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound"]
+      expect(tokens[9]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
+      expect(tokens[10]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
+      expect(tokens[11]).toEqual value: "0", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "storage.type.csound"]
+      expect(tokens[12]).toEqual value: "//", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "comment.line.double-slash.csound", "punctuation.definition.comment.csound"]
+      expect(tokens[13]).toEqual value: "", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound"]
 
-          tokens = lines[1]
-          expect(tokens.length).toBe 2
-          expect(tokens[0]).toEqual value: "  ", scopes: ["source.csound", "meta.opcode-definition.csound"]
-          expect(tokens[1]).toEqual value: "aUDO", scopes: ["source.csound", "meta.opcode-definition.csound", "entity.name.function.opcode.csound"]
+      tokens = lines[1]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: "  ", scopes: ["source.csound", "meta.opcode-definition.csound"]
+      expect(tokens[1]).toEqual value: "aUDO", scopes: ["source.csound", "meta.opcode-definition.csound", "entity.name.function.opcode.csound"]
 
-          tokens = lines[2]
-          expect(tokens.length).toBe 1
-          expect(tokens[0]).toEqual value: "endop", scopes: ["source.csound", "meta.opcode-definition.csound", "keyword.other.csound"]
+      tokens = lines[2]
+      expect(tokens.length).toBe 1
+      expect(tokens[0]).toEqual value: "endop", scopes: ["source.csound", "meta.opcode-definition.csound", "keyword.other.csound"]
 
     it "tokenizes numbers", ->
       lines = grammar.tokenizeLines """
