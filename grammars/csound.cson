@@ -329,11 +329,14 @@ repository:
                 name:  "constant.character.escape.csound"
                 match: "\\\\\\\\[aAbBnNrRtT]"
               }
-              {include: "#escapeSequences"}
-              {include: "#formatSpecifiers"}
+              {include: "#bracedStringContents"}
+              {include: "#lineContinuations"}
               {
                 name:  "constant.character.escape.csound"
                 match: "%[!nNrRtT]|[~^]{1,2}"
+              },{
+                name:  "invalid.illegal.csound"
+                match: '[^"\\\\\\n]*\\n'
               }
             ]
           }
