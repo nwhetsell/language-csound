@@ -14,7 +14,7 @@ LanguageCsound = {
       grammar.createPattern = (options) -> new CsoundPattern(this, @registry, options)
       grammar.rawRepository.partialExpressions.patterns.splice(-1, 0, {
         name:  'meta.autocompletion.csound'
-        match: '(\\([aikpSw|]+\\))\\w*\\b'
+        match: '(\\([afikSw|]+\\))\\w*\\b'
         captures: 1: name: 'storage.type.csound'
       })
     grammar = atom.grammars.grammarForScopeName('source.csound')

@@ -62,7 +62,7 @@ class CsoundPattern extends Pattern
               # The substring is a user-defined opcode.
               @setTagAtIndexToScope(tags, index, 'entity.name.function.opcode.csound')
             else
-              result = /^g?[aikpSw]/.exec(substring)
+              result = /^g?[afikSw]/.exec(substring)
               if result
                 # The substring begins with a storage-type prefix.
                 length = result[0].length
