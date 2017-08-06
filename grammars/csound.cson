@@ -230,7 +230,7 @@ repository:
             endCaptures:   0: name: "punctuation.definition.string.end.csound"
             patterns: [
               {
-                match: "(\\(|\\)|[#'])|(\\\\(?:\\(|\\)|[#']))"
+                match: "([#'()])|(\\\\[#'()])"
                 captures:
                   1: name: "invalid.illegal.csound"
                   2: name: "constant.character.escape.csound"
@@ -243,7 +243,7 @@ repository:
             end:   "\\}\\}"
             patterns: [
               {
-                match: "(\\(|\\)|[#'])|(\\\\(?:\\(|\\)|[#']))"
+                match: "([#'()])|(\\\\[#'()])"
                 captures:
                   1: name: "invalid.illegal.csound"
                   2: name: "constant.character.escape.csound"
