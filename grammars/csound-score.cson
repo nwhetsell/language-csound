@@ -71,8 +71,8 @@ patterns: [
     name:  "meta.braced-loop.csound-score"
     begin: "\\{"
     end:   "\\}"
-    beginCaptures: 0: name: "punctuation.csound-score"
-    endCaptures:   0: name: "punctuation.csound-score"
+    beginCaptures: 0: name: "punctuation.braced-loop.begin.csound-score"
+    endCaptures:   0: name: "punctuation.braced-loop.end.csound-score"
     patterns: [
       {
         name: "meta.braced-loop-details.csound-score"
