@@ -173,17 +173,11 @@ repository:
   lineContinuations:
     patterns: [
       {
-        name:  "meta.line-continuation.csound"
-        begin: "\\\\"
-        end:   "\\n"
-        beginCaptures: 0: name: "constant.character.escape.line-continuation.csound"
-        patterns: [
-          {include: "#semicolonComments"}
-          {
-            name:  "invalid.illegal.csound"
-            match: "\\S.*"
-          }
-        ]
+        match: "(\\\\)[ \\t]*((;).*)?\\n"
+        captures:
+          1: name: "constant.character.escape.line-continuation.csound"
+          2: name: "comment.line.semicolon.csound"
+          3: name: "punctuation.definition.comment.csound"
       }
     ]
 

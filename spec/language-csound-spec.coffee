@@ -187,11 +187,11 @@ describe "language-csound", ->
       expect(tokens.length).toBe 7
       expect(tokens[0]).toEqual value: '"', scopes: ["source.csound", "string.quoted.csound", "punctuation.definition.string.begin.csound"]
       expect(tokens[1]).toEqual value: "chara", scopes: ["source.csound", "string.quoted.csound"]
-      expect(tokens[2]).toEqual value: "\\", scopes: ["source.csound", "string.quoted.csound", "meta.line-continuation.csound", "constant.character.escape.line-continuation.csound"]
-      expect(tokens[3]).toEqual value: " ", scopes: ["source.csound", "string.quoted.csound", "meta.line-continuation.csound"]
-      expect(tokens[4]).toEqual value: ";", scopes: ["source.csound", "string.quoted.csound", "meta.line-continuation.csound", "comment.line.semicolon.csound", "punctuation.definition.comment.csound"]
-      expect(tokens[5]).toEqual value: "comment", scopes: ["source.csound", "string.quoted.csound", "meta.line-continuation.csound", "comment.line.semicolon.csound"]
-      expect(tokens[6]).toEqual value: "", scopes: ["source.csound", "string.quoted.csound", "meta.line-continuation.csound"]
+      expect(tokens[2]).toEqual value: "\\", scopes: ["source.csound", "string.quoted.csound", "constant.character.escape.line-continuation.csound"]
+      expect(tokens[3]).toEqual value: " ", scopes: ["source.csound", "string.quoted.csound"]
+      expect(tokens[4]).toEqual value: ";", scopes: ["source.csound", "string.quoted.csound", "comment.line.semicolon.csound", "punctuation.definition.comment.csound"]
+      expect(tokens[5]).toEqual value: "comment", scopes: ["source.csound", "string.quoted.csound", "comment.line.semicolon.csound"]
+      expect(tokens[6]).toEqual value: "", scopes: ["source.csound", "string.quoted.csound"]
       tokens = lines[1]
       expect(tokens.length).toBe 2
       expect(tokens[0]).toEqual value: "cters", scopes: ["source.csound", "string.quoted.csound"]
@@ -232,6 +232,12 @@ describe "language-csound", ->
       {tokens} = grammar.tokenizeLine "{{#{escapeSequences.join ""}}}"
       for i in [1...tokens.length - 1]
         expect(tokens[i]).toEqual value: escapeSequences[i - 1], scopes: ["source.csound", "string.braced.csound", "constant.character.escape.csound"]
+
+      {tokens} = grammar.tokenizeLine '"\\x"'
+      expect(tokens.length).toBe 3
+      expect(tokens[0]).toEqual value: '"', scopes: ["source.csound", "string.quoted.csound", "punctuation.definition.string.begin.csound"]
+      expect(tokens[1]).toEqual value: "\\x", scopes: ["source.csound", "string.quoted.csound"]
+      expect(tokens[2]).toEqual value: '"', scopes: ["source.csound", "string.quoted.csound", "punctuation.definition.string.end.csound"]
 
     it "tokenizes operators", ->
       operators = [
