@@ -13,7 +13,7 @@ patterns: [
       {
         name:  "meta.instrument-declaration.csound"
         begin: "instr"
-        end:   "\\n"
+        end:   "$"
         beginCaptures: 0: name: "keyword.function.csound"
         patterns: [
           {
@@ -36,20 +36,20 @@ patterns: [
       {
         name:  "meta.opcode-declaration.csound"
         begin: "opcode"
-        end:   "\\n"
+        end:   "$"
         beginCaptures: 0: name: "keyword.function.csound"
         patterns: [
           {
             name:  "meta.opcode-details.csound"
             begin: "[A-Z_a-z]\\w*\\b"
-            end:   "(?=\\n)"
+            end:   "$"
             beginCaptures: 0: name: "entity.name.function.opcode.csound"
             patterns: [
               {
                 name:  "meta.opcode-type-signature.csound"
                 # https://github.com/csound/csound/search?q=XIDENT+path%3AEngine+filename%3Acsound_orc.lex
                 begin: "\\b(?:0|[afijkKoOpPStV\\[\\]]+)"
-                end:   ",|(?=\\n)"
+                end:   ",|$"
                 beginCaptures: 0: name: "storage.type.csound"
                 patterns: [include: "#commentsAndMacroUses"]
               }
@@ -86,7 +86,7 @@ repository:
       },{
         name:  "comment.line.double-slash.csound"
         begin: "//"
-        end:   "(?=\\n)"
+        end:   "$"
         beginCaptures: 0: name: "punctuation.definition.comment.csound"
       }
       {include: "#semicolonComments"}
@@ -97,7 +97,7 @@ repository:
       {
         name:  "comment.line.semicolon.csound"
         begin: ";"
-        end:   "(?=\\n)"
+        end:   "$"
         beginCaptures: 0: name: "punctuation.definition.comment.csound"
       }
     ]
@@ -173,7 +173,7 @@ repository:
   lineContinuations:
     patterns: [
       {
-        match: "(\\\\)[ \\t]*((;).*)?\\n"
+        match: "(\\\\)[ \\t]*((;).*)?$"
         captures:
           1: name: "constant.character.escape.line-continuation.csound"
           2: name: "comment.line.semicolon.csound"
@@ -293,7 +293,7 @@ repository:
         match: "\\b(?:do|else(?:if)?|end(?:if|until)|fi|i(?:f|then)|kthen|od|r(?:ir)?eturn|then|until|while)\\b"
       },{
         begin: "\\b((?:c(?:g|in?|k|nk?)goto)|goto|igoto|kgoto|loop_[gl][et]|r(?:einit|igoto)|ti(?:goto|mout))\\b"
-        end:   "(\\w+)\\s*(?:((//).*)|((;).*))?\\n"
+        end:   "(\\w+)\\s*(?:((//).*)|((;).*))?$"
         beginCaptures:
           1: name: "keyword.control.csound"
         endCaptures:
@@ -330,7 +330,7 @@ repository:
                 match: "%[!nNrRtT]|[~^]{1,2}"
               },{
                 name:  "invalid.illegal.csound"
-                match: '[^"\\\\\\n]*\\n'
+                match: '[^"\\\\]*[^\\n"\\\\]$'
               }
             ]
           }
@@ -408,7 +408,7 @@ repository:
         match: "\\#(?:e(?:lse|nd(?:if)?)\\b|\\#\\#)|@+[ \\t]*\\d*"
       },{
         begin: "\\#include"
-        end:   "\\n"
+        end:   "$"
         beginCaptures: 0: name: "keyword.include.preprocessor.csound"
         patterns: [
           {include: "#commentsAndMacroUses"}
@@ -452,7 +452,7 @@ repository:
         ]
       },{
         begin: "\\#(?:i(?:fn?def)|undef)"
-        end:   "\\n"
+        end:   "$"
         beginCaptures: 0: name: "keyword.preprocessor.csound"
         patterns: [
           {include: "#commentsAndMacroUses"}
@@ -468,7 +468,7 @@ repository:
       {include: "#lineContinuations"}
       {
         name:  "invalid.illegal.csound"
-        match: '[^"\\\\\\n]*\\n'
+        match: '[^"\\\\]*[^\\n"\\\\]$'
       }
     ]
 

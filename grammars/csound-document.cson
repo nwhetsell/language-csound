@@ -81,7 +81,7 @@ patterns: [
       {
         name:  "comment.line.cabbage-gui.csound-document"
         begin: ";"
-        end:   "(?=\\n)"
+        end:   "$"
         beginCaptures: 0: name: "punctuation.definition.comment.line.cabbage-gui.csound-document"
       }
       {include: "source.csound#macroUses"}
