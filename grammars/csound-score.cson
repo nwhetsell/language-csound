@@ -47,7 +47,7 @@ patterns: [
       {include: "source.csound#comments"}
       {
         begin: "\\d+"
-        end:   "(?=$)"
+        end:   "$"
         beginCaptures: 0: name: "constant.numeric.integer.decimal.csound-score"
         patterns: [
           {include: "source.csound#comments"}
