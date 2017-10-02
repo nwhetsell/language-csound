@@ -48,7 +48,7 @@ describe "language-csound", ->
       """
 
       tokens = lines[0]
-      expect(tokens.length).toBe 15
+      expect(tokens.length).toBe 14
       expect(tokens[0]).toEqual value: "instr", scopes: ["source.csound", "meta.instrument-block.csound", "meta.instrument-declaration.csound", "keyword.function.csound"]
       expect(tokens[1]).toEqual value: "/*", scopes: ["source.csound", "meta.instrument-block.csound", "meta.instrument-declaration.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
       expect(tokens[2]).toEqual value: "*/", scopes: ["source.csound", "meta.instrument-block.csound", "meta.instrument-declaration.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
@@ -63,7 +63,6 @@ describe "language-csound", ->
       expect(tokens[11]).toEqual value: "+", scopes: ["source.csound", "meta.instrument-block.csound", "meta.instrument-declaration.csound"]
       expect(tokens[12]).toEqual value: "Name", scopes: ["source.csound", "meta.instrument-block.csound", "meta.instrument-declaration.csound", "entity.name.function.csound"]
       expect(tokens[13]).toEqual value: "//", scopes: ["source.csound", "meta.instrument-block.csound", "meta.instrument-declaration.csound", "comment.line.double-slash.csound", "punctuation.definition.comment.csound"]
-      expect(tokens[14]).toEqual value: "", scopes: ["source.csound", "meta.instrument-block.csound", "meta.instrument-declaration.csound"]
 
       tokens = lines[1]
       expect(tokens.length).toBe 2
@@ -91,7 +90,7 @@ describe "language-csound", ->
       """
 
       tokens = lines[0]
-      expect(tokens.length).toBe 14
+      expect(tokens.length).toBe 13
       expect(tokens[0]).toEqual value: "opcode", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "keyword.function.csound"]
       expect(tokens[1]).toEqual value: "/*", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
       expect(tokens[2]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
@@ -105,7 +104,6 @@ describe "language-csound", ->
       expect(tokens[10]).toEqual value: "*/", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
       expect(tokens[11]).toEqual value: "0", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "storage.type.csound"]
       expect(tokens[12]).toEqual value: "//", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound", "meta.opcode-details.csound", "meta.opcode-type-signature.csound", "comment.line.double-slash.csound", "punctuation.definition.comment.csound"]
-      expect(tokens[13]).toEqual value: "", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.opcode-declaration.csound"]
 
       tokens = lines[1]
       expect(tokens.length).toBe 2
@@ -184,14 +182,13 @@ describe "language-csound", ->
         cters"
       """
       tokens = lines[0]
-      expect(tokens.length).toBe 7
+      expect(tokens.length).toBe 6
       expect(tokens[0]).toEqual value: '"', scopes: ["source.csound", "string.quoted.csound", "punctuation.definition.string.begin.csound"]
       expect(tokens[1]).toEqual value: "chara", scopes: ["source.csound", "string.quoted.csound"]
       expect(tokens[2]).toEqual value: "\\", scopes: ["source.csound", "string.quoted.csound", "constant.character.escape.line-continuation.csound"]
       expect(tokens[3]).toEqual value: " ", scopes: ["source.csound", "string.quoted.csound"]
       expect(tokens[4]).toEqual value: ";", scopes: ["source.csound", "string.quoted.csound", "comment.line.semicolon.csound", "punctuation.definition.comment.csound"]
       expect(tokens[5]).toEqual value: "comment", scopes: ["source.csound", "string.quoted.csound", "comment.line.semicolon.csound"]
-      expect(tokens[6]).toEqual value: "", scopes: ["source.csound", "string.quoted.csound"]
       tokens = lines[1]
       expect(tokens.length).toBe 2
       expect(tokens[0]).toEqual value: "cters", scopes: ["source.csound", "string.quoted.csound"]
@@ -385,14 +382,13 @@ describe "language-csound", ->
     it "tokenizes include directives", ->
       for character in ['"', "|"]
         {tokens} = grammar.tokenizeLine "#include/**/#{character}file.udo#{character}"
-        expect(tokens.length).toBe 7
+        expect(tokens.length).toBe 6
         expect(tokens[0]).toEqual value: "#include", scopes: ["source.csound", "keyword.include.preprocessor.csound"]
         expect(tokens[1]).toEqual value: "/*", scopes: ["source.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
         expect(tokens[2]).toEqual value: "*/", scopes: ["source.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
         expect(tokens[3]).toEqual value: character, scopes: ["source.csound", "string.include.csound", "punctuation.definition.string.begin.csound"]
         expect(tokens[4]).toEqual value: "file.udo", scopes: ["source.csound", "string.include.csound"]
         expect(tokens[5]).toEqual value: character, scopes: ["source.csound", "string.include.csound", "punctuation.definition.string.end.csound"]
-        expect(tokens[6]).toEqual value: "", scopes: ["source.csound"]
 
     it "tokenizes object-like macro definitions", ->
       lines = grammar.tokenizeLines """
@@ -492,11 +488,10 @@ describe "language-csound", ->
       lines = grammar.tokenizeLines(preprocessorDirectives.join " MACRO\n")
       for i in [0...lines.length - 1]
         tokens = lines[i]
-        expect(tokens.length).toBe 4
+        expect(tokens.length).toBe 3
         expect(tokens[0]).toEqual value: preprocessorDirectives[i], scopes: ["source.csound", "keyword.preprocessor.csound"]
         expect(tokens[1]).toEqual value: " ", scopes: ["source.csound"]
         expect(tokens[2]).toEqual value: "MACRO", scopes: ["source.csound", "entity.name.function.preprocessor.csound"]
-        expect(tokens[3]).toEqual value: "", scopes: ["source.csound"]
 
     it "tokenizes other preprocessor directives", ->
       preprocessorDirectives = [
@@ -569,17 +564,15 @@ describe "language-csound", ->
         n mark
       """
       tokens = lines[0]
-      expect(tokens.length).toBe 4
+      expect(tokens.length).toBe 3
       expect(tokens[0]).toEqual value: "m", scopes: ["source.csound-score", "keyword.mark.preprocessor.csound-score"]
       expect(tokens[1]).toEqual value: " ", scopes: ["source.csound-score"]
       expect(tokens[2]).toEqual value: "mark", scopes: ["source.csound-score", "entity.name.label.csound-score"]
-      expect(tokens[3]).toEqual value: "", scopes: ["source.csound-score"]
       tokens = lines[1]
-      expect(tokens.length).toBe 4
+      expect(tokens.length).toBe 3
       expect(tokens[0]).toEqual value: "n", scopes: ["source.csound-score", "keyword.repeat-mark.preprocessor.csound-score"]
       expect(tokens[1]).toEqual value: " ", scopes: ["source.csound-score"]
       expect(tokens[2]).toEqual value: "mark", scopes: ["source.csound-score", "entity.name.label.csound-score"]
-      expect(tokens[3]).toEqual value: "", scopes: ["source.csound-score"]
 
     it "tokenizes repeat section statements", ->
       {tokens} = grammar.tokenizeLine "r 1 MACRO\n"
@@ -641,13 +634,12 @@ describe "language-csound", ->
         }
       """
       tokens = lines[0]
-      expect(tokens.length).toBe 6
+      expect(tokens.length).toBe 5
       expect(tokens[0]).toEqual value: "{", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "punctuation.braced-loop.begin.csound-score"]
       expect(tokens[1]).toEqual value: " ", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score"]
       expect(tokens[2]).toEqual value: "10", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score", "constant.numeric.integer.decimal.csound-score"]
       expect(tokens[3]).toEqual value: " ", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score"]
       expect(tokens[4]).toEqual value: "I", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score", "entity.name.function.preprocessor.csound-score"]
-      expect(tokens[5]).toEqual value: "", scopes: ["source.csound-score", "meta.braced-loop.csound-score"]
       tokens = lines[1]
       expect(tokens.length).toBe 1
       expect(tokens[0]).toEqual value: "}", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "punctuation.braced-loop.end.csound-score"]
@@ -657,13 +649,12 @@ describe "language-csound", ->
         }
       """
       tokens = lines[0]
-      expect(tokens.length).toBe 6
+      expect(tokens.length).toBe 5
       expect(tokens[0]).toEqual value: "{", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "punctuation.braced-loop.begin.csound-score"]
       expect(tokens[1]).toEqual value: " ", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score"]
       expect(tokens[2]).toEqual value: "3", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score", "constant.numeric.integer.decimal.csound-score"]
       expect(tokens[3]).toEqual value: " ", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score"]
       expect(tokens[4]).toEqual value: "$FOO", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "meta.braced-loop-details.csound-score", "invalid.illegal.csound-score"]
-      expect(tokens[5]).toEqual value: "", scopes: ["source.csound-score", "meta.braced-loop.csound-score"]
       tokens = lines[1]
       expect(tokens.length).toBe 1
       expect(tokens[0]).toEqual value: "}", scopes: ["source.csound-score", "meta.braced-loop.csound-score", "punctuation.braced-loop.end.csound-score"]
