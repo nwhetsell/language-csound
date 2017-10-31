@@ -21,7 +21,7 @@ class CsoundPattern extends Pattern
           for change in event.changes
             # bufferRangeForScopeAtPosition is a private method of TextEditor
             # (https://github.com/atom/atom/search?q=bufferRangeForScopeAtPosition+path%3Asrc+filename%3Atext-editor.coffee)
-            range = editor.bufferRangeForScopeAtPosition('entity.name.function.opcode.csound', event.oldRange.start)
+            range = editor.bufferRangeForScopeAtPosition('entity.name.function.opcode.csound', change.oldRange.start)
 
             if range
               index = userDefinedOpcodes.indexOf(editor.getTextInBufferRange(range))
