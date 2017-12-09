@@ -329,21 +329,31 @@ const opcodeXMLFileNames = fs.readdirSync(opcodesPath).map(opcodePath => path.pa
 const XMLHeader = `<?xml version="1.0" encoding="utf-8"?>
   <!DOCTYPE refentry [
 
-  <!-- From http://dev.w3.org/html5/html-author/charref -->
-  <!ENTITY auml "ä">
+  <!-- http://tdg.docbook.org/tdg/4.5/ref-charents.html -->
+
+  <!-- https://www.w3.org/2003/entities/iso8879doc/isodia.html -->
+  <!ENTITY circ "ˆ">
+  <!ENTITY tilde " ̃">
+
+  <!-- https://www.w3.org/2003/entities/iso8879doc/isogrk3.html -->
   <!ENTITY beta "β">
-  <!ENTITY circ "^">
   <!ENTITY lambda "λ">
-  <!ENTITY le "≤">
+  <!ENTITY pi "π">
+
+  <!-- https://www.w3.org/2003/entities/iso8879doc/isolat1.html -->
+  <!ENTITY auml "ä">
+
+  <!-- https://www.w3.org/2003/entities/iso8879doc/isonum.html -->
   <!ENTITY nbsp "&#xA0;">
   <!ENTITY num "#">
   <!ENTITY percnt "&#x25;">
-  <!ENTITY pi "π">
   <!ENTITY plusmn "±">
   <!ENTITY shy "&#xAD;">
-  <!ENTITY tilde "˜">
 
-  <!-- From https://github.com/csound/manual/blob/master/manual.xml -->
+  <!-- https://www.w3.org/2003/entities/iso8879doc/isotech.html -->
+  <!ENTITY le "≤">
+
+  <!-- https://github.com/csound/manual/blob/master/manual.xml -->
   <!ENTITY nameandres "Andrés Cabrera">
   <!ENTITY nameanthony "Anthony Kozar">
   <!ENTITY namebarry "Barry L. Vercoe">
