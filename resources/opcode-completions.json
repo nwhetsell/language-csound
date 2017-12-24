@@ -101,6 +101,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "i",
+      "snippet": "OSCinitM ${1:Sgroup}, ${2:iport}",
+      "displayText": "OSCinitM Sgroup, iport",
+      "opcode": "OSCinitM",
+      "description": "Start a listening process for multicast OSC messages to a particular port.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/OSCinitM.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "OSClisten ${1:ihandle}, ${2:Sdest}, ${3:Stype}",
       "displayText": "OSClisten ihandle, Sdest, Stype",
@@ -128,8 +137,8 @@
       "type": "function"
     },
     {
-      "snippet": "OSCsend ${1:kwhen}, ${2:Shost}, ${3:kport}, ${4:Sdestination}, ${5:Stype}",
-      "displayText": "OSCsend kwhen, Shost, kport, Sdestination, Stype",
+      "snippet": "OSCsend ${1:kwhen}, ${2:Shost}, ${3:kport}",
+      "displayText": "OSCsend kwhen, Shost, kport",
       "opcode": "OSCsend",
       "description": "Sends data to other processes using the OSC protocol",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/OSCsend.html",
@@ -2579,8 +2588,8 @@
     },
     {
       "leftLabel": "i",
-      "snippet": "ftsamplebank ${1:SDirectory}, ${2:iFirstTableNumber}, ${3:iTrigger}, ${4:iSkipTime}, ${5:iFormat}, ${6:iChannel}",
-      "displayText": "ftsamplebank SDirectory, iFirstTableNumber, iTrigger, iSkipTime, iFormat, iChannel",
+      "snippet": "ftsamplebank ${1:SDirectory}, ${2:iFirstTableNumber}, ${3:iSkipTime}, ${4:iFormat}, ${5:iChannel}",
+      "displayText": "ftsamplebank SDirectory, iFirstTableNumber, iSkipTime, iFormat, iChannel",
       "opcode": "ftsamplebank",
       "description": "Reads a directory for sound files.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/ftsamplebank.html",
@@ -2588,8 +2597,8 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "ftsamplebank ${1:SDirectory}, ${2:kFirstTableNumber}, ${3:kTrigger}, ${4:kSkipTime}, ${5:kFormat}, ${6:kChannel}",
-      "displayText": "ftsamplebank SDirectory, kFirstTableNumber, kTrigger, kSkipTime, kFormat, kChannel",
+      "snippet": "ftsamplebank ${1:SDirectory}, ${2:kFirstTableNumber}, ${3:kSkipTime}, ${4:kFormat}, ${5:kChannel}, ${6:k}",
+      "displayText": "ftsamplebank SDirectory, kFirstTableNumber, kSkipTime, kFormat, kChannel, k",
       "opcode": "ftsamplebank",
       "description": "Reads a directory for sound files.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/ftsamplebank.html",
@@ -4261,6 +4270,14 @@
       "opcode": "midiout",
       "description": "Sends a generic MIDI message to the MIDI OUT port.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/midiout.html",
+      "type": "function"
+    },
+    {
+      "snippet": "midiout_i ${1:istatus}, ${2:ichan}, ${3:idata1}, ${4:idata2}",
+      "displayText": "midiout_i istatus, ichan, idata1, idata2",
+      "opcode": "midiout_i",
+      "description": "Sends a generic MIDI message to the MIDI OUT port.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/midiout_i.html",
       "type": "function"
     },
     {
@@ -7075,16 +7092,7 @@
     },
     {
       "leftLabel": "a",
-      "snippet": "sc_phasor ${1:atrig}, ${2:(a|k)rate}, ${3:kstart}, ${4:kend}",
-      "displayText": "sc_phasor atrig, (a|k)rate, kstart, kend",
-      "opcode": "sc_phasor",
-      "description": "A resettable linear ramp between two levels",
-      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_phasor.html",
-      "type": "function"
-    },
-    {
-      "leftLabel": "a",
-      "snippet": "sc_phasor ${1:atrig}, ${2:(a|k)rate}, ${3:kstart}, ${4:kend}, ${5:kresetPos}",
+      "snippet": "sc_phasor ${1:atrig}, ${2:(a|k)rate}, ${3:kstart}, ${4:kend/*, kresetPos*/}",
       "displayText": "sc_phasor atrig, (a|k)rate, kstart, kend, kresetPos",
       "opcode": "sc_phasor",
       "description": "A resettable linear ramp between two levels",
@@ -7093,16 +7101,7 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "sc_phasor ${1:ktrig}, ${2:krate}, ${3:kstart}, ${4:kend}",
-      "displayText": "sc_phasor ktrig, krate, kstart, kend",
-      "opcode": "sc_phasor",
-      "description": "A resettable linear ramp between two levels",
-      "descriptionMoreURL": "https://csound.github.io/docs/manual/sc_phasor.html",
-      "type": "function"
-    },
-    {
-      "leftLabel": "k",
-      "snippet": "sc_phasor ${1:ktrig}, ${2:krate}, ${3:kstart}, ${4:kend}, ${5:kresetPos}",
+      "snippet": "sc_phasor ${1:ktrig}, ${2:krate}, ${3:kstart}, ${4:kend/*, kresetPos*/}",
       "displayText": "sc_phasor ktrig, krate, kstart, kend, kresetPos",
       "opcode": "sc_phasor",
       "description": "A resettable linear ramp between two levels",
@@ -7389,8 +7388,8 @@
       "type": "function"
     },
     {
-      "snippet": "setscorepos ${1:i}",
-      "displayText": "setscorepos i",
+      "snippet": "setscorepos ${1:ipos}",
+      "displayText": "setscorepos ipos",
       "opcode": "setscorepos",
       "description": "Sets the playback position of the current score performance to a given position.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/setscorepos.html",
@@ -7566,8 +7565,8 @@
     },
     {
       "leftLabel": ".[]",
-      "snippet": "slicearray ${1:(a|i|k|S)inarray}, ${2:istart}, ${3:iend}",
-      "displayText": "slicearray (a|i|k|S)inarray, istart, iend",
+      "snippet": "slicearray ${1:(a|i|k|S)inarray}, ${2:istart}, ${3:iend/*, istride*/}",
+      "displayText": "slicearray (a|i|k|S)inarray, istart, iend, istride",
       "opcode": "slicearray",
       "description": "Take a slice of a vector.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/slicearray.html",
@@ -7575,8 +7574,8 @@
     },
     {
       "leftLabel": "i[]",
-      "snippet": "slicearray ${1:iinarray}, ${2:istart}, ${3:iend}",
-      "displayText": "slicearray iinarray, istart, iend",
+      "snippet": "slicearray ${1:iinarray}, ${2:istart}, ${3:iend/*, istride*/}",
+      "displayText": "slicearray iinarray, istart, iend, istride",
       "opcode": "slicearray",
       "description": "Take a slice of a vector.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/slicearray.html",
@@ -8036,6 +8035,15 @@
       "opcode": "spsend",
       "description": "Generates output signals based on a previously defined space opcode.",
       "descriptionMoreURL": "https://csound.github.io/docs/manual/spsend.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "aa…",
+      "snippet": "squinewave ${1:aFrequency}, ${2:aClip}, ${3:aSkew}, ${4:(a|k)syncin/*, iMinSweep, iphase*/}",
+      "displayText": "squinewave aFrequency, aClip, aSkew, (a|k)syncin, iMinSweep, iphase",
+      "opcode": "squinewave",
+      "description": "A mostly bandlimited shape-shifting square-pulse-saw-sinewave oscillator with hardsync.",
+      "descriptionMoreURL": "https://csound.github.io/docs/manual/squinewave.html",
       "type": "function"
     },
     {
@@ -9268,7 +9276,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "aaaaaaaaaaaaaaaa",
+      "leftLabel": "aaaaaaaaaaaaaaaaa…",
       "snippet": "vbap16 ${1:aSignal}, ${2:kazim/*, kelev, kspread, i*/}",
       "displayText": "vbap16 aSignal, kazim, kelev, kspread, i",
       "opcode": "vbap16",
@@ -9277,7 +9285,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "aaaa",
+      "leftLabel": "aaaaa…",
       "snippet": "vbap4 ${1:aSignal}, ${2:kazim/*, kelev, kspread, i*/}",
       "displayText": "vbap4 aSignal, kazim, kelev, kspread, i",
       "opcode": "vbap4",
@@ -9295,7 +9303,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "aaaaaaaa",
+      "leftLabel": "aaaaaaaaa…",
       "snippet": "vbap8 ${1:aSignal}, ${2:kazim/*, kelev, kspread, i*/}",
       "displayText": "vbap8 aSignal, kazim, kelev, kspread, i",
       "opcode": "vbap8",
