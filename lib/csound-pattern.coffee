@@ -20,7 +20,7 @@ class CsoundPattern extends Pattern
         @subscriptions.add editor.buffer.onDidChangeText((event) ->
           for change in event.changes
             # bufferRangeForScopeAtPosition is a private method of TextEditor
-            # (https://github.com/atom/atom/search?q=bufferRangeForScopeAtPosition+path%3Asrc+filename%3Atext-editor.coffee)
+            # (https://github.com/atom/atom/search?q=bufferRangeForScopeAtPosition+path%3Asrc+filename%3Atext-editor.js)
             range = editor.bufferRangeForScopeAtPosition('entity.name.function.opcode.csound', change.oldRange.start)
 
             if range
@@ -28,9 +28,9 @@ class CsoundPattern extends Pattern
               if index >= 0
                 userDefinedOpcodes.splice(index, 1)
                 # tokenizedBuffer is a private property of TextEditor
-                # (https://github.com/atom/atom/search?q=tokenizedBuffer+path%3Asrc+filename%3Atext-editor.coffee)
+                # (https://github.com/atom/atom/search?q=tokenizedBuffer+path%3Asrc+filename%3Atext-editor.js)
                 # that returns an instance of the private class TokenizedBuffer
-                # (https://github.com/atom/atom/search?q=invalidateRow+path%3Asrc+filename%3Atokenized-buffer.coffee)
+                # (https://github.com/atom/atom/search?q=invalidateRow+path%3Asrc+filename%3Atokenized-buffer.js)
                 for row in [0...editor.getLineCount()] when !editor.isBufferRowCommented(row)
                   editor.tokenizedBuffer.invalidateRow(row)
         )
