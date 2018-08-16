@@ -70,13 +70,15 @@ describe "language-csound", ->
       expect(tokens[1]).toEqual value: ":", scopes: ["source.csound", "meta.instrument-block.csound", "entity.punctuation.label.csound"]
 
       tokens = lines[2]
-      expect(tokens.length).toBe 7
-      expect(tokens[1]).toEqual value: "i", scopes: ["source.csound", "meta.instrument-block.csound", "storage.type.csound"]
-      expect(tokens[2]).toEqual value: "Duration", scopes: ["source.csound", "meta.instrument-block.csound", "meta.other.csound"]
-      expect(tokens[3]).toEqual value: " ", scopes: ["source.csound", "meta.instrument-block.csound"]
-      expect(tokens[4]).toEqual value: "=", scopes: ["source.csound", "meta.instrument-block.csound", "keyword.operator.csound"]
-      expect(tokens[5]).toEqual value: " ", scopes: ["source.csound", "meta.instrument-block.csound"]
-      expect(tokens[6]).toEqual value: "p3", scopes: ["source.csound", "meta.instrument-block.csound", "support.variable.csound"]
+      expect(tokens.length).toBe 6
+      # It would arguably be better to scope the i in iDuration as
+      # storage.type.csound, but doing this requires using private APIs that
+      # stopped working sometime between Atom v1.25.0 and v1.29.0.
+      expect(tokens[1]).toEqual value: "iDuration", scopes: ["source.csound", "meta.instrument-block.csound", "meta.other.csound"]
+      expect(tokens[2]).toEqual value: " ", scopes: ["source.csound", "meta.instrument-block.csound"]
+      expect(tokens[3]).toEqual value: "=", scopes: ["source.csound", "meta.instrument-block.csound", "keyword.operator.csound"]
+      expect(tokens[4]).toEqual value: " ", scopes: ["source.csound", "meta.instrument-block.csound"]
+      expect(tokens[5]).toEqual value: "p3", scopes: ["source.csound", "meta.instrument-block.csound", "support.variable.csound"]
 
       tokens = lines[3]
       expect(tokens.length).toBe 1
@@ -108,7 +110,7 @@ describe "language-csound", ->
       tokens = lines[1]
       expect(tokens.length).toBe 2
       expect(tokens[0]).toEqual value: "  ", scopes: ["source.csound", "meta.opcode-definition.csound"]
-      expect(tokens[1]).toEqual value: "aUDO", scopes: ["source.csound", "meta.opcode-definition.csound", "entity.name.function.opcode.csound"]
+      expect(tokens[1]).toEqual value: "aUDO", scopes: ["source.csound", "meta.opcode-definition.csound", "meta.other.csound"]
 
       tokens = lines[2]
       expect(tokens.length).toBe 1

@@ -2,26 +2,23 @@
 fs = require('fs')
 path = require('path')
 
-CsoundPattern = require('./csound-pattern')
-
 module.exports =
 LanguageCsound = {
   activate: (state) ->
     @subscriptions = new CompositeDisposable
 
     callback = (grammar) ->
-      return unless grammar.scopeName is 'source.csound'
-      grammar.createPattern = (options) -> new CsoundPattern(this, @registry, options)
-      grammar.rawRepository.partialExpressions.patterns.splice(-1, 0, {
-        name:  'meta.autocompletion.csound'
-        match: '(\\([afikSw|]+\\))\\w*\\b'
-        captures: 1: name: 'storage.type.csound'
-      })
+      if grammar.scopeName is 'source.csound'
+        grammar.rawRepository.partialExpressions.patterns.splice(-1, 0, {
+          name:  'meta.autocompletion.csound'
+          match: '(\\([afikSw|]+\\))\\w*\\b'
+          captures: 1: name: 'storage.type.csound'
+        })
     grammar = atom.grammars.grammarForScopeName('source.csound')
     if grammar
       callback(grammar)
     else
-      atom.grammars.onDidAddGrammar(callback)
+      @subscriptions.add(atom.grammars.onDidAddGrammar(callback))
 
   deactivate: ->
     @subscriptions.dispose()
