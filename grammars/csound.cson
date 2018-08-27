@@ -47,8 +47,8 @@ patterns: [
             patterns: [
               {
                 name:  "meta.opcode-type-signature.csound"
-                # https://github.com/csound/csound/search?q=XIDENT+path%3AEngine+filename%3Acsound_orc.lex
-                begin: "\\b(?:0|[afijkKoOpPStV\\[\\]]+)"
+                # https://csound.com/docs/manual/opcode.html
+                begin: "\\b(?:0|[aijkOPVKopS\\[\\]]+)"
                 end:   ",|$"
                 beginCaptures: 0: name: "storage.type.csound"
                 patterns: [include: "#commentsAndMacroUses"]
