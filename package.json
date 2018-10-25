@@ -1,7 +1,7 @@
 {
   "name": "language-csound",
   "main": "./lib/language-csound",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Csound language support in Atom",
   "keywords": [
     "csound",
