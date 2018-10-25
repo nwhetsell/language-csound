@@ -1,3 +1,13 @@
+#!/usr/bin/env node
+
+// To update opcode-completions.json, run:
+/*
+git clone https://github.com/csound/manual.git
+npm install csound-api libxmljs strip-bom
+./update-opcode-completions.js
+rm -fR manual node_modules
+*/
+
 const csound = require('csound-api');
 const fs = require('fs');
 const libxml = require('libxmljs');
@@ -154,8 +164,8 @@ class InputArgumentInfo {
     // <https://github.com/csound/csound/blob/develop/Engine/entry1.c>. The
     // opcodes framebuffer, hdf5read, hdf5write, xin, and xout use the * type
     // character, which is documented in the release notes of Csound 6
-    // <https://csound.github.io/docs/manual/PrefaceWhatsNew.html> as indicating
-    // “a var-arg list of any-type”.
+    // <https://csound.com/docs/manual/PrefaceWhatsNew.html> as indicating “a
+    // var-arg list of any-type”.
 
     // i  i-time scalar
     // o  optional i-time scalar defaulting to 0
@@ -321,7 +331,7 @@ function formatOutputTypeString(string) {
 }
 
 // Create a list of Csound Manual XML file names.
-const opcodesPath = path.join('csound', 'manual', 'opcodes');
+const opcodesPath = path.join('manual', 'opcodes');
 const opcodeXMLFileNames = fs.readdirSync(opcodesPath).map(opcodePath => path.parse(opcodePath).name);
 
 // Csound manual XML files describing opcodes need a header to be parsed without
@@ -480,7 +490,7 @@ for (const opcodeName in opcodeInfoByName) {
     for (const completion of completions) {
       completion.opcode = opcodeName;
       completion.description = description;
-      completion.descriptionMoreURL = `https://csound.github.io/docs/manual/${opcodeName}.html`;
+      completion.descriptionMoreURL = `https://csound.com/docs/manual/${opcodeName}.html`;
       completion.type = 'function';
     }
 
@@ -498,7 +508,7 @@ allCompletions = allCompletions.concat([
     displayText: 'alwayson (i|S)Instrument, p4, p5, …',
     opcode: 'alwayson',
     description: 'Activates the indicated instrument in the orchestra header.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/alwayson.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/alwayson.html',
     type: 'function'
   },
   {
@@ -507,7 +517,7 @@ allCompletions = allCompletions.concat([
     displayText: 'changed2 kVariableName1, kVariableName2, …',
     opcode: 'changed2',
     description: 'k-rate signal change detector.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/changed2.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/changed2.html',
     type: 'function'
   },
   {
@@ -516,7 +526,7 @@ allCompletions = allCompletions.concat([
     displayText: 'framebuffer aInput, iSize',
     opcode: 'framebuffer',
     description: 'Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/framebuffer.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/framebuffer.html',
     type: 'function'
   },
   {
@@ -525,7 +535,7 @@ allCompletions = allCompletions.concat([
     displayText: 'framebuffer kInput, iSize',
     opcode: 'framebuffer',
     description: 'Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/framebuffer.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/framebuffer.html',
     type: 'function'
   },
   {
@@ -534,7 +544,7 @@ allCompletions = allCompletions.concat([
     displayText: 'hdf5read Sfilename, SVariableName1, SVariableName2, …',
     opcode: 'hdf5read',
     description: 'Read signals and arrays from an hdf5 file.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/hdf5read.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/hdf5read.html',
     type: 'function'
   },
   {
@@ -542,7 +552,7 @@ allCompletions = allCompletions.concat([
     displayText: 'hdf5write Sfilename, (a|i|k|S)Output1, (a|i|k|S)Output2, …',
     opcode: 'hdf5write',
     description: 'Write signals and arrays to an hdf5 file.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/hdf5write.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/hdf5write.html',
     type: 'function'
   },
   {
@@ -551,7 +561,7 @@ allCompletions = allCompletions.concat([
     displayText: 'xin',
     opcode: 'xin',
     description: 'Passes variables to a user-defined opcode block.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/xin.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/xin.html',
     type: 'function'
   },
   {
@@ -559,7 +569,7 @@ allCompletions = allCompletions.concat([
     displayText: 'xout (a|i|k|S)Output1, (a|i|k|S)Output2, …',
     opcode: 'xout',
     description: 'Retrieves variables from a user-defined opcode block.',
-    descriptionMoreURL: 'https://csound.github.io/docs/manual/xout.html',
+    descriptionMoreURL: 'https://csound.com/docs/manual/xout.html',
     type: 'function'
   }
 ]);
