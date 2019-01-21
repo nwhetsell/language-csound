@@ -9,24 +9,23 @@ patterns: [
     end:   "(</)(CsoundSynthesi[sz]er)(>)"
     beginCaptures:
       1: name: "punctuation.definition.tag.begin.csound-document"
-      2: name: "entity.name.tag.begin.csound-document"
-      3: name: "punctuation.definition.tag.begin.csound-document"
+      2: name: "entity.name.tag.csound-document"
+      3: name: "punctuation.definition.tag.end.csound-document"
     endCaptures:
-      1: name: "punctuation.definition.tag.end.csound-document"
-      2: name: "entity.name.tag.end.csound-document"
+      1: name: "punctuation.definition.tag.begin.csound-document"
+      2: name: "entity.name.tag.csound-document"
       3: name: "punctuation.definition.tag.end.csound-document"
     patterns: [
       {
-        name:  "meta.orchestra.csound-document"
         begin: "(<)(CsOptions)(>)"
         end:   "(</)(CsOptions)(>)"
         beginCaptures:
           1: name: "punctuation.definition.tag.begin.csound-document"
-          2: name: "entity.name.tag.begin.csound-document"
-          3: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.csound-document"
+          3: name: "punctuation.definition.tag.end.csound-document"
         endCaptures:
-          1: name: "punctuation.definition.tag.end.csound-document"
-          2: name: "entity.name.tag.end.csound-document"
+          1: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.csound-document"
           3: name: "punctuation.definition.tag.end.csound-document"
         patterns: [include: "source.csound#comments"]
       },{
@@ -35,11 +34,11 @@ patterns: [
         end:   "(</)(CsInstruments)(>)"
         beginCaptures:
           1: name: "punctuation.definition.tag.begin.csound-document"
-          2: name: "entity.name.tag.begin.csound-document"
-          3: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.csound-document"
+          3: name: "punctuation.definition.tag.end.csound-document"
         endCaptures:
-          1: name: "punctuation.definition.tag.end.csound-document"
-          2: name: "entity.name.tag.end.csound-document"
+          1: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.csound-document"
           3: name: "punctuation.definition.tag.end.csound-document"
         contentName: "source.csound.embedded.csound-document"
         patterns: [include: "source.csound"]
@@ -49,18 +48,18 @@ patterns: [
         end:   "(</)(CsScore)(>)"
         beginCaptures:
           1: name: "punctuation.definition.tag.begin.csound-document"
-          2: name: "entity.name.tag.begin.csound-document"
-          3: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.csound-document"
+          3: name: "punctuation.definition.tag.end.csound-document"
         endCaptures:
-          1: name: "punctuation.definition.tag.end.csound-document"
-          2: name: "entity.name.tag.end.csound-document"
+          1: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.csound-document"
           3: name: "punctuation.definition.tag.end.csound-document"
         contentName: "source.csound-score.embedded.csound-document"
         patterns: [include: "source.csound-score"]
       },{
         name:  "meta.html.csound-document"
-        begin: "(?=<[hH][tT][mM][lL])"
-        end:   "(?<=</[hH][tT][mM][lL]>)"
+        begin: "(?i)(?=<html)"
+        end:   "(?i)(?<=</html>)"
         patterns: [include: "text.html.basic"]
       }
       {include: "#tags"}
@@ -73,15 +72,13 @@ repository:
   tags:
     patterns: [
       {
-        begin: "(<)([0-9A-Za-z:-]+)(>)"
-        end:   "(</)([0-9A-Za-z:-]+)(>)"
+        begin: "(</?)([\\w:-]+)"
+        end:   ">"
         beginCaptures:
           1: name: "punctuation.definition.tag.begin.csound-document"
-          2: name: "entity.name.tag.begin.csound-document"
-          3: name: "punctuation.definition.tag.begin.csound-document"
+          2: name: "entity.name.tag.csound-document"
         endCaptures:
-          1: name: "punctuation.definition.tag.end.csound-document"
-          2: name: "entity.name.tag.end.csound-document"
-          3: name: "punctuation.definition.tag.end.csound-document"
+          0: name: "punctuation.definition.tag.end.csound-document"
+        patterns: [include: "text.xml#tagStuff"]
       }
     ]
