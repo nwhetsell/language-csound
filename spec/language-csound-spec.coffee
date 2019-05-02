@@ -381,6 +381,27 @@ describe "language-csound", ->
         expect(tokens[3]).toEqual value: " ", scopes: ["source.csound"]
         expect(tokens[4]).toEqual value: "//", scopes: ["source.csound", "comment.line.double-slash.csound", "punctuation.definition.comment.csound"]
 
+    it "tokenizes includestr directives", ->
+      lines = grammar.tokenizeLines """
+        #includestr/**/"file.ud\\ ;comment
+        o"
+      """
+      tokens = lines[0]
+      expect(tokens.length).toBe 9
+      expect(tokens[0]).toEqual value: '#includestr', scopes: ["source.csound", "keyword.includestr.preprocessor.csound"]
+      expect(tokens[1]).toEqual value: "/*", scopes: ["source.csound", "comment.block.csound", "punctuation.definition.comment.begin.csound"]
+      expect(tokens[2]).toEqual value: "*/", scopes: ["source.csound", "comment.block.csound", "punctuation.definition.comment.end.csound"]
+      expect(tokens[3]).toEqual value: '"', scopes: ["source.csound", "string.includestr.csound", "punctuation.definition.string.begin.csound"]
+      expect(tokens[4]).toEqual value: "file.ud", scopes: ["source.csound", "string.includestr.csound"]
+      expect(tokens[5]).toEqual value: "\\", scopes: ["source.csound", "string.includestr.csound", "constant.character.escape.line-continuation.csound"]
+      expect(tokens[6]).toEqual value: " ", scopes: ["source.csound", "string.includestr.csound"]
+      expect(tokens[7]).toEqual value: ";", scopes: ["source.csound", "string.includestr.csound", "comment.line.semicolon.csound", "punctuation.definition.comment.csound"]
+      expect(tokens[8]).toEqual value: "comment", scopes: ["source.csound", "string.includestr.csound", "comment.line.semicolon.csound"]
+      tokens = lines[1]
+      expect(tokens.length).toBe 2
+      expect(tokens[0]).toEqual value: "o", scopes: ["source.csound", "string.includestr.csound"]
+      expect(tokens[1]).toEqual value: '"', scopes: ["source.csound", "string.includestr.csound", "punctuation.definition.string.end.csound"]
+
     it "tokenizes include directives", ->
       for character in ['"', "|"]
         {tokens} = grammar.tokenizeLine "#include/**/#{character}file.udo#{character}"

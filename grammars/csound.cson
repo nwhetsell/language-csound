@@ -407,6 +407,24 @@ repository:
         name:  "keyword.preprocessor.csound"
         match: "\\#(?:e(?:lse|nd(?:if)?)\\b|\\#\\#)|@+[ \\t]*\\d*"
       },{
+        begin: "\\#includestr"
+        end:   "$"
+        beginCaptures: 0: name: "keyword.includestr.preprocessor.csound"
+        patterns: [
+          {include: "#commentsAndMacroUses"}
+          {
+            name:  "string.includestr.csound"
+            begin: '"'
+            end:   '"'
+            beginCaptures: 0: name: "punctuation.definition.string.begin.csound"
+            endCaptures:   0: name: "punctuation.definition.string.end.csound"
+            patterns: [
+              {include: "#macroUses"}
+              {include: "#lineContinuations"}
+            ]
+          }
+        ]
+      },{
         begin: "\\#include"
         end:   "$"
         beginCaptures: 0: name: "keyword.include.preprocessor.csound"
