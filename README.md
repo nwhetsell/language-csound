@@ -5,9 +5,9 @@
 [![apm](https://img.shields.io/apm/dm/language-csound.svg)](https://atom.io/packages/language-csound)
 
 This [Atom](https://atom.io) package adds syntax highlighting, snippets, and
-autocompletion to [Csound](https://csound.github.io) files. This package is also
-used by [GitHub Linguist](https://github.com/github/linguist) to highlight
-Csound files.
+autocompletion to [Csound](https://csound.com) files. This package is also used
+by [GitHub Linguist](https://github.com/github/linguist) to highlight Csound
+files.
 
 <img src="https://user-images.githubusercontent.com/14102861/44204368-4432b780-a120-11e8-8227-d3c104d472fc.png">
 
