@@ -92,6 +92,111 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "JackoAudioIn ${1:ScsoundPortName}",
+      "displayText": "JackoAudioIn ScsoundPortName",
+      "opcode": "JackoAudioIn",
+      "description": "Receives an audio signal from a Jack port.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoAudioIn.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoAudioInConnect ${1:SexternalPortName}, ${2:ScsoundPortName}",
+      "displayText": "JackoAudioInConnect SexternalPortName, ScsoundPortName",
+      "opcode": "JackoAudioInConnect",
+      "description": "Creates an audio connection from a Jack port to Csound.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoAudioInConnect.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoAudioOut ${1:ScsoundPortName}, ${2:asignal}",
+      "displayText": "JackoAudioOut ScsoundPortName, asignal",
+      "opcode": "JackoAudioOut",
+      "description": "Sends an audio signal to a Jack port.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoAudioOut.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoAudioOutConnect ${1:ScsoundPortName}, ${2:SexternalPortName}",
+      "displayText": "JackoAudioOutConnect ScsoundPortName, SexternalPortName",
+      "opcode": "JackoAudioOutConnect",
+      "description": "Creates an audio connection from Csound to a Jack port.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoAudioOutConnect.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoFreewheel ${1:ienabled}",
+      "displayText": "JackoFreewheel ienabled",
+      "opcode": "JackoFreewheel",
+      "description": "Turns Jack's freewheeling mode on or off.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoFreewheel.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoInfo",
+      "displayText": "JackoInfo",
+      "opcode": "JackoInfo",
+      "description": "Prints information about the Jack system.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoInfo.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoInit ${1:ServerName}, ${2:SclientName}",
+      "displayText": "JackoInit ServerName, SclientName",
+      "opcode": "JackoInit",
+      "description": "Initializes Csound as a Jack client.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoInit.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoMidiInConnect ${1:SexternalPortName}, ${2:ScsoundPortName}",
+      "displayText": "JackoMidiInConnect SexternalPortName, ScsoundPortName",
+      "opcode": "JackoMidiInConnect",
+      "description": "Creates a MIDI connection from a Jack port to Csound.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoMidiInConnect.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoMidiOut ${1:ScsoundPortName}, ${2:kstatus}, ${3:kchannel}, ${4:kdata1/*, kdata2*/}",
+      "displayText": "JackoMidiOut ScsoundPortName, kstatus, kchannel, kdata1, kdata2",
+      "opcode": "JackoMidiOut",
+      "description": "Sends a MIDI channel message to a Jack port.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoMidiOut.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoMidiOutConnect ${1:ScsoundPortName}, ${2:SexternalPortName}",
+      "displayText": "JackoMidiOutConnect ScsoundPortName, SexternalPortName",
+      "opcode": "JackoMidiOutConnect",
+      "description": "Creates a MIDI connection from Csound to a Jack port.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoMidiOutConnect.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoNoteOut ${1:ScsoundPortName}, ${2:istatus}, ${3:ichannel}, ${4:idata1}",
+      "displayText": "JackoNoteOut ScsoundPortName, istatus, ichannel, idata1",
+      "opcode": "JackoNoteOut",
+      "description": "Sends a MIDI channel message to a Jack port.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoNoteOut.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoOn ${1:iactive}",
+      "displayText": "JackoOn iactive",
+      "opcode": "JackoOn",
+      "description": "Enables or disables all Jack ports.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoOn.html",
+      "type": "function"
+    },
+    {
+      "snippet": "JackoTransport ${1:kcommand/*, kposition*/}",
+      "displayText": "JackoTransport kcommand, kposition",
+      "opcode": "JackoTransport",
+      "description": "Control the Jack transport.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/JackoTransport.html",
+      "type": "function"
+    },
+    {
       "snippet": "OSCbundle ${1:kwhen}, ${2:Shost}, ${3:kport}, ${4:Sdest}, ${5:Stype}, ${6:kArgs/*, isize*/}",
       "displayText": "OSCbundle kwhen, Shost, kport, Sdest, Stype, kArgs, isize",
       "opcode": "OSCbundle",
@@ -163,11 +268,254 @@
       "type": "function"
     },
     {
-      "snippet": "OSCsend ${1:kwhen}, ${2:Shost}, ${3:kport}",
-      "displayText": "OSCsend kwhen, Shost, kport",
+      "snippet": "OSCsend ${1:kwhen}, ${2:Shost}, ${3:kport}, ${4:Sdestination}, ${5:Stype}",
+      "displayText": "OSCsend kwhen, Shost, kport, Sdestination, Stype",
       "opcode": "OSCsend",
       "description": "Sends data to other processes using the OSC protocol",
       "descriptionMoreURL": "https://csound.com/docs/manual/OSCsend.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKBandedWG ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKBandedWG ifrequency, iamplitude",
+      "opcode": "STKBandedWG",
+      "description": "STKBandedWG uses banded waveguide techniques to model a variety of sounds.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKBandedWG.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKBeeThree ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKBeeThree ifrequency, iamplitude",
+      "opcode": "STKBeeThree",
+      "description": "STK Hammond-oid organ-like FM synthesis instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKBeeThree.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKBlowBotl ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKBlowBotl ifrequency, iamplitude",
+      "opcode": "STKBlowBotl",
+      "description": "STKBlowBotl uses a helmholtz resonator (biquad filter) with a polynomial jet excitation.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKBlowBotl.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKBlowHole ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKBlowHole ifrequency, iamplitude",
+      "opcode": "STKBlowHole",
+      "description": "STK clarinet physical model with one register hole and one tonehole.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKBlowHole.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKBowed ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKBowed ifrequency, iamplitude",
+      "opcode": "STKBowed",
+      "description": "STKBowed is a bowed string instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKBowed.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKBrass ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKBrass ifrequency, iamplitude",
+      "opcode": "STKBrass",
+      "description": "STKBrass is a simple brass instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKBrass.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKClarinet ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKClarinet ifrequency, iamplitude",
+      "opcode": "STKClarinet",
+      "description": "STKClarinet uses a simple clarinet physical model.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKClarinet.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKDrummer ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKDrummer ifrequency, iamplitude",
+      "opcode": "STKDrummer",
+      "description": "STKDrummer is a drum sampling synthesizer.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKDrummer.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKFMVoices ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKFMVoices ifrequency, iamplitude",
+      "opcode": "STKFMVoices",
+      "description": "STKFMVoices is a singing FM synthesis instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKFMVoices.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKFlute ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKFlute ifrequency, iamplitude",
+      "opcode": "STKFlute",
+      "description": "STKFlute uses a simple flute physical model.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKFlute.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKHevyMetl ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKHevyMetl ifrequency, iamplitude",
+      "opcode": "STKHevyMetl",
+      "description": "STKHevyMetl produces metal sounds.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKHevyMetl.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKMandolin ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKMandolin ifrequency, iamplitude",
+      "opcode": "STKMandolin",
+      "description": "STKMandolin produces mamdolin-like sounds.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKMandolin.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKModalBar ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKModalBar ifrequency, iamplitude",
+      "opcode": "STKModalBar",
+      "description": "STKModalBar is a resonant bar instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKModalBar.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKMoog ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKMoog ifrequency, iamplitude",
+      "opcode": "STKMoog",
+      "description": "STKMoog produces moog-like swept filter sounds.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKMoog.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKPercFlut ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKPercFlut ifrequency, iamplitude",
+      "opcode": "STKPercFlut",
+      "description": "STKPercFlut is a percussive flute FM synthesis instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKPercFlut.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKPlucked ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKPlucked ifrequency, iamplitude",
+      "opcode": "STKPlucked",
+      "description": "STKPlucked uses a plucked string physical model.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKPlucked.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKResonate ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKResonate ifrequency, iamplitude",
+      "opcode": "STKResonate",
+      "description": "STKResonate is a noise driven formant filter.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKResonate.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKRhodey ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKRhodey ifrequency, iamplitude",
+      "opcode": "STKRhodey",
+      "description": "STK Fender Rhodes-like electric piano FM synthesis instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKRhodey.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKSaxofony ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKSaxofony ifrequency, iamplitude",
+      "opcode": "STKSaxofony",
+      "description": "STKSaxofony is a faux conical bore reed instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKSaxofony.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKShakers ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKShakers ifrequency, iamplitude",
+      "opcode": "STKShakers",
+      "description": "STKShakers is an instrument that simulates environmental sounds or collisions of multiple independent sound producing objects.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKShakers.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKSimple ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKSimple ifrequency, iamplitude",
+      "opcode": "STKSimple",
+      "description": "STKSimple is a wavetable/noise instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKSimple.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKSitar ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKSitar ifrequency, iamplitude",
+      "opcode": "STKSitar",
+      "description": "STKSitar uses a plucked string physical model.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKSitar.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKStifKarp ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKStifKarp ifrequency, iamplitude",
+      "opcode": "STKStifKarp",
+      "description": "STKStifKarp is a plucked stiff string instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKStifKarp.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKTubeBell ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKTubeBell ifrequency, iamplitude",
+      "opcode": "STKTubeBell",
+      "description": "STKTubeBell is a tubular bell (orchestral chime) FM synthesis instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKTubeBell.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKVoicForm ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKVoicForm ifrequency, iamplitude",
+      "opcode": "STKVoicForm",
+      "description": "STKVoicForm is a four formant synthesis instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKVoicForm.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKWhistle ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKWhistle ifrequency, iamplitude",
+      "opcode": "STKWhistle",
+      "description": "STKWhistle produces whistle sounds.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKWhistle.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "STKWurley ${1:ifrequency}, ${2:iamplitude}",
+      "displayText": "STKWurley ifrequency, iamplitude",
+      "opcode": "STKWurley",
+      "description": "STKWurley simulates a Wurlitzer electric piano FM synthesis instrument.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/STKWurley.html",
       "type": "function"
     },
     {
@@ -249,6 +597,24 @@
       "opcode": "ampmidi",
       "description": "Get the velocity of the current MIDI event.",
       "descriptionMoreURL": "https://csound.com/docs/manual/ampmidi.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "ampmidicurve ${1:ivelocity}, ${2:idynamicrange}, ${3:iexponent}",
+      "displayText": "ampmidicurve ivelocity, idynamicrange, iexponent",
+      "opcode": "ampmidicurve",
+      "description": "Maps an input MIDI velocity number to an output gain factor with a maximum value of 1, modifying the output gain by a dynamic range and a shaping exponent.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ampmidicurve.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "ampmidicurve ${1:kvelocity}, ${2:kdynamicrange}, ${3:kexponent}",
+      "displayText": "ampmidicurve kvelocity, kdynamicrange, kexponent",
+      "opcode": "ampmidicurve",
+      "description": "Maps an input MIDI velocity number to an output gain factor with a maximum value of 1, modifying the output gain by a dynamic range and a shaping exponent.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ampmidicurve.html",
       "type": "function"
     },
     {
@@ -388,8 +754,8 @@
     },
     {
       "leftLabel": "a",
-      "snippet": "beadsynt ${1:(i|k)Freqs}, ${2:(i|k)Amps}, ${3:(i|k)Bws/*, inumosc, iflags, kFrequency, kbw, iFunctionTable, iInitialPhase*/}",
-      "displayText": "beadsynt (i|k)Freqs, (i|k)Amps, (i|k)Bws, inumosc, iflags, kFrequency, kbw, iFunctionTable, iInitialPhase",
+      "snippet": "beadsynt ${1:(a|i|k|S)Freqs}, ${2:(a|i|k|S)Amps}, ${3:(a|i|k|S)Bws/*, inumosc, iflags, kFrequency, kbw, iFunctionTable, iInitialPhase*/}",
+      "displayText": "beadsynt (a|i|k|S)Freqs, (a|i|k|S)Amps, (a|i|k|S)Bws, inumosc, iflags, kFrequency, kbw, iFunctionTable, iInitialPhase",
       "opcode": "beadsynt",
       "description": "Band-Enhanced Oscillator-Bank",
       "descriptionMoreURL": "https://csound.com/docs/manual/beadsynt.html",
@@ -495,9 +861,36 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "bpf ${1:ax}, ${2:(a|i|k)x1…}",
+      "displayText": "bpf ax, (a|i|k)x1",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "i",
       "snippet": "bpf ${1:ix}, ${2:ix1…}",
       "displayText": "bpf ix, ix1",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "bpf ${1:ix}, ${2:ix1}, ${3:iy1}",
+      "displayText": "bpf ix, ix1, iy1",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "ii",
+      "snippet": "bpf ${1:ix}, ${2:ix1}, ${3:iy1}, ${4:ix2}",
+      "displayText": "bpf ix, ix1, iy1, ix2",
       "opcode": "bpf",
       "description": "Break point function with linear interpolation",
       "descriptionMoreURL": "https://csound.com/docs/manual/bpf.html",
@@ -513,9 +906,27 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "bpf ${1:kx}, ${2:(i|k)x1}, ${3:(i|k)y1}",
+      "displayText": "bpf kx, (i|k)x1, (i|k)y1",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k[]",
       "snippet": "bpf ${1:kx}, ${2:(a|i|k)x1…}",
       "displayText": "bpf kx, (a|i|k)x1",
+      "opcode": "bpf",
+      "description": "Break point function with linear interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "kk",
+      "snippet": "bpf ${1:kx}, ${2:(i|k)x1}, ${3:(i|k)y1}, ${4:(i|k)x2}",
+      "displayText": "bpf kx, (i|k)x1, (i|k)y1, (i|k)x2",
       "opcode": "bpf",
       "description": "Break point function with linear interpolation",
       "descriptionMoreURL": "https://csound.com/docs/manual/bpf.html",
@@ -531,6 +942,24 @@
       "type": "function"
     },
     {
+      "leftLabel": "i",
+      "snippet": "bpfcos ${1:ix}, ${2:ix1}, ${3:iy1}",
+      "displayText": "bpfcos ix, ix1, iy1",
+      "opcode": "bpfcos",
+      "description": "Break point function with cosine (easy-in/easy-out) interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpfcos.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "ii",
+      "snippet": "bpfcos ${1:ix}, ${2:ix1}, ${3:iy1}, ${4:ix2}",
+      "displayText": "bpfcos ix, ix1, iy1, ix2",
+      "opcode": "bpfcos",
+      "description": "Break point function with cosine (easy-in/easy-out) interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpfcos.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "bpfcos ${1:kx}, ${2:(a|i|k)x1…}",
       "displayText": "bpfcos kx, (a|i|k)x1",
@@ -540,9 +969,27 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "bpfcos ${1:kx}, ${2:(i|k)x1}, ${3:(i|k)y1}",
+      "displayText": "bpfcos kx, (i|k)x1, (i|k)y1",
+      "opcode": "bpfcos",
+      "description": "Break point function with cosine (easy-in/easy-out) interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpfcos.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k[]",
       "snippet": "bpfcos ${1:kx}, ${2:(a|i|k)x1…}",
       "displayText": "bpfcos kx, (a|i|k)x1",
+      "opcode": "bpfcos",
+      "description": "Break point function with cosine (easy-in/easy-out) interpolation",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bpfcos.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "kk",
+      "snippet": "bpfcos ${1:kx}, ${2:(i|k)x1}, ${3:(i|k)y1}, ${4:(i|k)x2}",
+      "displayText": "bpfcos kx, (i|k)x1, (i|k)y1, (i|k)x2",
       "opcode": "bpfcos",
       "description": "Break point function with cosine (easy-in/easy-out) interpolation",
       "descriptionMoreURL": "https://csound.com/docs/manual/bpfcos.html",
@@ -1102,8 +1549,17 @@
     },
     {
       "leftLabel": "",
-      "snippet": "copya2ftab ${1:(i|k)ftbl}, ${2:(i|k)ab}",
-      "displayText": "copya2ftab (i|k)ftbl, (i|k)ab",
+      "snippet": "copya2ftab ${1:kArray}, ${2:ktab}",
+      "displayText": "copya2ftab kArray, ktab",
+      "opcode": "copya2ftab",
+      "description": "Copy data from a vector to an f-table.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/copya2ftab.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "",
+      "snippet": "copya2ftab ${1:(i|k)Array}, ${2:(i|k)tab/*, (i|k)offset*/}",
+      "displayText": "copya2ftab (i|k)Array, (i|k)tab, (i|k)offset",
       "opcode": "copya2ftab",
       "description": "Copy data from a vector to an f-table.",
       "descriptionMoreURL": "https://csound.com/docs/manual/copya2ftab.html",
@@ -1113,6 +1569,15 @@
       "leftLabel": "",
       "snippet": "copyf2array ${1:(i|k)ab}, ${2:(i|k)ftbl}",
       "displayText": "copyf2array (i|k)ab, (i|k)ftbl",
+      "opcode": "copyf2array",
+      "description": "Copy data from an f-table to a vector.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/copyf2array.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "",
+      "snippet": "copyf2array ${1:kab}, ${2:kftbl}, ${3:k}",
+      "displayText": "copyf2array kab, kftbl, k",
       "opcode": "copyf2array",
       "description": "Copy data from an f-table to a vector.",
       "descriptionMoreURL": "https://csound.com/docs/manual/copyf2array.html",
@@ -2033,8 +2498,8 @@
     },
     {
       "leftLabel": "i",
-      "snippet": "faustcompile ${1:Scode}, ${2:Sargs/*, iasync, istacksize*/}",
-      "displayText": "faustcompile Scode, Sargs, iasync, istacksize",
+      "snippet": "faustcompile ${1:Scode}, ${2:Sargs/*, iasync, istacksize, i*/}",
+      "displayText": "faustcompile Scode, Sargs, iasync, istacksize, i",
       "opcode": "faustcompile",
       "description": "Invokes the just-in-time compiler to produce a instantiable DSP process from a Faust program.",
       "descriptionMoreURL": "https://csound.com/docs/manual/faustcompile.html",
@@ -2177,8 +2642,8 @@
     },
     {
       "leftLabel": "i[]",
-      "snippet": "fillarray ${1:ival1…}",
-      "displayText": "fillarray ival1",
+      "snippet": "fillarray ${1:(S|i)val1…}",
+      "displayText": "fillarray (S|i)val1",
       "opcode": "fillarray",
       "description": "Generate a vector with initial values.",
       "descriptionMoreURL": "https://csound.com/docs/manual/fillarray.html",
@@ -2186,8 +2651,8 @@
     },
     {
       "leftLabel": "k[]",
-      "snippet": "fillarray ${1:(i|k)val1…}",
-      "displayText": "fillarray (i|k)val1",
+      "snippet": "fillarray ${1:(S|i|k)val1…}",
+      "displayText": "fillarray (S|i|k)val1",
       "opcode": "fillarray",
       "description": "Generate a vector with initial values.",
       "descriptionMoreURL": "https://csound.com/docs/manual/fillarray.html",
@@ -2281,6 +2746,99 @@
       "opcode": "flooper2",
       "description": "Function-table-based crossfading looper.",
       "descriptionMoreURL": "https://csound.com/docs/manual/flooper2.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "aa",
+      "snippet": "fluidAllOut",
+      "displayText": "fluidAllOut",
+      "opcode": "fluidAllOut",
+      "description": "Collects all audio from all Fluidsynth engines in a performance",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidAllOut.html",
+      "type": "function"
+    },
+    {
+      "snippet": "fluidCCi ${1:iEngineNumber}, ${2:iChannelNumber}, ${3:iControllerNumber}, ${4:iValue}",
+      "displayText": "fluidCCi iEngineNumber, iChannelNumber, iControllerNumber, iValue",
+      "opcode": "fluidCCi",
+      "description": "Sends a MIDI controller data message to fluid.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidCCi.html",
+      "type": "function"
+    },
+    {
+      "snippet": "fluidCCk ${1:iEngineNumber}, ${2:kChannelNumber}, ${3:kControllerNumber}, ${4:kValue}",
+      "displayText": "fluidCCk iEngineNumber, kChannelNumber, kControllerNumber, kValue",
+      "opcode": "fluidCCk",
+      "description": "Sends a MIDI controller data message to fluid.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidCCk.html",
+      "type": "function"
+    },
+    {
+      "snippet": "fluidControl ${1:ienginenum}, ${2:kstatus}, ${3:kchannel}, ${4:kdata1}, ${5:kdata2/*, imsgs*/}",
+      "displayText": "fluidControl ienginenum, kstatus, kchannel, kdata1, kdata2, imsgs",
+      "opcode": "fluidControl",
+      "description": "Sends MIDI note on, note off, and other messages to a SoundFont preset.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidControl.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "fluidEngine ${1:iChorusEnabled/*, iRevervEnabled, iNumChannels, iPolyphony*/}",
+      "displayText": "fluidEngine iChorusEnabled, iRevervEnabled, iNumChannels, iPolyphony",
+      "opcode": "fluidEngine",
+      "description": "Instantiates a fluidsynth engine.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidEngine.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S[]",
+      "snippet": "fluidInfo ${1:ienginenum}",
+      "displayText": "fluidInfo ienginenum",
+      "opcode": "fluidInfo",
+      "description": "Retrieves program information from currently loaded soundfont.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidInfo.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "fluidLoad ${1:(i|S)oundfont}, ${2:ienginenum/*, ilistpresets*/}",
+      "displayText": "fluidLoad (i|S)oundfont, ienginenum, ilistpresets",
+      "opcode": "fluidLoad",
+      "description": "Loads a SoundFont into a fluidEngine, optionally listing SoundFont contents.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidLoad.html",
+      "type": "function"
+    },
+    {
+      "snippet": "fluidNote ${1:ienginenum}, ${2:ichannelnum}, ${3:imidikey}, ${4:imidivel}",
+      "displayText": "fluidNote ienginenum, ichannelnum, imidikey, imidivel",
+      "opcode": "fluidNote",
+      "description": "Plays a note on a channel in a fluidSynth engine.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidNote.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "aa",
+      "snippet": "fluidOut ${1:ienginenum}",
+      "displayText": "fluidOut ienginenum",
+      "opcode": "fluidOut",
+      "description": "Outputs sound from a given fluidEngine",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidOut.html",
+      "type": "function"
+    },
+    {
+      "snippet": "fluidProgramSelect ${1:ienginenum}, ${2:ichannelnum}, ${3:isfnum}, ${4:ibanknum}, ${5:ipresetnum}",
+      "displayText": "fluidProgramSelect ienginenum, ichannelnum, isfnum, ibanknum, ipresetnum",
+      "opcode": "fluidProgramSelect",
+      "description": "Assigns a preset from a SoundFont to a channel on a fluidEngine.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidProgramSelect.html",
+      "type": "function"
+    },
+    {
+      "snippet": "fluidSetInterpMethod ${1:ienginenum}, ${2:ichannelnum}, ${3:iInterpMethod}",
+      "displayText": "fluidSetInterpMethod ienginenum, ichannelnum, iInterpMethod",
+      "opcode": "fluidSetInterpMethod",
+      "description": "Set interpolation method for channel in Fluid Engine",
+      "descriptionMoreURL": "https://csound.com/docs/manual/fluidSetInterpMethod.html",
       "type": "function"
     },
     {
@@ -2562,8 +3120,8 @@
     },
     {
       "leftLabel": "i",
-      "snippet": "ftaudio ${1:iFunctionTable}, ${2:SFilename}, ${3:kformat}, ${4:i}",
-      "displayText": "ftaudio iFunctionTable, SFilename, kformat, i",
+      "snippet": "ftaudio ${1:iFunctionTable}, ${2:SFilename}, ${3:iformat/*, ibeg, iend*/}",
+      "displayText": "ftaudio iFunctionTable, SFilename, iformat, ibeg, iend",
       "opcode": "ftaudio",
       "description": "Write a previously-allocated table to an audio file.",
       "descriptionMoreURL": "https://csound.com/docs/manual/ftaudio.html",
@@ -2571,8 +3129,8 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "ftaudio ${1:kFunctionTable}, ${2:kFilename}, ${3:Sformat}, ${4:k/*, i*/}",
-      "displayText": "ftaudio kFunctionTable, kFilename, Sformat, k, i",
+      "snippet": "ftaudio ${1:kFunctionTable}, ${2:kFilename}, ${3:Sformat}, ${4:kbeg/*, iend, k, k*/}",
+      "displayText": "ftaudio kFunctionTable, kFilename, Sformat, kbeg, iend, k, k",
       "opcode": "ftaudio",
       "description": "Write a previously-allocated table to an audio file.",
       "descriptionMoreURL": "https://csound.com/docs/manual/ftaudio.html",
@@ -2585,6 +3143,24 @@
       "opcode": "ftconv",
       "description": "Low latency multichannel convolution, using a function table as impulse response source.",
       "descriptionMoreURL": "https://csound.com/docs/manual/ftconv.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "ftexists ${1:iFunctionTable}",
+      "displayText": "ftexists iFunctionTable",
+      "opcode": "ftexists",
+      "description": "Query if a given table exists",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ftexists.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "ftexists ${1:kFunctionTable}",
+      "displayText": "ftexists kFunctionTable",
+      "opcode": "ftexists",
+      "description": "Query if a given table exists",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ftexists.html",
       "type": "function"
     },
     {
@@ -2667,7 +3243,25 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]",
+      "snippet": "ftom ${1:iFrequency/*, irnd*/}",
+      "displayText": "ftom iFrequency, irnd",
+      "opcode": "ftom",
+      "description": "Convert frequency to midi",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ftom.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
+      "snippet": "ftom ${1:kFrequency/*, irnd*/}",
+      "displayText": "ftom kFrequency, irnd",
+      "opcode": "ftom",
+      "description": "Convert frequency to midi",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ftom.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
       "snippet": "ftom ${1:kFrequency/*, irnd*/}",
       "displayText": "ftom kFrequency, irnd",
       "opcode": "ftom",
@@ -2963,6 +3557,15 @@
     },
     {
       "leftLabel": "a",
+      "snippet": "gtf ${1:ain}, ${2:kFrequency}, ${3:idecay/*, iorder, iphase*/}",
+      "displayText": "gtf ain, kFrequency, idecay, iorder, iphase",
+      "opcode": "gtf",
+      "description": "Apply a gammatone filter to an audio signal.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/gtf.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
       "snippet": "guiro ${1:kAmplitude}, ${2:idettack/*, inum, idamp, imaxshake, iFrequency, ifreq1*/}",
       "displayText": "guiro kAmplitude, idettack, inum, idamp, imaxshake, iFrequency, ifreq1",
       "opcode": "guiro",
@@ -2993,7 +3596,7 @@
       "snippet": "hilbert2 ${1:aSignal}, ${2:ifftsize}, ${3:ihopsize}",
       "displayText": "hilbert2 aSignal, ifftsize, ihopsize",
       "opcode": "hilbert2",
-      "description": "A Hilbert rransformer.",
+      "description": "A Hilbert transformer.",
       "descriptionMoreURL": "https://csound.com/docs/manual/hilbert2.html",
       "type": "function"
     },
@@ -3471,6 +4074,14 @@
       "type": "function"
     },
     {
+      "snippet": "jacktransport ${1:icommand/*, ilocation*/}",
+      "displayText": "jacktransport icommand, ilocation",
+      "opcode": "jacktransport",
+      "description": "Start/stop jack_transport and can optionally relocate the playback head.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/jacktransport.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "jitter ${1:kAmplitude}, ${2:kcpsMin}, ${3:kcpsMax}",
       "displayText": "jitter kAmplitude, kcpsMin, kcpsMax",
@@ -3503,6 +4114,15 @@
       "opcode": "ktableseg",
       "description": "Deprecated.",
       "descriptionMoreURL": "https://csound.com/docs/manual/ktableseg.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "lastcycle",
+      "displayText": "lastcycle",
+      "opcode": "lastcycle",
+      "description": "Indicates whether an event is in its last performance cycle.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lastcycle.html",
       "type": "function"
     },
     {
@@ -3866,7 +4486,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "a…",
+      "leftLabel": "a[]a…",
       "snippet": "loscilx ${1:(a|k)Amplitude}, ${2:kFrequency}, ${3:iFunctionTable/*, iwsize, ibas, istrt, imod, ibeg, iend*/}",
       "displayText": "loscilx (a|k)Amplitude, kFrequency, iFunctionTable, iwsize, ibas, istrt, imod, ibeg, iend",
       "opcode": "loscilx",
@@ -4265,6 +4885,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "metro2 ${1:kFrequency}, ${2:kswing/*, iAmplitude, initphase*/}",
+      "displayText": "metro2 kFrequency, kswing, iAmplitude, initphase",
+      "opcode": "metro2",
+      "description": "Trigger Metronome with Swing and Accents",
+      "descriptionMoreURL": "https://csound.com/docs/manual/metro2.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "i[]",
       "snippet": "mfb ${1:iin}, ${2:ilow}, ${3:ihigh}, ${4:ibands}",
       "displayText": "mfb iin, ilow, ihigh, ibands",
@@ -4514,7 +5143,7 @@
       "snippet": "miditempo",
       "displayText": "miditempo",
       "opcode": "miditempo",
-      "description": "Returns the current tempo at k-rate, of either the MIDI file (if available) or the score",
+      "description": "Returns the current tempo at k-rate, of either the MIDI file (if available) or the score.",
       "descriptionMoreURL": "https://csound.com/docs/manual/miditempo.html",
       "type": "function"
     },
@@ -4774,7 +5403,25 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]",
+      "snippet": "mtof ${1:imidi}",
+      "displayText": "mtof imidi",
+      "opcode": "mtof",
+      "description": "Convert a midi to frequency",
+      "descriptionMoreURL": "https://csound.com/docs/manual/mtof.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
+      "snippet": "mtof ${1:kmidi}",
+      "displayText": "mtof kmidi",
+      "opcode": "mtof",
+      "description": "Convert a midi to frequency",
+      "descriptionMoreURL": "https://csound.com/docs/manual/mtof.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
       "snippet": "mtof ${1:kmidi}",
       "displayText": "mtof kmidi",
       "opcode": "mtof",
@@ -4991,6 +5638,24 @@
       "opcode": "nstrnum",
       "description": "Returns the number of a named instrument.",
       "descriptionMoreURL": "https://csound.com/docs/manual/nstrnum.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S",
+      "snippet": "nstrstr ${1:(i|k)nsno}",
+      "displayText": "nstrstr (i|k)nsno",
+      "opcode": "nstrstr",
+      "description": "Returns the string of a named instr from its number.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/nstrstr.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "ik",
+      "snippet": "ntof ${1:Snote}",
+      "displayText": "ntof Snote",
+      "opcode": "ntof",
+      "description": "Convert note name to frequency",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ntof.html",
       "type": "function"
     },
     {
@@ -5554,9 +6219,9 @@
       "type": "function"
     },
     {
-      "leftLabel": "i…",
-      "snippet": "passign ${1:istart}",
-      "displayText": "passign istart",
+      "leftLabel": "i…i[]k[]",
+      "snippet": "passign ${1:istart/*, iend*/}",
+      "displayText": "passign istart, iend",
       "opcode": "passign",
       "description": "Assigns a range of p-fields to ivariables.",
       "descriptionMoreURL": "https://csound.com/docs/manual/passign.html",
@@ -5743,7 +6408,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "i",
+      "leftLabel": "Si",
       "snippet": "pindex ${1:ipfieldIndex}",
       "displayText": "pindex ipfieldIndex",
       "opcode": "pindex",
@@ -6031,8 +6696,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "printarray ${1:(i|k)xs/*, (S|k)mft*/}",
-      "displayText": "printarray (i|k)xs, (S|k)mft",
+      "snippet": "printarray ${1:(S|i|k)xs/*, (k|S)mft*/}",
+      "displayText": "printarray (S|i|k)xs, (k|S)mft",
       "opcode": "printarray",
       "description": "Print the contents of an array",
       "descriptionMoreURL": "https://csound.com/docs/manual/printarray.html",
@@ -6040,8 +6705,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "printarray ${1:(i|k)xs}, ${2:(S|k)mft}, ${3:Slabel}",
-      "displayText": "printarray (i|k)xs, (S|k)mft, Slabel",
+      "snippet": "printarray ${1:(S|i|k)xs}, ${2:(k|S)mft}, ${3:Slabel}",
+      "displayText": "printarray (S|i|k)xs, (k|S)mft, Slabel",
       "opcode": "printarray",
       "description": "Print the contents of an array",
       "descriptionMoreURL": "https://csound.com/docs/manual/printarray.html",
@@ -6049,8 +6714,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "printarray ${1:kxs}, ${2:kmft}, ${3:Slabel}, ${4:S}",
-      "displayText": "printarray kxs, kmft, Slabel, S",
+      "snippet": "printarray ${1:(S|k)xs}, ${2:kmft}, ${3:Slabel}, ${4:S}",
+      "displayText": "printarray (S|k)xs, kmft, Slabel, S",
       "opcode": "printarray",
       "description": "Print the contents of an array",
       "descriptionMoreURL": "https://csound.com/docs/manual/printarray.html",
@@ -6695,8 +7360,8 @@
     },
     {
       "leftLabel": "fk[]",
-      "snippet": "pvstrace ${1:fsigin}, ${2:kn/*, i*/}",
-      "displayText": "pvstrace fsigin, kn, i",
+      "snippet": "pvstrace ${1:fsigin}, ${2:kn/*, i, i, i*/}",
+      "displayText": "pvstrace fsigin, kn, i, i, i",
       "opcode": "pvstrace",
       "description": "Retain only the N loudest bins.",
       "descriptionMoreURL": "https://csound.com/docs/manual/pvstrace.html",
@@ -7314,7 +7979,16 @@
     },
     {
       "leftLabel": "a",
-      "snippet": "sc_lag ${1:ain}, ${2:klagtime/*, initialvalue=0*/}",
+      "snippet": "sc_lag ${1:ain}, ${2:klagtime}",
+      "displayText": "sc_lag ain, klagtime",
+      "opcode": "sc_lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/sc_lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "sc_lag ${1:ain}, ${2:klagtime}, ${3:initialvalue=0}",
       "displayText": "sc_lag ain, klagtime, initialvalue=0",
       "opcode": "sc_lag",
       "description": "Exponential Lag",
@@ -7323,7 +7997,16 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "sc_lag ${1:kin}, ${2:klagtime/*, initialvalue=0*/}",
+      "snippet": "sc_lag ${1:kin}, ${2:klagtime}",
+      "displayText": "sc_lag kin, klagtime",
+      "opcode": "sc_lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/sc_lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sc_lag ${1:kin}, ${2:klagtime}, ${3:initialvalue=0}",
       "displayText": "sc_lag kin, klagtime, initialvalue=0",
       "opcode": "sc_lag",
       "description": "Exponential Lag",
@@ -7332,7 +8015,16 @@
     },
     {
       "leftLabel": "a",
-      "snippet": "sc_lagud ${1:ain}, ${2:klagup}, ${3:klagdown/*, i*/}",
+      "snippet": "sc_lagud ${1:ain}, ${2:klagup}, ${3:klagdown}",
+      "displayText": "sc_lagud ain, klagup, klagdown",
+      "opcode": "sc_lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/sc_lagud.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "sc_lagud ${1:ain}, ${2:klagup}, ${3:klagdown}, ${4:i}",
       "displayText": "sc_lagud ain, klagup, klagdown, i",
       "opcode": "sc_lagud",
       "description": "Exponential Lag",
@@ -7341,7 +8033,16 @@
     },
     {
       "leftLabel": "k",
-      "snippet": "sc_lagud ${1:kin}, ${2:klagup}, ${3:klagdown/*, i*/}",
+      "snippet": "sc_lagud ${1:kin}, ${2:klagup}, ${3:klagdown}",
+      "displayText": "sc_lagud kin, klagup, klagdown",
+      "opcode": "sc_lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/sc_lagud.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "sc_lagud ${1:kin}, ${2:klagup}, ${3:klagdown}, ${4:i}",
       "displayText": "sc_lagud kin, klagup, klagdown, i",
       "opcode": "sc_lagud",
       "description": "Exponential Lag",
@@ -7461,6 +8162,15 @@
       "opcode": "schedule",
       "description": "Adds a new score event.",
       "descriptionMoreURL": "https://csound.com/docs/manual/schedule.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "",
+      "snippet": "schedulek ${1:(S|k)nsnum}, ${2:kwhen}, ${3:kDuration}, ${4:(a|i|k|S)p4…}",
+      "displayText": "schedulek (S|k)nsnum, kwhen, kDuration, (a|i|k|S)p4",
+      "opcode": "schedulek",
+      "description": "Adds a new score event.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/schedulek.html",
       "type": "function"
     },
     {
@@ -8333,8 +9043,8 @@
     },
     {
       "leftLabel": "aa…",
-      "snippet": "squinewave ${1:aFrequency}, ${2:aClip}, ${3:aSkew}, ${4:(a|k)syncin/*, iMinSweep, iphase*/}",
-      "displayText": "squinewave aFrequency, aClip, aSkew, (a|k)syncin, iMinSweep, iphase",
+      "snippet": "squinewave ${1:aFrequency}, ${2:aClip}, ${3:aSkew}, ${4:(k|a)syncin/*, iMinSweep, iphase*/}",
+      "displayText": "squinewave aFrequency, aClip, aSkew, (k|a)syncin, iMinSweep, iphase",
       "opcode": "squinewave",
       "description": "A mostly bandlimited shape-shifting square-pulse-saw-sinewave oscillator with hardsync.",
       "descriptionMoreURL": "https://csound.com/docs/manual/squinewave.html",
@@ -8547,6 +9257,24 @@
     },
     {
       "leftLabel": "S",
+      "snippet": "strstrip ${1:Sin}",
+      "displayText": "strstrip Sin",
+      "opcode": "strstrip",
+      "description": "Strip whitespace from string",
+      "descriptionMoreURL": "https://csound.com/docs/manual/strstrip.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S",
+      "snippet": "strstrip ${1:Sin}, ${2:Smode}",
+      "displayText": "strstrip Sin, Smode",
+      "opcode": "strstrip",
+      "description": "Strip whitespace from string",
+      "descriptionMoreURL": "https://csound.com/docs/manual/strstrip.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "S",
       "snippet": "strsub ${1:Ssrc/*, istart, iend*/}",
       "displayText": "strsub Ssrc, istart, iend",
       "opcode": "strsub",
@@ -8660,6 +9388,15 @@
       "opcode": "sum",
       "description": "Sums any number of a-rate signals, or array elements.",
       "descriptionMoreURL": "https://csound.com/docs/manual/sum.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "sumarray ${1:aarray}",
+      "displayText": "sumarray aarray",
+      "opcode": "sumarray",
+      "description": "returns the sum of the elements in an array.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/sumarray.html",
       "type": "function"
     },
     {
@@ -8940,7 +9677,7 @@
       "snippet": "tableiw ${1:iSignal}, ${2:indx}, ${3:iFunctionTable/*, ixmode, ixoff, iwgmode*/}",
       "displayText": "tableiw iSignal, indx, iFunctionTable, ixmode, ixoff, iwgmode",
       "opcode": "tableiw",
-      "description": "Change the contents of existing function tables.",
+      "description": "Deprecated.",
       "descriptionMoreURL": "https://csound.com/docs/manual/tableiw.html",
       "type": "function"
     },
@@ -9104,7 +9841,7 @@
       "snippet": "tabrowlin ${1:krow}, ${2:ifnsrc}, ${3:ifndest}, ${4:inumcols/*, ioffset, istart, iend, istep*/}",
       "displayText": "tabrowlin krow, ifnsrc, ifndest, inumcols, ioffset, istart, iend, istep",
       "opcode": "tabrowlin",
-      "description": "Copy a row from an f-table to another, interpolatin between rows",
+      "description": "Copy a row from an f-table to another, interpolating between rows",
       "descriptionMoreURL": "https://csound.com/docs/manual/tabrowlin.html",
       "type": "function"
     },
@@ -10535,8 +11272,8 @@
       "type": "function"
     },
     {
-      "snippet": "zacl ${1:kfirst}, ${2:klast}",
-      "displayText": "zacl kfirst, klast",
+      "snippet": "zacl ${1:kfirst}",
+      "displayText": "zacl kfirst",
       "opcode": "zacl",
       "description": "Clears one or more variables in the za space.",
       "descriptionMoreURL": "https://csound.com/docs/manual/zacl.html",
