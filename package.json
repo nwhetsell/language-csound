@@ -20,5 +20,8 @@
         "2.0.0": "providers"
       }
     }
+  },
+  "devDependencies": {
+    "dedent-js": "latest"
   }
 }

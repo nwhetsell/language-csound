@@ -1,0 +1,16 @@
+{
+  ".source.csound, .source.csound-score": {
+    "editor": {
+      "commentStart": "; ",
+      "softTabs": true,
+      "tabLength": 4
+    }
+  },
+
+  ".source.csound": {
+    "editor": {
+      "increaseIndentPattern": "\\b(?:do|else(?:if)?|i(?:f|nstr)|opcode)\\b",
+      "decreaseIndentPattern": "\\b(?:end(?:i[fn]|op|until)|fi|od)\\b"
+    }
+  }
+}
