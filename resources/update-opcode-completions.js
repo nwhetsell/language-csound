@@ -8,11 +8,11 @@ npm install csound-api libxmljs strip-bom
 rm -fR manual node_modules
 */
 
-const csound = require('csound-api');
-const fs = require('fs');
-const libxml = require('libxmljs');
-const path = require('path');
-const stripBom = require('strip-bom');
+const csound = require("csound-api");
+const fs = require("fs");
+const libxml = require("libxmljs");
+const path = require("path");
+const stripBom = require("strip-bom");
 
 // Use OpcodeInfo objects to organize opcode information for creating
 // completions.
@@ -26,13 +26,13 @@ class OpcodeInfo {
 
   addInfoForOpcodeEntry(opcodeEntry) {
     // Ignore array inputs.
-    const inputTypeString = opcodeEntry.intypes.replace(/\[\]/g, '');
+    const inputTypeString = opcodeEntry.intypes.replace(/\[\]/g, "");
     if (this.inputTypeStrings.indexOf(inputTypeString) < 0)
       this.inputTypeStrings.push(inputTypeString);
     // According to
     // https://github.com/csound/csound/blob/develop/Engine/entry1.c, the output
-    // type 's' is deprecated but means either an a- or k-rate output.
-    const outputTypes = (opcodeEntry.outypes === 's') ? ['a', 'k'] : [opcodeEntry.outypes];
+    // type "s" is deprecated but means either an a- or k-rate output.
+    const outputTypes = (opcodeEntry.outypes === "s") ? ["a", "k"] : [opcodeEntry.outypes];
     for (const outputType of outputTypes) {
       let inputTypeStringsByLength = this.inputTypeStringsByLengthByOutputTypeString[outputType];
       if (inputTypeStringsByLength) {
@@ -55,86 +55,86 @@ class OpcodeInfo {
 // Create a map from opcode names to opcode properties.
 const ignoredOpcodes = [
   // Function opcodes
-  'a',
-  'abs',
-  'ampdb',
-  'ampdbfs',
-  'birnd',
-  'ceil',
-  'cent',
-  'cos',
-  'cosh',
-  'cosinv',
-  'cosinv',
-  'cpsmidinn',
-  'cpsoct',
-  'cpspch',
-  'db',
-  'dbamp',
-  'dbfsamp',
-  'exp',
-  'floor',
-  'frac',
-  'ftchnls',
-  'ftcps',
-  'ftlen',
-  'ftlptim',
-  'ftsr',
-  'i',
-  'int',
-  'k',
-  'log',
-  'log10',
-  'log2',
-  'logbtwo',
-  'nsamp',
-  'octave',
-  'octcps',
-  'octmidinn',
-  'octpch',
-  'p',
-  'pchmidinn',
-  'pchoct',
-  'powoftwo',
-  'qinf',
-  'qnan',
-  'rnd',
-  'round',
-  'semitone',
-  'signum',
-  'sin',
-  'sinh',
-  'sininv',
-  'sqrt',
-  'tan',
-  'tanh',
-  'taninv',
-  'urd',
+  "a",
+  "abs",
+  "ampdb",
+  "ampdbfs",
+  "birnd",
+  "ceil",
+  "cent",
+  "cos",
+  "cosh",
+  "cosinv",
+  "cosinv",
+  "cpsmidinn",
+  "cpsoct",
+  "cpspch",
+  "db",
+  "dbamp",
+  "dbfsamp",
+  "exp",
+  "floor",
+  "frac",
+  "ftchnls",
+  "ftcps",
+  "ftlen",
+  "ftlptim",
+  "ftsr",
+  "i",
+  "int",
+  "k",
+  "log",
+  "log10",
+  "log2",
+  "logbtwo",
+  "nsamp",
+  "octave",
+  "octcps",
+  "octmidinn",
+  "octpch",
+  "p",
+  "pchmidinn",
+  "pchoct",
+  "powoftwo",
+  "qinf",
+  "qnan",
+  "rnd",
+  "round",
+  "semitone",
+  "signum",
+  "sin",
+  "sinh",
+  "sininv",
+  "sqrt",
+  "tan",
+  "tanh",
+  "taninv",
+  "urd",
   // Keyword-like opcodes
-  'cggoto',
-  'cigoto',
-  'cingoto',
-  'ckgoto',
-  'cngoto',
-  'endin',
-  'endop',
-  'goto',
-  'igoto',
-  'instr',
-  'kgoto',
-  'opcode',
-  'return',
-  'rigoto',
-  'tigoto',
+  "cggoto",
+  "cigoto",
+  "cingoto",
+  "ckgoto",
+  "cngoto",
+  "endin",
+  "endop",
+  "goto",
+  "igoto",
+  "instr",
+  "kgoto",
+  "opcode",
+  "return",
+  "rigoto",
+  "tigoto",
   // Opcodes that use comma-separated lists of arguments of any type
-  'changed2',
-  'framebuffer',
-  'hdf5read',
-  'hdf5write',
-  'xin',
-  'xout',
+  "changed2",
+  "framebuffer",
+  "hdf5read",
+  "hdf5write",
+  "xin",
+  "xout",
   // Opcodes with input arguments that are difficult to parse
-  'alwayson'
+  "alwayson"
 ];
 const opcodeInfoByName = {};
 const opcodeList = [];
@@ -151,9 +151,9 @@ for (const opcodeEntry of opcodeList) {
 
 // Use InputArgumentInfo objects to organize input argument types and names for
 // completions.
-const openingBracket = '(';
-const separator = '|';
-const closingBracket = ')';
+const openingBracket = "(";
+const separator = "|";
+const closingBracket = ")";
 class InputArgumentInfo {
   constructor(inputTypeStrings, nameArray) {
     this.nameArray = nameArray;
@@ -215,36 +215,36 @@ class InputArgumentInfo {
     //    framebuffer, hdf5read, hdf5write, xin, and xout
 
     const typeInfoByType = {
-      'a': {strings: ['a'], optional: false, list: false},
-      'B': {strings: ['B'], optional: false, list: false},
-      'f': {strings: ['f'], optional: false, list: false},
-      'h': {strings: ['i'], optional: true, list: false},
-      'i': {strings: ['i'], optional: false, list: false},
-      'J': {strings: ['k'], optional: false, list: false},
-      'j': {strings: ['i'], optional: true, list: false},
-      'k': {strings: ['k'], optional: false, list: false},
-      'l': {strings: ['l'], optional: false, list: false},
-      'M': {strings: ['a', 'i', 'k'], optional: false, list: true},
-      'm': {strings: ['i'], optional: false, list: true},
-      'N': {strings: ['a', 'i', 'k', 'S'], optional: false, list: true},
-      'n': {strings: ['i'], optional: false, list: true},
-      'O': {strings: ['k'], optional: true, list: false},
-      'o': {strings: ['i'], optional: true, list: false},
-      'P': {strings: ['k'], optional: true, list: false},
-      'p': {strings: ['i'], optional: true, list: false},
-      'q': {strings: ['i'], optional: true, list: false},
-      'S': {strings: ['S'], optional: false, list: false},
-      'T': {strings: ['i', 'S'], optional: false, list: false},
-      'U': {strings: ['i', 'k', 'S'], optional: false, list: false},
-      'V': {strings: ['k'], optional: true, list: false},
-      'v': {strings: ['i'], optional: true, list: false},
-      'W': {strings: ['S'], optional: false, list: true},
-      'w': {strings: ['w'], optional: false, list: false},
-      'x': {strings: ['a', 'k'], optional: false, list: false},
-      'y': {strings: ['a'], optional: false, list: true},
-      'Z': {strings: ['a', 'k'], optional: false, list: true},
-      'z': {strings: ['k'], optional: false, list: true},
-      '.': {strings: ['a', 'i', 'k', 'S'], optional: false, list: false}
+      "a": {strings: ["a"], optional: false, list: false},
+      "B": {strings: ["B"], optional: false, list: false},
+      "f": {strings: ["f"], optional: false, list: false},
+      "h": {strings: ["i"], optional: true, list: false},
+      "i": {strings: ["i"], optional: false, list: false},
+      "J": {strings: ["k"], optional: false, list: false},
+      "j": {strings: ["i"], optional: true, list: false},
+      "k": {strings: ["k"], optional: false, list: false},
+      "l": {strings: ["l"], optional: false, list: false},
+      "M": {strings: ["a", "i", "k"], optional: false, list: true},
+      "m": {strings: ["i"], optional: false, list: true},
+      "N": {strings: ["a", "i", "k", "S"], optional: false, list: true},
+      "n": {strings: ["i"], optional: false, list: true},
+      "O": {strings: ["k"], optional: true, list: false},
+      "o": {strings: ["i"], optional: true, list: false},
+      "P": {strings: ["k"], optional: true, list: false},
+      "p": {strings: ["i"], optional: true, list: false},
+      "q": {strings: ["i"], optional: true, list: false},
+      "S": {strings: ["S"], optional: false, list: false},
+      "T": {strings: ["i", "S"], optional: false, list: false},
+      "U": {strings: ["i", "k", "S"], optional: false, list: false},
+      "V": {strings: ["k"], optional: true, list: false},
+      "v": {strings: ["i"], optional: true, list: false},
+      "W": {strings: ["S"], optional: false, list: true},
+      "w": {strings: ["w"], optional: false, list: false},
+      "x": {strings: ["a", "k"], optional: false, list: false},
+      "y": {strings: ["a"], optional: false, list: true},
+      "Z": {strings: ["a", "k"], optional: false, list: true},
+      "z": {strings: ["k"], optional: false, list: true},
+      ".": {strings: ["a", "i", "k", "S"], optional: false, list: false}
     };
     for (const inputTypeString of inputTypeStrings) {
       if (inputTypeString.length > 0) {
@@ -272,7 +272,7 @@ class InputArgumentInfo {
   get displayText() {
     const length = this.typeStringsArray.length;
     if (length === 0)
-      return '';
+      return "";
 
     const components = [];
     for (let i = 0; i < length; i++) {
@@ -283,15 +283,15 @@ class InputArgumentInfo {
         string += this.nameArray[i];
       components.push(string);
     }
-    return ' ' + components.join(', ');
+    return " " + components.join(", ");
   }
 
   get snippet() {
     const length = this.typeStringsArray.length;
     if (length === 0)
-      return '';
+      return "";
 
-    let snippet = '';
+    let snippet = "";
     let optionalIndex = null;
     for (let i = 0; i < length; i++) {
       let string = this.typeStringsArray[i].join(separator);
@@ -300,38 +300,38 @@ class InputArgumentInfo {
       if (this.nameArray[i])
         string += this.nameArray[i];
       if (this.listArray[i])
-        string += '…';
+        string += "…";
       if (i === 0) {
-        snippet +=  '${1:' + string;
+        snippet +=  "${1:" + string;
       } else if (optionalIndex === null) {
         if (this.optionalArray[i]) {
           optionalIndex = i - 1;
-          snippet += '/*, ' + string;
+          snippet += "/*, " + string;
         } else {
-          snippet += '}, ${' + (i + 1) + ':' + string;
+          snippet += "}, ${" + (i + 1) + ":" + string;
         }
       } else {
-        snippet += ', ' + string;
+        snippet += ", " + string;
       }
     }
     if (optionalIndex !== null)
-      snippet += '*/';
-    return ' ' + snippet + '}';
+      snippet += "*/";
+    return " " + snippet + "}";
   }
 }
 
 function formatOutputTypeString(string) {
-  string = string.replace(/m+/g, 'a…');
-  string = string.replace(/z+/g, 'k…');
-  string = string.replace(/I+/g, 'i…');
-  string = string.replace(/X+/g, openingBracket + ['a', 'k', 'i'].join(separator) + closingBracket + '…');
-  string = string.replace(/N+/g, openingBracket + ['a', 'k', 'i', 'S'].join(separator) + closingBracket + '…');
-  string = string.replace(/F+/g, 'f…');
+  string = string.replace(/m+/g, "a…");
+  string = string.replace(/z+/g, "k…");
+  string = string.replace(/I+/g, "i…");
+  string = string.replace(/X+/g, openingBracket + ["a", "k", "i"].join(separator) + closingBracket + "…");
+  string = string.replace(/N+/g, openingBracket + ["a", "k", "i", "S"].join(separator) + closingBracket + "…");
+  string = string.replace(/F+/g, "f…");
   return string;
 }
 
 // Create a list of Csound Manual XML file names.
-const opcodesPath = path.join('manual', 'opcodes');
+const opcodesPath = path.join("manual", "opcodes");
 const opcodeXMLFileNames = fs.readdirSync(opcodesPath).map(opcodePath => path.parse(opcodePath).name);
 
 // Csound manual XML files describing opcodes need a header to be parsed without
@@ -395,21 +395,21 @@ const XMLHeader = `<?xml version="1.0" encoding="utf-8"?>
 
 // Create a map of more descriptive input argument names.
 const descriptiveNamesByName = {
-  'amp': 'Amplitude',
-  'atdec': 'AttenuationFactor',
-  'cps': 'Frequency',
-  'dec': 'DecayTime',
-  'del': 'DelayTime',
-  'dur': 'Duration',
-  'filname': 'Filename',
-  'fn': 'FunctionTable',
-  'freq': 'Frequency',
-  'frq': 'Frequency',
-  'ndex': 'Index',
-  'phs': 'InitialPhase',
-  'pitch': 'Pitch',
-  'rise': 'RiseTime',
-  'sig': 'Signal'
+  "amp": "Amplitude",
+  "atdec": "AttenuationFactor",
+  "cps": "Frequency",
+  "dec": "DecayTime",
+  "del": "DelayTime",
+  "dur": "Duration",
+  "filname": "Filename",
+  "fn": "FunctionTable",
+  "freq": "Frequency",
+  "frq": "Frequency",
+  "ndex": "Index",
+  "phs": "InitialPhase",
+  "pitch": "Pitch",
+  "rise": "RiseTime",
+  "sig": "Signal"
 };
 
 let allCompletions = [];
@@ -419,31 +419,31 @@ for (const opcodeName in opcodeInfoByName) {
   if (opcodeInfoByName.hasOwnProperty(opcodeName) && opcodeXMLFileNames.indexOf(opcodeName) >= 0) {
     // Get opcode descriptions and input argument names from the Csound Manual
     // XML file.
-    let XMLString = fs.readFileSync(path.join(opcodesPath, `${opcodeName}.xml`), 'utf8');
+    let XMLString = fs.readFileSync(path.join(opcodesPath, `${opcodeName}.xml`), "utf8");
     // Csound manual XML files may include a Unicode byte order mark (BOM).
     XMLString = stripBom(XMLString);
     const XMLDocument = libxml.parseXmlString(XMLHeader + XMLString);
-    const description = XMLDocument.get('//refpurpose').text().trim().replace(/\s+/g, ' ');
+    const description = XMLDocument.get("//refpurpose").text().trim().replace(/\s+/g, " ");
     // Assume the XML document contains at least one synopsis element with one
     // child command element.
-    const commandElement = XMLDocument.get('//synopsis/command');
+    const commandElement = XMLDocument.get("//synopsis/command");
     if (commandElement) {
       // Assume the next sibling of the command element is a text node
       // describing input arguments.
       const node = commandElement.nextSibling();
-      if (node && node.type() === 'text') {
-        inputArgumentNames = node.toString().replace(/[\\\[\]]/g, '').replace(/\s+/g, ' ').split(',');
+      if (node && node.type() === "text") {
+        inputArgumentNames = node.toString().replace(/[\\\[\]]/g, "").replace(/\s+/g, " ").split(",");
         for (let i = 0, length = inputArgumentNames.length; i < length; i++) {
           let name = inputArgumentNames[i].trim();
           if (name.charAt(0) === '"' && name.charAt(name.length - 1) === '"') {
             // If the name is enclosed in double quotes, remove the quotes and
             // create a camel-case name.
-            inputArgumentNames[i] = name.replace(/"/g, '').split(' ').map(string => string.charAt(0).toUpperCase() + string.slice(1)).join('');
+            inputArgumentNames[i] = name.replace(/"/g, "").split(" ").map(string => string.charAt(0).toUpperCase() + string.slice(1)).join("");
           } else {
             // Otherwise, remove the first two characters if the first character
             // is a g (indicating a global variable), and just the first
             // character otherwise.
-            name = name.slice((name.charAt(0) === 'g') ? 2 : 1);
+            name = name.slice((name.charAt(0) === "g") ? 2 : 1);
             const descriptiveName = descriptiveNamesByName[name];
             inputArgumentNames[i] = descriptiveName ? descriptiveName : name;
           }
@@ -460,7 +460,7 @@ for (const opcodeName in opcodeInfoByName) {
     if (opcodeInfo.inputTypeStrings.length === 1) {
       // Create a single completion for all output type strings.
       const completion = {};
-      const leftLabel = formatOutputTypeString(Object.getOwnPropertyNames(inputTypeStringsByLengthByOutputTypeString).join(''));
+      const leftLabel = formatOutputTypeString(Object.getOwnPropertyNames(inputTypeStringsByLengthByOutputTypeString).join(""));
       if (leftLabel.length > 0)
         completion.leftLabel = leftLabel;
       const inputArgumentInfo = new InputArgumentInfo(opcodeInfo.inputTypeStrings, inputArgumentNames);
@@ -491,7 +491,7 @@ for (const opcodeName in opcodeInfoByName) {
       completion.opcode = opcodeName;
       completion.description = description;
       completion.descriptionMoreURL = `https://csound.com/docs/manual/${opcodeName}.html`;
-      completion.type = 'function';
+      completion.type = "function";
     }
 
     allCompletions = allCompletions.concat(completions);
@@ -504,80 +504,80 @@ for (const opcodeName in opcodeInfoByName) {
 // type, or whose entries are difficult to parse.
 allCompletions = allCompletions.concat([
   {
-    snippet: 'alwayson ${1:(i|S)Instrument/*, p4, p5, …*/}',
-    displayText: 'alwayson (i|S)Instrument, p4, p5, …',
-    opcode: 'alwayson',
-    description: 'Activates the indicated instrument in the orchestra header.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/alwayson.html',
-    type: 'function'
+    snippet: "alwayson ${1:(i|S)Instrument/*, p4, p5, …*/}",
+    displayText: "alwayson (i|S)Instrument, p4, p5, …",
+    opcode: "alwayson",
+    description: "Activates the indicated instrument in the orchestra header.",
+    descriptionMoreURL: "https://csound.com/docs/manual/alwayson.html",
+    type: "function"
   },
   {
-    leftLabel: 'k[]',
-    snippet: 'changed2 ${1:kVariableName1/*, kVariableName2, …*/}',
-    displayText: 'changed2 kVariableName1, kVariableName2, …',
-    opcode: 'changed2',
-    description: 'k-rate signal change detector.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/changed2.html',
-    type: 'function'
+    leftLabel: "k[]",
+    snippet: "changed2 ${1:kVariableName1/*, kVariableName2, …*/}",
+    displayText: "changed2 kVariableName1, kVariableName2, …",
+    opcode: "changed2",
+    description: "k-rate signal change detector.",
+    descriptionMoreURL: "https://csound.com/docs/manual/changed2.html",
+    type: "function"
   },
   {
-    leftLabel: 'k[]',
-    snippet: 'framebuffer ${1:aInput}, ${2:iSize}',
-    displayText: 'framebuffer aInput, iSize',
-    opcode: 'framebuffer',
-    description: 'Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/framebuffer.html',
-    type: 'function'
+    leftLabel: "k[]",
+    snippet: "framebuffer ${1:aInput}, ${2:iSize}",
+    displayText: "framebuffer aInput, iSize",
+    opcode: "framebuffer",
+    description: "Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.",
+    descriptionMoreURL: "https://csound.com/docs/manual/framebuffer.html",
+    type: "function"
   },
   {
-    leftLabel: 'a',
-    snippet: 'framebuffer ${1:kInput}, ${2:iSize}',
-    displayText: 'framebuffer kInput, iSize',
-    opcode: 'framebuffer',
-    description: 'Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/framebuffer.html',
-    type: 'function'
+    leftLabel: "a",
+    snippet: "framebuffer ${1:kInput}, ${2:iSize}",
+    displayText: "framebuffer kInput, iSize",
+    opcode: "framebuffer",
+    description: "Read audio signals into 1 dimensional k-rate arrays and vice-versa with a specified buffer size.",
+    descriptionMoreURL: "https://csound.com/docs/manual/framebuffer.html",
+    type: "function"
   },
   {
-    leftLabel: formatOutputTypeString('N'),
-    snippet: 'hdf5read ${1:Sfilename}, ${2:SVariableName1/*, SVariableName2, …*/}',
-    displayText: 'hdf5read Sfilename, SVariableName1, SVariableName2, …',
-    opcode: 'hdf5read',
-    description: 'Read signals and arrays from an hdf5 file.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/hdf5read.html',
-    type: 'function'
+    leftLabel: formatOutputTypeString("N"),
+    snippet: "hdf5read ${1:Sfilename}, ${2:SVariableName1/*, SVariableName2, …*/}",
+    displayText: "hdf5read Sfilename, SVariableName1, SVariableName2, …",
+    opcode: "hdf5read",
+    description: "Read signals and arrays from an hdf5 file.",
+    descriptionMoreURL: "https://csound.com/docs/manual/hdf5read.html",
+    type: "function"
   },
   {
-    snippet: 'hdf5write ${1:Sfilename}, ${2:(a|i|k|S)Output1/*, (a|i|k|S)Output2, …*/}',
-    displayText: 'hdf5write Sfilename, (a|i|k|S)Output1, (a|i|k|S)Output2, …',
-    opcode: 'hdf5write',
-    description: 'Write signals and arrays to an hdf5 file.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/hdf5write.html',
-    type: 'function'
+    snippet: "hdf5write ${1:Sfilename}, ${2:(a|i|k|S)Output1/*, (a|i|k|S)Output2, …*/}",
+    displayText: "hdf5write Sfilename, (a|i|k|S)Output1, (a|i|k|S)Output2, …",
+    opcode: "hdf5write",
+    description: "Write signals and arrays to an hdf5 file.",
+    descriptionMoreURL: "https://csound.com/docs/manual/hdf5write.html",
+    type: "function"
   },
   {
-    leftLabel: formatOutputTypeString('N'),
-    snippet: 'xin',
-    displayText: 'xin',
-    opcode: 'xin',
-    description: 'Passes variables to a user-defined opcode block.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/xin.html',
-    type: 'function'
+    leftLabel: formatOutputTypeString("N"),
+    snippet: "xin",
+    displayText: "xin",
+    opcode: "xin",
+    description: "Passes variables to a user-defined opcode block.",
+    descriptionMoreURL: "https://csound.com/docs/manual/xin.html",
+    type: "function"
   },
   {
-    snippet: 'xout ${1:(a|i|k|S)Output1/*, (a|i|k|S)Output2, …*/}',
-    displayText: 'xout (a|i|k|S)Output1, (a|i|k|S)Output2, …',
-    opcode: 'xout',
-    description: 'Retrieves variables from a user-defined opcode block.',
-    descriptionMoreURL: 'https://csound.com/docs/manual/xout.html',
-    type: 'function'
+    snippet: "xout ${1:(a|i|k|S)Output1/*, (a|i|k|S)Output2, …*/}",
+    displayText: "xout (a|i|k|S)Output1, (a|i|k|S)Output2, …",
+    opcode: "xout",
+    description: "Retrieves variables from a user-defined opcode block.",
+    descriptionMoreURL: "https://csound.com/docs/manual/xout.html",
+    type: "function"
   }
 ]);
 
 // Write the completions dictionary to a JSON file.
-const fileDescriptor = fs.openSync('opcode-completions.json', 'w');
+const fileDescriptor = fs.openSync("opcode-completions.json", "w");
 fs.writeSync(fileDescriptor, JSON.stringify({
-  about: 'The contents of this file are derived from the source files of The Canonical Csound Reference Manual <https://github.com/csound/manual>. The Canonical Csound Reference Manual is licensed under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. Copyrights of The Canonical Csound Reference Manual are held by the Massachusetts Institute of Technology (1986, 1992), Kevin Conder (2003), and others noted in individual source files. This file is licensed under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.',
+  about: "The contents of this file are derived from the source files of The Canonical Csound Reference Manual <https://github.com/csound/manual>. The Canonical Csound Reference Manual is licensed under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. Copyrights of The Canonical Csound Reference Manual are held by the Massachusetts Institute of Technology (1986, 1992), Kevin Conder (2003), and others noted in individual source files. This file is licensed under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.",
   completions: allCompletions
 }, null, 2));
 fs.closeSync(fileDescriptor);
