@@ -583,6 +583,15 @@
     },
     {
       "leftLabel": "a",
+      "snippet": "allpole ${1:aSignal}, ${2:kCoef}",
+      "displayText": "allpole aSignal, kCoef",
+      "opcode": "allpole",
+      "description": "Allpole filter implementation using direct convolution.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/allpole.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
       "snippet": "alpass ${1:aSignal}, ${2:(a|k)rvt}, ${3:ilpt/*, iskip, insmps*/}",
       "displayText": "alpass aSignal, (a|k)rvt, ilpt, iskip, insmps",
       "opcode": "alpass",
@@ -633,6 +642,41 @@
       "opcode": "ampmidid",
       "description": "Musically map MIDI velocity to peak amplitude within a specified dynamic range in decibels.",
       "descriptionMoreURL": "https://csound.com/docs/manual/ampmidid.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "apoleparams ${1:kCoef}",
+      "displayText": "apoleparams kCoef",
+      "opcode": "apoleparams",
+      "description": "Extracts allpole filter parameters from coefficients.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/apoleparams.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "arduinoRead ${1:iPort}, ${2:iStream/*, iSmooth*/}",
+      "displayText": "arduinoRead iPort, iStream, iSmooth",
+      "opcode": "arduinoRead",
+      "description": "Read data from an arduino port using the Csound-Arduino protocol.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/arduinoRead.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "arduinoStart ${1:SPortName/*, ibaudRate*/}",
+      "displayText": "arduinoStart SPortName, ibaudRate",
+      "opcode": "arduinoStart",
+      "description": "Open a serial port for use with the Arduino protocol.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/arduinoStart.html",
+      "type": "function"
+    },
+    {
+      "snippet": "arduinoStop ${1:iPort}",
+      "displayText": "arduinoStop iPort",
+      "opcode": "arduinoStop",
+      "description": "Close a serial port using Arduino protocol.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/arduinoStop.html",
       "type": "function"
     },
     {
@@ -858,6 +902,15 @@
       "opcode": "biquada",
       "description": "A sweepable general purpose biquadratic digital filter with a-rate parameters.",
       "descriptionMoreURL": "https://csound.com/docs/manual/biquada.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "bob ${1:ain}, ${2:(a|k)cf}, ${3:(a|k)res}, ${4:(a|k)sat/*, iosamps, istor*/}",
+      "displayText": "bob ain, (a|k)cf, (a|k)res, (a|k)sat, iosamps, istor",
+      "opcode": "bob",
+      "description": "Runge-Kutte numerical simulation of the Moog analog resonant filter.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/bob.html",
       "type": "function"
     },
     {
@@ -1608,6 +1661,24 @@
       "opcode": "cossegr",
       "description": "Trace a series of line segments between specified points with cosine interpolation, including a release segment.",
       "descriptionMoreURL": "https://csound.com/docs/manual/cossegr.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "count ${1:icnt}",
+      "displayText": "count icnt",
+      "opcode": "count",
+      "description": "Get the next value from a counter.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/count.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "count_i ${1:icnt}",
+      "displayText": "count_i icnt",
+      "opcode": "count_i",
+      "description": "Get the next value from a counter.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/count_i.html",
       "type": "function"
     },
     {
@@ -3084,8 +3155,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "fprintks ${1:(S|i)Filename}, ${2:SString}, ${3:(a|i|k)…}",
-      "displayText": "fprintks (S|i)Filename, SString, (a|i|k)",
+      "snippet": "fprintks ${1:(S|i)Filename}, ${2:SString}, ${3:(a|i|k|S)…}",
+      "displayText": "fprintks (S|i)Filename, SString, (a|i|k|S)",
       "opcode": "fprintks",
       "description": "Similar to printks but prints to a file.",
       "descriptionMoreURL": "https://csound.com/docs/manual/fprintks.html",
@@ -3093,8 +3164,8 @@
     },
     {
       "leftLabel": "",
-      "snippet": "fprints ${1:(S|i)Filename}, ${2:SString}, ${3:(a|i|k)val1…}",
-      "displayText": "fprints (S|i)Filename, SString, (a|i|k)val1",
+      "snippet": "fprints ${1:(S|i)Filename}, ${2:SString}, ${3:(a|i|k|S)val1…}",
+      "displayText": "fprints (S|i)Filename, SString, (a|i|k|S)val1",
       "opcode": "fprints",
       "description": "Similar to prints but prints to a file.",
       "descriptionMoreURL": "https://csound.com/docs/manual/fprints.html",
@@ -3314,11 +3385,29 @@
       "type": "function"
     },
     {
-      "snippet": "ftslice ${1:ifnsource}, ${2:ifndest/*, kstart, kend, kstep*/}",
-      "displayText": "ftslice ifnsource, ifndest, kstart, kend, kstep",
+      "leftLabel": "",
+      "snippet": "ftset ${1:(i|k)tablenum}, ${2:(i|k)value/*, (i|k)start=0, (i|k)end=0, (i|k)step=1*/}",
+      "displayText": "ftset (i|k)tablenum, (i|k)value, (i|k)start=0, (i|k)end=0, (i|k)step=1",
+      "opcode": "ftset",
+      "description": "Sets multiple elements of a table to a given value",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ftset.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "",
+      "snippet": "ftslice ${1:(i|k)fnsource}, ${2:(i|k)fndest/*, kstart, kend, kstep*/}",
+      "displayText": "ftslice (i|k)fnsource, (i|k)fndest, kstart, kend, kstep",
       "opcode": "ftslice",
-      "description": "Copy a slice from an f-table to another f-table",
+      "description": "Copy a slice from an f-table to another f-table at performance",
       "descriptionMoreURL": "https://csound.com/docs/manual/ftslice.html",
+      "type": "function"
+    },
+    {
+      "snippet": "ftslicei ${1:ifnsource}, ${2:ifndest/*, istart, iend, istep*/}",
+      "displayText": "ftslicei ifnsource, ifndest, istart, iend, istep",
+      "opcode": "ftslicei",
+      "description": "Copy a slice from an f-table to another f-table at init",
+      "descriptionMoreURL": "https://csound.com/docs/manual/ftslicei.html",
       "type": "function"
     },
     {
@@ -3340,9 +3429,54 @@
       "type": "function"
     },
     {
-      "leftLabel": "aik",
+      "leftLabel": "a",
       "snippet": "gauss ${1:krange}",
       "displayText": "gauss krange",
+      "opcode": "gauss",
+      "description": "Gaussian distribution random number generator.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/gauss.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "gauss ${1:krange}, ${2:k}",
+      "displayText": "gauss krange, k",
+      "opcode": "gauss",
+      "description": "Gaussian distribution random number generator.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/gauss.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "gauss ${1:krange}",
+      "displayText": "gauss krange",
+      "opcode": "gauss",
+      "description": "Gaussian distribution random number generator.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/gauss.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "gauss ${1:irange}, ${2:i}",
+      "displayText": "gauss irange, i",
+      "opcode": "gauss",
+      "description": "Gaussian distribution random number generator.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/gauss.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "gauss ${1:krange}",
+      "displayText": "gauss krange",
+      "opcode": "gauss",
+      "description": "Gaussian distribution random number generator.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/gauss.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "gauss ${1:krange}, ${2:k}",
+      "displayText": "gauss krange, k",
       "opcode": "gauss",
       "description": "Gaussian distribution random number generator.",
       "descriptionMoreURL": "https://csound.com/docs/manual/gauss.html",
@@ -3820,15 +3954,6 @@
       "type": "function"
     },
     {
-      "leftLabel": ".[]",
-      "snippet": "init ${1:iarg…}",
-      "displayText": "init iarg",
-      "opcode": "init",
-      "description": "Puts the value of the i-time expression into a k-, a-rate or t- variable.",
-      "descriptionMoreURL": "https://csound.com/docs/manual/init.html",
-      "type": "function"
-    },
-    {
       "leftLabel": "i…",
       "snippet": "init ${1:iarg…}",
       "displayText": "init iarg",
@@ -3847,9 +3972,45 @@
       "type": "function"
     },
     {
+      "leftLabel": "S[]",
+      "snippet": "init ${1:iarg…}",
+      "displayText": "init iarg",
+      "opcode": "init",
+      "description": "Puts the value of the i-time expression into a k-, a-rate or t- variable.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/init.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a[]",
+      "snippet": "init ${1:iarg…}",
+      "displayText": "init iarg",
+      "opcode": "init",
+      "description": "Puts the value of the i-time expression into a k-, a-rate or t- variable.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/init.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "f",
       "snippet": "init ${1:farg}",
       "displayText": "init farg",
+      "opcode": "init",
+      "description": "Puts the value of the i-time expression into a k-, a-rate or t- variable.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/init.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i[]",
+      "snippet": "init ${1:iarg…}",
+      "displayText": "init iarg",
+      "opcode": "init",
+      "description": "Puts the value of the i-time expression into a k-, a-rate or t- variable.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/init.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
+      "snippet": "init ${1:iarg…}",
+      "displayText": "init iarg",
       "opcode": "init",
       "description": "Puts the value of the i-time expression into a k-, a-rate or t- variable.",
       "descriptionMoreURL": "https://csound.com/docs/manual/init.html",
@@ -4114,6 +4275,78 @@
       "opcode": "ktableseg",
       "description": "Deprecated.",
       "descriptionMoreURL": "https://csound.com/docs/manual/ktableseg.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "lag ${1:ain}, ${2:klagtime}",
+      "displayText": "lag ain, klagtime",
+      "opcode": "lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "lag ${1:ain}, ${2:klagtime}, ${3:initialvalue}",
+      "displayText": "lag ain, klagtime, initialvalue",
+      "opcode": "lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "lag ${1:kin}, ${2:klagtime}",
+      "displayText": "lag kin, klagtime",
+      "opcode": "lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "lag ${1:kin}, ${2:klagtime}, ${3:initialvalue}",
+      "displayText": "lag kin, klagtime, initialvalue",
+      "opcode": "lag",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lag.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "lagud ${1:ain}, ${2:klagup}, ${3:klagdown}",
+      "displayText": "lagud ain, klagup, klagdown",
+      "opcode": "lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lagud.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "lagud ${1:ain}, ${2:klagup}, ${3:klagdown}, ${4:initialvalue}",
+      "displayText": "lagud ain, klagup, klagdown, initialvalue",
+      "opcode": "lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lagud.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "lagud ${1:kin}, ${2:klagup}, ${3:klagdown}",
+      "displayText": "lagud kin, klagup, klagdown",
+      "opcode": "lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lagud.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "lagud ${1:kin}, ${2:klagup}, ${3:klagdown}, ${4:initialvalue}",
+      "displayText": "lagud kin, klagup, klagdown, initialvalue",
+      "opcode": "lagud",
+      "description": "Exponential Lag",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lagud.html",
       "type": "function"
     },
     {
@@ -4531,6 +4764,33 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]iii",
+      "snippet": "lpcanal ${1:isrc}, ${2:iflg}, ${3:iprd}, ${4:isiz}",
+      "displayText": "lpcanal isrc, iflg, iprd, isiz",
+      "opcode": "lpcanal",
+      "description": "Streaming linear prediction analysis.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lpcanal.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]kkk",
+      "snippet": "lpcanal ${1:(a|k)src}, ${2:kflg}, ${3:(k|i)prd}, ${4:isiz}, ${5:iord/*, iwin*/}",
+      "displayText": "lpcanal (a|k)src, kflg, (k|i)prd, isiz, iord, iwin",
+      "opcode": "lpcanal",
+      "description": "Streaming linear prediction analysis.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lpcanal.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "lpcfilter ${1:aSignal}, ${2:(a|k)src}, ${3:kflg}, ${4:(k|i)prd}, ${5:isiz}, ${6:iord/*, iwin*/}",
+      "displayText": "lpcfilter aSignal, (a|k)src, kflg, (k|i)prd, isiz, iord, iwin",
+      "opcode": "lpcfilter",
+      "description": "Streaming linear prediction all-pole filter.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lpcfilter.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "a",
       "snippet": "lpf18 ${1:aSignal}, ${2:(a|k)fco}, ${3:(a|k)res}, ${4:(a|k)dist/*, iskip*/}",
       "displayText": "lpf18 aSignal, (a|k)fco, (a|k)res, (a|k)dist, iskip",
@@ -4652,6 +4912,24 @@
       "opcode": "lpslot",
       "description": "Selects the slot to be use by further lp opcodes.",
       "descriptionMoreURL": "https://csound.com/docs/manual/lpslot.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "kkk",
+      "snippet": "lufs ${1:kreset}, ${2:ain1}",
+      "displayText": "lufs kreset, ain1",
+      "opcode": "lufs",
+      "description": "Momentary, Integrated and Short-Term Loudness meter in LUFS",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lufs.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "kkk",
+      "snippet": "lufs ${1:kreset}, ${2:ain1}, ${3:ain2}",
+      "displayText": "lufs kreset, ain1, ain2",
+      "opcode": "lufs",
+      "description": "Momentary, Integrated and Short-Term Loudness meter in LUFS",
+      "descriptionMoreURL": "https://csound.com/docs/manual/lufs.html",
       "type": "function"
     },
     {
@@ -5123,8 +5401,8 @@
       "type": "function"
     },
     {
-      "snippet": "midipolyaftertouch ${1:(a|k)polyaftertouch}, ${2:(a|k)controllervalue/*, ilow, ihigh*/}",
-      "displayText": "midipolyaftertouch (a|k)polyaftertouch, (a|k)controllervalue, ilow, ihigh",
+      "snippet": "midipolyaftertouch ${1:(a|k)polyaftertouch}, ${2:(a|k)key/*, ilow, ihigh*/}",
+      "displayText": "midipolyaftertouch (a|k)polyaftertouch, (a|k)key, ilow, ihigh",
       "opcode": "midipolyaftertouch",
       "description": "Gets a MIDI polyphonic aftertouch value.",
       "descriptionMoreURL": "https://csound.com/docs/manual/midipolyaftertouch.html",
@@ -5235,7 +5513,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "a…",
+      "leftLabel": "aa…",
       "snippet": "mincer ${1:atimpt}, ${2:kAmplitude}, ${3:kPitch}, ${4:ktab}, ${5:klock/*, ifftsize, idecim*/}",
       "displayText": "mincer atimpt, kAmplitude, kPitch, ktab, klock, ifftsize, idecim",
       "opcode": "mincer",
@@ -6175,6 +6453,14 @@
       "type": "function"
     },
     {
+      "snippet": "part2txt ${1:SFile}, ${2:ftrks}",
+      "displayText": "part2txt SFile, ftrks",
+      "opcode": "part2txt",
+      "description": "Write a text file containing partial tracks data",
+      "descriptionMoreURL": "https://csound.com/docs/manual/part2txt.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "f",
       "snippet": "partials ${1:ffr}, ${2:fInitialPhase}, ${3:kthresh}, ${4:kminpts}, ${5:kmaxgap}, ${6:imaxtracks}",
       "displayText": "partials ffr, fInitialPhase, kthresh, kminpts, kmaxgap, imaxtracks",
@@ -6696,7 +6982,7 @@
     },
     {
       "leftLabel": "",
-      "snippet": "printarray ${1:(S|i|k)xs/*, (k|S)mft*/}",
+      "snippet": "printarray ${1:(S|i|k)xs}, ${2:(k|S)mft}",
       "displayText": "printarray (S|i|k)xs, (k|S)mft",
       "opcode": "printarray",
       "description": "Print the contents of an array",
@@ -6763,12 +7049,28 @@
       "type": "function"
     },
     {
+      "snippet": "println ${1:SString}, ${2:(a|i|k|S)…}",
+      "displayText": "println SString, (a|i|k|S)",
+      "opcode": "println",
+      "description": "Prints at k-rate using a printf() style syntax, appends a new line",
+      "descriptionMoreURL": "https://csound.com/docs/manual/println.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "",
       "snippet": "prints ${1:(S|i)String}, ${2:(a|i|k|S)val1…}",
       "displayText": "prints (S|i)String, (a|i|k|S)val1",
       "opcode": "prints",
       "description": "Prints at init-time using a printf() style syntax.",
       "descriptionMoreURL": "https://csound.com/docs/manual/prints.html",
+      "type": "function"
+    },
+    {
+      "snippet": "printsk ${1:SString}, ${2:(a|i|k|S)…}",
+      "displayText": "printsk SString, (a|i|k|S)",
+      "opcode": "printsk",
+      "description": "Prints at k-rate using a printf() style syntax.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/printsk.html",
       "type": "function"
     },
     {
@@ -7047,6 +7349,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "k",
+      "snippet": "pvsbandwidth ${1:fSignal}",
+      "displayText": "pvsbandwidth fSignal",
+      "opcode": "pvsbandwidth",
+      "description": "Calculate the spectral bandwidth of a signal.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/pvsbandwidth.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "ss",
       "snippet": "pvsbin ${1:fSignal}, ${2:kbin}",
       "displayText": "pvsbin fSignal, kbin",
@@ -7116,6 +7427,15 @@
       "opcode": "pvsceps",
       "description": "Calculate the cepstrum of a pvs input, optionally liftering coefficients.",
       "descriptionMoreURL": "https://csound.com/docs/manual/pvsceps.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]kk",
+      "snippet": "pvscfs ${1:fSignal}, ${2:iord/*, imod*/}",
+      "displayText": "pvscfs fSignal, iord, imod",
+      "opcode": "pvscfs",
+      "description": "Cepstrum all-pole coefficient analysis.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/pvscfs.html",
       "type": "function"
     },
     {
@@ -7271,6 +7591,15 @@
     },
     {
       "leftLabel": "f",
+      "snippet": "pvslpc ${1:asrc}, ${2:idftsiz}, ${3:ihop}, ${4:iord/*, iwin*/}",
+      "displayText": "pvslpc asrc, idftsiz, ihop, iord, iwin",
+      "opcode": "pvslpc",
+      "description": "Streaming linear prediction analysis.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/pvslpc.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "f",
       "snippet": "pvsmaska ${1:fsrc}, ${2:iFunctionTable}, ${3:kdepth}",
       "displayText": "pvsmaska fsrc, iFunctionTable, kdepth",
       "opcode": "pvsmaska",
@@ -7332,7 +7661,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "f…",
+      "leftLabel": "f…f",
       "snippet": "pvstanal ${1:ktimescal}, ${2:kAmplitude}, ${3:kPitch}, ${4:ktab/*, kdetect, kwrap, ioffset, ifftsize, ihop, kdbthresh*/}",
       "displayText": "pvstanal ktimescal, kAmplitude, kPitch, ktab, kdetect, kwrap, ioffset, ifftsize, ihop, kdbthresh",
       "opcode": "pvstanal",
@@ -7719,6 +8048,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "a",
+      "snippet": "resonbnk ${1:ain}, ${2:kPar}, ${3:kmin}, ${4:kmax}, ${5:iper/*, imode, iscal, iskip*/}",
+      "displayText": "resonbnk ain, kPar, kmin, kmax, iper, imode, iscal, iskip",
+      "opcode": "resonbnk",
+      "description": "A resonator filter bank.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/resonbnk.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
       "snippet": "resonk ${1:kSignal}, ${2:kcf}, ${3:kbw/*, iscl, iskip*/}",
       "displayText": "resonk kSignal, kcf, kbw, iscl, iskip",
@@ -7906,6 +8244,14 @@
       "type": "function"
     },
     {
+      "snippet": "rndseed ${1:ival}",
+      "displayText": "rndseed ival",
+      "opcode": "rndseed",
+      "description": "Sets the global rndseed value.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/rndseed.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "ak",
       "snippet": "rspline ${1:(a|k)rangeMin}, ${2:(a|k)rangeMax}, ${3:kcpsMin}, ${4:kcpsMax}",
       "displayText": "rspline (a|k)rangeMin, (a|k)rangeMax, kcpsMin, kcpsMax",
@@ -7982,16 +8328,16 @@
       "snippet": "sc_lag ${1:ain}, ${2:klagtime}",
       "displayText": "sc_lag ain, klagtime",
       "opcode": "sc_lag",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (DEPRECATED)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lag.html",
       "type": "function"
     },
     {
       "leftLabel": "a",
-      "snippet": "sc_lag ${1:ain}, ${2:klagtime}, ${3:initialvalue=0}",
-      "displayText": "sc_lag ain, klagtime, initialvalue=0",
+      "snippet": "sc_lag ${1:ain}, ${2:klagtime}, ${3:initialvalue}",
+      "displayText": "sc_lag ain, klagtime, initialvalue",
       "opcode": "sc_lag",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (DEPRECATED)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lag.html",
       "type": "function"
     },
@@ -8000,16 +8346,16 @@
       "snippet": "sc_lag ${1:kin}, ${2:klagtime}",
       "displayText": "sc_lag kin, klagtime",
       "opcode": "sc_lag",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (DEPRECATED)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lag.html",
       "type": "function"
     },
     {
       "leftLabel": "k",
-      "snippet": "sc_lag ${1:kin}, ${2:klagtime}, ${3:initialvalue=0}",
-      "displayText": "sc_lag kin, klagtime, initialvalue=0",
+      "snippet": "sc_lag ${1:kin}, ${2:klagtime}, ${3:initialvalue}",
+      "displayText": "sc_lag kin, klagtime, initialvalue",
       "opcode": "sc_lag",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (DEPRECATED)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lag.html",
       "type": "function"
     },
@@ -8018,16 +8364,16 @@
       "snippet": "sc_lagud ${1:ain}, ${2:klagup}, ${3:klagdown}",
       "displayText": "sc_lagud ain, klagup, klagdown",
       "opcode": "sc_lagud",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (Deprecated)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lagud.html",
       "type": "function"
     },
     {
       "leftLabel": "a",
-      "snippet": "sc_lagud ${1:ain}, ${2:klagup}, ${3:klagdown}, ${4:i}",
-      "displayText": "sc_lagud ain, klagup, klagdown, i",
+      "snippet": "sc_lagud ${1:ain}, ${2:klagup}, ${3:klagdown}, ${4:initialvalue}",
+      "displayText": "sc_lagud ain, klagup, klagdown, initialvalue",
       "opcode": "sc_lagud",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (Deprecated)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lagud.html",
       "type": "function"
     },
@@ -8036,16 +8382,16 @@
       "snippet": "sc_lagud ${1:kin}, ${2:klagup}, ${3:klagdown}",
       "displayText": "sc_lagud kin, klagup, klagdown",
       "opcode": "sc_lagud",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (Deprecated)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lagud.html",
       "type": "function"
     },
     {
       "leftLabel": "k",
-      "snippet": "sc_lagud ${1:kin}, ${2:klagup}, ${3:klagdown}, ${4:i}",
-      "displayText": "sc_lagud kin, klagup, klagdown, i",
+      "snippet": "sc_lagud ${1:kin}, ${2:klagup}, ${3:klagdown}, ${4:initialvalue}",
+      "displayText": "sc_lagud kin, klagup, klagdown, initialvalue",
       "opcode": "sc_lagud",
-      "description": "Exponential Lag",
+      "description": "Exponential Lag (Deprecated)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_lagud.html",
       "type": "function"
     },
@@ -8054,7 +8400,7 @@
       "snippet": "sc_phasor ${1:(a|k)trig}, ${2:(a|k)rate}, ${3:kstart}, ${4:kend/*, kresetPos*/}",
       "displayText": "sc_phasor (a|k)trig, (a|k)rate, kstart, kend, kresetPos",
       "opcode": "sc_phasor",
-      "description": "A resettable linear ramp between two levels",
+      "description": "A resettable linear ramp between two levels (renamed as trigphasor)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_phasor.html",
       "type": "function"
     },
@@ -8063,7 +8409,7 @@
       "snippet": "sc_phasor ${1:ktrig}, ${2:krate}, ${3:kstart}, ${4:kend/*, kresetPos*/}",
       "displayText": "sc_phasor ktrig, krate, kstart, kend, kresetPos",
       "opcode": "sc_phasor",
-      "description": "A resettable linear ramp between two levels",
+      "description": "A resettable linear ramp between two levels (renamed as trigphasor)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_phasor.html",
       "type": "function"
     },
@@ -8072,7 +8418,7 @@
       "snippet": "sc_trig ${1:ain}, ${2:kDuration}",
       "displayText": "sc_trig ain, kDuration",
       "opcode": "sc_trig",
-      "description": "Timed trigger",
+      "description": "Timed trigger (Replaced by trighold)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_trig.html",
       "type": "function"
     },
@@ -8081,14 +8427,14 @@
       "snippet": "sc_trig ${1:kin}, ${2:kDuration}",
       "displayText": "sc_trig kin, kDuration",
       "opcode": "sc_trig",
-      "description": "Timed trigger",
+      "description": "Timed trigger (Replaced by trighold)",
       "descriptionMoreURL": "https://csound.com/docs/manual/sc_trig.html",
       "type": "function"
     },
     {
       "leftLabel": "k",
-      "snippet": "scale ${1:kinput}, ${2:kmax}, ${3:kmin}",
-      "displayText": "scale kinput, kmax, kmin",
+      "snippet": "scale ${1:kinput}, ${2:kmax}, ${3:kmin/*, kimax, kimin*/}",
+      "displayText": "scale kinput, kmax, kmin, kimax, kimin",
       "opcode": "scale",
       "description": "Arbitrary signal scaling.",
       "descriptionMoreURL": "https://csound.com/docs/manual/scale.html",
@@ -8157,11 +8503,29 @@
     },
     {
       "leftLabel": "",
+      "snippet": "schedule ${1:insnum}",
+      "displayText": "schedule insnum",
+      "opcode": "schedule",
+      "description": "Adds a new score event.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/schedule.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "",
       "snippet": "schedule ${1:(S|i)nsnum}, ${2:iwhen}, ${3:iDuration}, ${4:(a|i|k|S)p4…}",
       "displayText": "schedule (S|i)nsnum, iwhen, iDuration, (a|i|k|S)p4",
       "opcode": "schedule",
       "description": "Adds a new score event.",
       "descriptionMoreURL": "https://csound.com/docs/manual/schedule.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "",
+      "snippet": "schedulek ${1:knsnum}",
+      "displayText": "schedulek knsnum",
+      "opcode": "schedulek",
+      "description": "Adds a new score event.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/schedulek.html",
       "type": "function"
     },
     {
@@ -9069,6 +9433,15 @@
     },
     {
       "leftLabel": "a",
+      "snippet": "sterrain ${1:kAmplitude}, ${2:kFrequency}, ${3:kx}, ${4:ky}, ${5:krx}, ${6:kry}, ${7:krot}, ${8:ktab0}, ${9:ktab1}, ${10:km1}, ${11:km2}, ${12:kn1}, ${13:kn2}, ${14:kn3}, ${15:ka}, ${16:kb}, ${17:kperiod}",
+      "displayText": "sterrain kAmplitude, kFrequency, kx, ky, krx, kry, krot, ktab0, ktab1, km1, km2, kn1, kn2, kn3, ka, kb, kperiod",
+      "opcode": "sterrain",
+      "description": "A wave-terrain synthesis opcode using curves computed with the superformula",
+      "descriptionMoreURL": "https://csound.com/docs/manual/sterrain.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
       "snippet": "stix ${1:iAmplitude}, ${2:idettack/*, inum, idamp, imaxshake*/}",
       "displayText": "stix iAmplitude, idettack, inum, idamp, imaxshake",
       "opcode": "stix",
@@ -9467,7 +9840,7 @@
       "snippet": "tab ${1:(a|k)ndx}, ${2:iFunctionTable/*, ixmode*/}",
       "displayText": "tab (a|k)ndx, iFunctionTable, ixmode",
       "opcode": "tab",
-      "description": "Fast table opcodes.",
+      "description": "Fast table opcode.",
       "descriptionMoreURL": "https://csound.com/docs/manual/tab.html",
       "type": "function"
     },
@@ -9476,7 +9849,7 @@
       "snippet": "tab ${1:kndx}, ${2:iFunctionTable/*, ixmode*/}",
       "displayText": "tab kndx, iFunctionTable, ixmode",
       "opcode": "tab",
-      "description": "Fast table opcodes.",
+      "description": "Fast table opcode.",
       "descriptionMoreURL": "https://csound.com/docs/manual/tab.html",
       "type": "function"
     },
@@ -9514,6 +9887,15 @@
       "opcode": "tab2pvs",
       "description": "Copies spectral data from k-rate arrays (or t-variables.). Also known as pvsfromarray.",
       "descriptionMoreURL": "https://csound.com/docs/manual/tab2pvs.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "i",
+      "snippet": "tab_i ${1:indx}, ${2:iFunctionTable/*, ixmode*/}",
+      "displayText": "tab_i indx, iFunctionTable, ixmode",
+      "opcode": "tab_i",
+      "description": "Fast table opcodes.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/tab_i.html",
       "type": "function"
     },
     {
@@ -9855,6 +10237,23 @@
       "type": "function"
     },
     {
+      "leftLabel": "",
+      "snippet": "tabw ${1:(a|k)}, ${2:(a|k)}, ${3:i/*, i*/}",
+      "displayText": "tabw (a|k), (a|k), i, i",
+      "opcode": "tabw",
+      "description": "Fast table opcodes.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/tabw.html",
+      "type": "function"
+    },
+    {
+      "snippet": "tabw_i ${1:iSignal}, ${2:indx}, ${3:iFunctionTable/*, ixmode*/}",
+      "displayText": "tabw_i iSignal, indx, iFunctionTable, ixmode",
+      "opcode": "tabw_i",
+      "description": "Fast table opcodes.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/tabw_i.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "a",
       "snippet": "tambourine ${1:kAmplitude}, ${2:idettack/*, inum, idamp, imaxshake, iFrequency, ifreq1, ifreq2*/}",
       "displayText": "tambourine kAmplitude, idettack, inum, idamp, imaxshake, iFrequency, ifreq1, ifreq2",
@@ -9873,6 +10272,15 @@
       "type": "function"
     },
     {
+      "leftLabel": "a[]",
+      "snippet": "taninv2 ${1:ay}, ${2:ax}",
+      "displayText": "taninv2 ay, ax",
+      "opcode": "taninv2",
+      "description": "Returns an arctangent.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/taninv2.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "i",
       "snippet": "taninv2 ${1:iy}, ${2:ix}",
       "displayText": "taninv2 iy, ix",
@@ -9882,7 +10290,25 @@
       "type": "function"
     },
     {
+      "leftLabel": "i[]",
+      "snippet": "taninv2 ${1:iy}, ${2:ix}",
+      "displayText": "taninv2 iy, ix",
+      "opcode": "taninv2",
+      "description": "Returns an arctangent.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/taninv2.html",
+      "type": "function"
+    },
+    {
       "leftLabel": "k",
+      "snippet": "taninv2 ${1:ky}, ${2:kx}",
+      "displayText": "taninv2 ky, kx",
+      "opcode": "taninv2",
+      "description": "Returns an arctangent.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/taninv2.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k[]",
       "snippet": "taninv2 ${1:ky}, ${2:kx}",
       "displayText": "taninv2 ky, kx",
       "opcode": "taninv2",
@@ -9917,7 +10343,7 @@
       "type": "function"
     },
     {
-      "leftLabel": "a…",
+      "leftLabel": "aa…",
       "snippet": "temposcal ${1:ktimescal}, ${2:kAmplitude}, ${3:kPitch}, ${4:ktab}, ${5:klock/*, ifftsize, idecim, kthresh, k, k*/}",
       "displayText": "temposcal ktimescal, kAmplitude, kPitch, ktab, klock, ifftsize, idecim, kthresh, k, k",
       "opcode": "temposcal",
@@ -10111,6 +10537,42 @@
       "opcode": "trigger",
       "description": "Informs when a krate signal crosses a threshold.",
       "descriptionMoreURL": "https://csound.com/docs/manual/trigger.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "trighold ${1:ain}, ${2:kDuration}",
+      "displayText": "trighold ain, kDuration",
+      "opcode": "trighold",
+      "description": "Timed trigger, holds a value for a given time",
+      "descriptionMoreURL": "https://csound.com/docs/manual/trighold.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "trighold ${1:kin}, ${2:kDuration}",
+      "displayText": "trighold kin, kDuration",
+      "opcode": "trighold",
+      "description": "Timed trigger, holds a value for a given time",
+      "descriptionMoreURL": "https://csound.com/docs/manual/trighold.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "trigphasor ${1:(a|k)trig}, ${2:(a|k)rate}, ${3:kstart}, ${4:kend/*, kresetPos*/}",
+      "displayText": "trigphasor (a|k)trig, (a|k)rate, kstart, kend, kresetPos",
+      "opcode": "trigphasor",
+      "description": "A resettable linear ramp between two levels",
+      "descriptionMoreURL": "https://csound.com/docs/manual/trigphasor.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "k",
+      "snippet": "trigphasor ${1:ktrig}, ${2:krate}, ${3:kstart}, ${4:kend/*, kresetPos*/}",
+      "displayText": "trigphasor ktrig, krate, kstart, kend, kresetPos",
+      "opcode": "trigphasor",
+      "description": "A resettable linear ramp between two levels",
+      "descriptionMoreURL": "https://csound.com/docs/manual/trigphasor.html",
       "type": "function"
     },
     {
@@ -10851,6 +11313,15 @@
       "opcode": "vpowv_i",
       "description": "Performs power-of operations between two vectorial control signals at init time.",
       "descriptionMoreURL": "https://csound.com/docs/manual/vpowv_i.html",
+      "type": "function"
+    },
+    {
+      "leftLabel": "a",
+      "snippet": "vps ${1:aph}, ${2:kd}, ${3:kv}",
+      "displayText": "vps aph, kd, kv",
+      "opcode": "vps",
+      "description": "Shapes a phase signal according to a two-dimensional vector.",
+      "descriptionMoreURL": "https://csound.com/docs/manual/vps.html",
       "type": "function"
     },
     {
