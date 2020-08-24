@@ -689,7 +689,7 @@ describe("language-csound", () => {
     });
 
     it("tokenizes braced loops", () => {
-      lines = grammar.tokenizeLines(dedent`
+      let lines = grammar.tokenizeLines(dedent`
         { 10 I
         }
       `);
