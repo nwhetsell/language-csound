@@ -649,7 +649,7 @@ describe("language-csound", () => {
     it("tokenizes other score statements", () => {
       const scoreStatements = [
         "a", // advance
-        "B", // Cumulative beat offset
+        "B", // cumulative beat offset
         "b", // beat offset
         "C", // carry
         "d", // delete
