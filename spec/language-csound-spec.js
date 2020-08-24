@@ -678,13 +678,6 @@ describe("language-csound", () => {
     });
 
     it("tokenizes next-p and previous-p symbols", () => {
-      const scoreStatements = [
-        "np1",
-        "nP2",
-        "Np3",
-        "NP4"
-      ];
-      const lines = grammar.tokenizeLines(scoreStatements.join("\n"));
       let i = 1;
       for (const token of ["np", "nP", "Np", "NP"]) {
         const {tokens} = grammar.tokenizeLine(token + i);
