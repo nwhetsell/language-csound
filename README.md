@@ -1,7 +1,6 @@
 # Csound for Atom
 
-[![Build status](https://travis-ci.org/nwhetsell/language-csound.svg?branch=master)](https://travis-ci.org/nwhetsell/language-csound)
-[![Build status](https://ci.appveyor.com/api/projects/status/fl5shs7c69lmy64o?svg=true)](https://ci.appveyor.com/project/nwhetsell/language-csound)
+[![Actions](https://github.com/nwhetsell/language-csound/workflows/CI/badge.svg)](https://github.com/nwhetsell/language-csound/actions?workflow=CI)
 [![apm](https://img.shields.io/apm/dm/language-csound.svg)](https://atom.io/packages/language-csound)
 
 This [Atom](https://atom.io) package adds syntax highlighting, snippets, and

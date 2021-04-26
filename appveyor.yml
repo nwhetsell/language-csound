@@ -1,7 +1,0 @@
-# https://github.com/atom/ci
-
-build_script:
-  - ps: Invoke-Expression ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
-
-skip_tags: true
-test: off
