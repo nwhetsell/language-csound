@@ -1,6 +1,5 @@
 {
   "name": "language-csound",
-  "main": "./lib/language-csound",
   "version": "0.3.7",
   "description": "Csound language support in Atom",
   "keywords": [
@@ -8,18 +7,10 @@
     "music",
     "sound"
   ],
-  "activationCommands": {},
   "repository": "https://github.com/nwhetsell/language-csound",
-  "license": "MIT AND GFDL-1.2",
+  "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
-  },
-  "providedServices": {
-    "autocomplete.provider": {
-      "versions": {
-        "2.0.0": "providers"
-      }
-    }
   },
   "devDependencies": {
     "dedent-js": "latest"
