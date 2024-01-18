@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install Pulsar on macOS
-      uses: brew install pulsar
+      run: brew install pulsar
       if: ${{ matrix.os == 'macos-latest' }}
     - name: Install Pulsar on Linux
       uses: pulsar-edit/action-pulsar-dependency@v3
