@@ -22,4 +22,6 @@ jobs:
       run: ppm install
 
     - name: Run tests
-      run: pulsar --test spec
+      uses: coactions/setup-xvfb@v1
+      with:
+        run: pulsar --test spec
