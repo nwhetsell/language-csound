@@ -9,14 +9,14 @@ jobs:
   Test:
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
 
     - name: Install Pulsar
-      run: brew install pulsar
+      uses: pulsar-edit/action-pulsar-dependency@v3
 
     - name: Install dependencies
       run: ppm install
