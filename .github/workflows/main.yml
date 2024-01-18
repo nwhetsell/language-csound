@@ -9,14 +9,18 @@ jobs:
   Test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
 
-    - name: Install Pulsar
+    - name: Install Pulsar on macOS
+      uses: brew install pulsar
+      if: ${{ matrix.os == 'macos-latest' }}
+    - name: Install Pulsar on Linux
       uses: pulsar-edit/action-pulsar-dependency@v3
+      if: ${{ matrix.os == 'ubuntu-latest' }}
 
     - name: Install dependencies
       run: ppm install
