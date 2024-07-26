@@ -1,7 +1,7 @@
 {
   "name": "language-csound",
   "version": "0.3.11",
-  "description": "Csound language support for Pulsar and other Atom forks",
+  "description": "Csound language support for Pulsar and Atom forks",
   "keywords": [
     "csound",
     "music",
